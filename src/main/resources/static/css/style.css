@@ -36,6 +36,12 @@ section {
 .address-box {
 	width: 400px;
 }
+#banner {
+	height: 400px;
+}
+.item-box {
+	width: 80%;
+}
 footer {
 	height: 100px;
 }

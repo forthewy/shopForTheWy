@@ -15,7 +15,7 @@
 	</div>
 	<%-- 쇼핑몰 홈 화면 링크 --%>
 	<div class="pl-5 pr-5">
-		<a href="#">
+		<a href="/home/home_view">
 			<h1>WY 쇼핑몰</h1>
 		</a>
 	</div>
@@ -37,7 +37,7 @@
 				<a href="#"><img class="user-menu"  alt="즐겨찾기" src="/static/img/star.png"></a>
 				<%-- 상점 회원 로그인시 추가로 보이는 메뉴 --%>
 				<c:if test="${userType eq 2}">
-					<a href="#"><img class="user-menu" alt="상점 홈" src="/static/img/home.png"></a>
+					<a href="/shop/shop_view/${userLoginId}"><img class="user-menu" alt="상점 홈" src="/static/img/home.png"></a>
 				</c:if>
 				<%-- 로그아웃 링크 --%>
 				<a href="/user/sign_out">로그아웃</a>

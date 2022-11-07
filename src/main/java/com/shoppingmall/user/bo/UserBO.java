@@ -41,4 +41,9 @@ public class UserBO {
 	public User getUserByLoginIdAndPassword(String loginId, String  password) {
 		return userDAO.selectUserByLoginIdAndPassword(loginId, password);
 	}
+	
+	// loginId로 userId 찾기
+	public int getIdByLoginId(String loginId) {
+		return userDAO.selectIdByLoginId(loginId);
+	}
 }

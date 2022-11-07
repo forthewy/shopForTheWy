@@ -28,4 +28,7 @@ public interface UserDAO {
 	public User selectUserByLoginIdAndPassword(
 			@Param("loginId")String loginId,
 			@Param("password")String  password);
+	
+	// loginId로 Id 찾기
+	public int selectIdByLoginId(String loginId);
 }

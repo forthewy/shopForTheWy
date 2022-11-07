@@ -59,4 +59,12 @@
 			AND
 			`password` = #{password}
 	</select>
+	<select id="selectIdByLoginId" parameterType="string" resultType="int">
+		SELECT
+			`id`
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+	</select>
 </mapper>
