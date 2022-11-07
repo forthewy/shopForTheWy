@@ -13,6 +13,12 @@
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="/static/js/summernote/summernote-lite.js"></script>
+<script src="/static/js/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="/static/css/summernote/summernote-lite.css">
+
+
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 <body>

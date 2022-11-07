@@ -42,6 +42,18 @@ section {
 .item-box {
 	width: 80%;
 }
+.item-create-box {
+	width: 50%;
+	min-height: 500px;
+	padding-left: 5%;
+	padding-top: 2%;
+	background-color: rgb(226, 226, 226);
+}
+.item-content-box {
+	background-color: #ffffff;
+	border-radius: 5px;
+	width : 900px;
+}
 footer {
 	height: 100px;
 }
