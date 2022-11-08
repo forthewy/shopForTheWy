@@ -12,7 +12,7 @@ public class FileManagerService {
 	public static final String FILE_UPLOAD_PATH = "D:\\parkjeesoo\\shop\\workspace\\images/";
 	
 	// 사진 여러장 등록을 위해 변경
-	public List<String> saveFile(String userLoginId, List<MultipartFile> fileList) {
+	/*public List<String> saveFile(String userLoginId, List<MultipartFile> fileList) {
 		
 		String directoryName = userLoginId + System.currentTimeMillis() + "/" ;
 		String filePath = FILE_UPLOAD_PATH + directoryName;
@@ -28,9 +28,9 @@ public class FileManagerService {
 		 "/images/" + directoryName + file.getOriginalFilename();
 		
 		return ;
-	}
+	}*/
 	
 	
 
 }
-}
+

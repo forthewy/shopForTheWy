@@ -58,7 +58,7 @@ $(document).ready(function() {
 	$('#content').summernote({
 		height: 300,// 에디터 높이
 		lang: "ko-KR",					
-		placeholder: '상품 설명을 기재해주세요'
+		placeholder: '상품 설명을 기재해주세요',
 		callbacks: { // 파일 업로드(다중업로드)
 			onImageUpload : function(files, editor, welEditable){
 				for (var i = files.length - 1; i >= 0; i--) {
@@ -68,21 +68,23 @@ $(document).ready(function() {
 		} 
 	}); // summernote 끝
 	
-	function uploadSummernoteImageFile(file, editor, welEditable) {
-        data = new FormData();
-        data.append("file", file);
-        $.ajax({
-            data : data,
-            type : "POST",
-            url : "/item/uploadSummernoteImageFile",
-            contentType : false,
-            processData : false,
-            success : function(data) {
-                //항상 업로드된 파일의 url이 있어야 한다.
-                $(editor).summernote('insertImage', data.url);
-            }
-        });
-    }
+	// 필요한 처리: 써머노트 작성시 임시로 저장했다가 올릴수 있도록 temp 폴더에 저장후 temp폴더와 폴더의 파일을 
+	// 삭제하도록 한다. submit때 있는 파일만 업로드 해야함. 
+	function uploadSummernoteImageFile(file, el) {
+		data = new FormData();
+		data.append("file", file);
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : "/uploadSummernoteImageFile",
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
+			success : function(data) {
+				$(el).summernote('editor.insertImage', data.url);
+			}
+		});
+	}
 	
 	
 	
@@ -93,7 +95,18 @@ $(document).ready(function() {
 	}
 	
 	<%-- 파일 형식 검사 --%>
-	
+	$('#thumbnailImg').on('change', function() {
+		let thumbnailImg =  $('#thumbnailImg').val();
+		let ext = thumbnailImg.split('.').pop().toLowerCase();
+		
+		let extArr = ['jpg', 'jpeg', 'png', 'webp'];
+		if (!extArr.includes(ext)) {
+			alert("jpg, jpeg, png, webp 형식의 파일만 대표 이미지로 업로드 가능합니다.");
+			ext.val("");
+			$('#thumbnailImg').val("");
+			return;
+		}
+	});
 	
 	
 	<%-- 등록 --%>
@@ -136,7 +149,11 @@ $(document).ready(function() {
 		// 배송비는 없으면 0이므로 검사 안함
 		
 		// 썸네일 파일 검사
-		
+		let thumbnailImg =  $('#thumbnailImg').val();
+		if (thumbnailImg == "") {
+			alert('대표이미지를 등록해주세요.');
+			return;
+		}
 	});
 });
 </script>
