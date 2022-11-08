@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="d-flex justify-content-center">
-	<div class="item-create-box  w-50">
+	<div class="item-create-box w-75">
 		<h1 class="pb-3">상품 등록</h1>
 		<form method="post" id="itemCreateForm" action="/item/create">
+			<%-- 상품 명 --%>
 			<div class="d-flex align-items-center">
 				<label for="name" class="mb-3">상품명</label>
 				<input type="text" id="name" name="name" class="ml-2 form-control col-4 mb-3">
 			</div>
+			<%-- 상품 분류 --%>
 			<div class="mb-3 d-flex align-items-center">
 				<label>분류</label>
 				<select name="sort" class="form-control col-4 ml-2">
@@ -16,27 +18,32 @@
 					<option value="문구">문구</option>
 				</select>
 			</div>
+			<%-- 상품 설명 --%>
 			<div class="mb-3">
 				<label for="content" class="mb-3">상품 설명</label>
 				<div class="item-content-box bg-white">
 					<textarea id="content" name="editordata"></textarea>
 				</div>
 			</div>
+			<%-- 상품 가격 --%>
 			<div class="d-flex align-items-center">
 				<label for="price" class="mb-3" >가격</label>
 				<input type="text" id="price" name="price" class="form-control col-4 ml-2 mb-3">
 			</div>
+			<%-- 상품 수량 --%>
 			<div class="d-flex align-items-center">
 				<label for="number" class="mb-3">수량</label>
 				<input type="text" id="number" name="number" class="form-control col-4 ml-2 mb-3">
 			</div>
+			<%-- 배송비 --%>
 			<div class="d-flex align-items-center">
 				<label for="deliveryPrice" class="mb-3">배송비</label>
 				<input type="text" id="deliveryPrice" name="deliveryPrice" class="form-control col-4 ml-2 mb-3">
 			</div>
+			<%-- 대표 이미지 --%>
 			<div>
 				<label for="thumbnailImg" class="mb-3">대표 이미지</label>
-				<input type="file" name="thumbnailImg" id="thumbnailImg">
+				<input type="file" accept=".jpg, .jpeg, .png, .webp" name="thumbnailImg" id="thumbnailImg">
 			</div>
 			<div class="d-flex justify-content-center">
 				<button type="submit" class="btn btn-primary col-4 mb-4">등록</button>
@@ -47,21 +54,49 @@
 
 <script>
 $(document).ready(function() {
-	// content 를 위한 summernote
+	<%-- content 를 위한 summernote --%>
 	$('#content').summernote({
-		  height: 300,// 에디터 높이
-		  width : 900,
-		  lang: "ko-KR",					
-		  placeholder: '상품 설명을 기재해주세요'
+		height: 300,// 에디터 높이
+		lang: "ko-KR",					
+		placeholder: '상품 설명을 기재해주세요'
+		callbacks: { // 파일 업로드(다중업로드)
+			onImageUpload : function(files, editor, welEditable){
+				for (var i = files.length - 1; i >= 0; i--) {
+					uploadSummernoteImageFile(files[i],this);
+				}
+			}
+		} 
 	}); // summernote 끝
+	
+	function uploadSummernoteImageFile(file, editor, welEditable) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "/item/uploadSummernoteImageFile",
+            contentType : false,
+            processData : false,
+            success : function(data) {
+                //항상 업로드된 파일의 url이 있어야 한다.
+                $(editor).summernote('insertImage', data.url);
+            }
+        });
+    }
+	
+	
+	
 	
 	// 숫자만 남기는 함수
 	function onlyNumber(value) {
 		return value.val().replace(/[^0-9]/g,"");
 	}
 	
+	<%-- 파일 형식 검사 --%>
 	
-	// 등록
+	
+	
+	<%-- 등록 --%>
 	$('#itemCreateForm').on('submit', function(e) {
 		e.preventDefault();
 		
@@ -77,7 +112,7 @@ $(document).ready(function() {
 		$('#deliveryPrice').val(onlyNumber($('#deliveryPrice')));
 		let deliveryPrice = $('#deliveryPrice').val();
 		
-		/* 유효성 검사 */
+		<%-- 유효성 검사 --%>
 		
 		//이름 검사
 		let name =  $('#name').val();

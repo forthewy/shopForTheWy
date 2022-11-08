@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.shoppingmall.user.dao.UserDAO;
 import com.shoppingmall.user.model.User;
@@ -17,7 +18,7 @@ public class UserBO {
 	// 아이디 중복 확인
 	public boolean existLoginId(String loginId) {
 		List<String> existLoginId = userDAO.existLoginId(loginId);
-		if (existLoginId.isEmpty()) {
+		if (CollectionUtils.isEmpty(existLoginId)) {
 			return false;
 		}
 		return true;
@@ -26,7 +27,7 @@ public class UserBO {
 	// 전화번호 중복 확인
 	public boolean existPhoneNumber(String phoneNumber) {
 		List<String> existPhoneNumber = userDAO.existPhoneNumber(phoneNumber);
-		if (existPhoneNumber.isEmpty()) {
+		if (CollectionUtils.isEmpty(existPhoneNumber)) {
 			return false;
 		}
 		return true;
