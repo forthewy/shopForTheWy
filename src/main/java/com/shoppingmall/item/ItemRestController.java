@@ -21,6 +21,18 @@ public class ItemRestController {
 	@Autowired
 	private ItemBO itemBO;
 	
+	/**
+	 * 상품 등록
+	 * @param name
+	 * @param sort
+	 * @param content
+	 * @param price
+	 * @param number
+	 * @param deliveryPrice
+	 * @param thumbnailImg
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create")
 	public Map<String, Object> createItem(
 			@RequestParam("name") String name,
@@ -32,16 +44,22 @@ public class ItemRestController {
 			@RequestParam("thumbnailImg") MultipartFile thumbnailImg,
 			HttpSession session
 			) {
+
+		Map<String, Object> result = new HashMap<>();
 		
 		int sellerId = (int) session.getAttribute("userId");
 		String sellerLoginId = (String) session.getAttribute("userLoginId");
 		
 		// DB insert
-		itemBO.addItem(sellerId, sellerLoginId, name, number, price, content, sort, thumbnailImg, deliveryPrice);
+		int row = itemBO.addItem(sellerId, sellerLoginId, name, number, price, content, sort, thumbnailImg, deliveryPrice);
 		
-		Map<String, Object> result = new HashMap<>();
-		result.put("code", 300);
-		result.put("result", "success");
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("result", "상품 등록에 실패했습니다.");
+		}
 		
 		return result;
 	}

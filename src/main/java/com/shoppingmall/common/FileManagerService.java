@@ -12,7 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class FileManagerService {
 	
-	public static final String FILE_UPLOAD_PATH = "D:\\Jane\\spring-project\\shop\\workspace\\images/";
+	public static final String FILE_UPLOAD_PATH = "D:\\parkjeesoo\\shop\\workspace\\images\\aaa/";
+			// 노트북 주소 "D:\\Jane\\spring-project\\shop\\workspace\\images/";
 	
 	public String saveFile(String userLoginId, MultipartFile file) {
 		
@@ -20,8 +21,8 @@ public class FileManagerService {
 		String filePath = FILE_UPLOAD_PATH + directoryName;
 		
 		File directory = new File(filePath);
-		if (directory == null) {
-			return null;
+		if (directory.mkdir() == false) {
+			return null; // 디렉토리 생성 실패시 null 리턴
 		}
 		
 

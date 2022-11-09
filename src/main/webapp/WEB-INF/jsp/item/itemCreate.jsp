@@ -45,7 +45,7 @@
 				<input type="file" accept=".jpg, .jpeg, .png, .webp" name="thumbnailImg" id="thumbnailImg">
 			</div>
 			<div class="d-flex justify-content-center">
-				<button type="button" id="itemCreateBtn" class="btn btn-primary col-4 mb-4">등록</button>
+				<button type="button" id="itemCreateBtn" class="btn btn-primary col-4 mb-4" data-seller-login-id="${userLoginId}">등록</button>
 			</div>
 	</div>
 </div>
@@ -65,9 +65,8 @@ $(document).ready(function() {
 			}
 		} 
 	}); // summernote 끝
-	
-	// 필요한 처리: 써머노트 작성시 임시로 저장했다가 올릴수 있도록 temp 폴더에 저장후 temp폴더와 폴더의 파일을 
-	// 삭제하도록 한다. submit때 있는 파일만 업로드 해야함. 
+
+	// 섬머 노트 파일을 temp 에 저장한다.
 	function uploadSummernoteImageFile(file, el) {
 		data = new FormData();
 		data.append("file", file);
@@ -85,13 +84,6 @@ $(document).ready(function() {
 	}
 	
 	
-	
-	
-	// 숫자만 남기는 함수
-	function onlyNumber(value) {
-		return value.val().replace(/[^0-9]/g,"");
-	}
-	
 	<%-- 파일 형식 검사 --%>
 	$('#thumbnailImg').on('change', function() {
 		let thumbnailImg =  $('#thumbnailImg').val();
@@ -106,6 +98,10 @@ $(document).ready(function() {
 		}
 	});
 	
+	// 숫자만 남기는 함수
+	function onlyNumber(value) {
+		return value.val().replace(/[^0-9]/g,"");
+	}
 	
 	<%-- 등록 --%>
 	$('#itemCreateBtn').on('click', function(e) {
@@ -161,12 +157,16 @@ $(document).ready(function() {
 		formData.append('content', content);
 		formData.append('price', price);
 		formData.append('number', number);
+		// 배송비 없으면 0원
 		if (deliveryPrice != 0 && deliveryPrice != "") {
 			formData.append('deliveryPrice', deliveryPrice);
+		} else {
+			formData.append('deliveryPrice', 0);
 		}
 		formData.append('thumbnailImg', $('#thumbnailImg')[0].files[0]);
 		
-			
+		// 등록 후 넘어갈 주소를 위한 sellerId
+		let sellerLoginId = $(this).data('seller-login-id');
 		
 		$.ajax({
 			type:"POST"
@@ -178,6 +178,7 @@ $(document).ready(function() {
 			, success:function(data) {
 				if (data.code == 300) {
 					alert(data.result);
+					location.href = "/shop/shop_view/" + sellerLoginId;
 				} else {
 					alert(data.errorMessage);
 				}

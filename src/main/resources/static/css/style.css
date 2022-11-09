@@ -29,7 +29,7 @@ section {
 	border-radius: 10%;
 	background-color: #b8b8b8;
 }
-.sign-up-box {
+.gray-box {
 	background-color: rgb(226, 226, 226);
 	height: 600px;
 }
@@ -53,6 +53,11 @@ section {
 	background-color: #ffffff;
 	border-radius: 5px;
 	width : 90%;
+}
+.seller-update-box {
+	width: 80%;
+	background-color: #ffffff;
+	border-radius: 25px;
 }
 footer {
 	height: 100px;

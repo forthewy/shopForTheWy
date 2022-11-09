@@ -25,10 +25,28 @@
 			,#{price}
 			,#{content}
 			,#{sort}
-			,#{thumbnailImg}
+			,#{imagePath}
 			,#{deliveryPrice}
 			,NOW()
 			,NOW()
 		)
  	</insert>
+ 	<select id="selectItemBySellerId" parameterType="int" resultType="com.shoppingmall.item.model.Item">
+ 		SELECT
+ 			`id` 
+ 			,`sellerId`
+			,`name`
+			,`number`
+			,`price`
+			,`content`
+			,`sort`
+			,`thumbnailImg`
+			,`deliveryPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`item`
+ 		WHERE
+ 			`sellerId` = #{sellerId}
+ 	</select>
  </mapper>

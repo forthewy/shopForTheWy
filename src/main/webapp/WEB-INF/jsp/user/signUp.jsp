@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="w-100 d-flex justify-content-center">
-	<div class="sign-up-box w-50">
+	<div class="gray-box w-50">
 		<h1 class="text-center">회원 가입</h1>
 		<form method="post" id="signUpForm" action="/user/sign_up">
 			<%-- 아이디 --%>
@@ -27,6 +27,7 @@
 				<label for="name" class="pr-5">이름</label>
 				<input type="text" class="ml-4 form-control col-4" id="name" name="name">
 			</div>
+			<%-- 주소 --%>
 			<div class="d-flex align-items-center mb-3 pl-5">
 				<label class="pr-5">주소</label>
 				<div class="address-box">

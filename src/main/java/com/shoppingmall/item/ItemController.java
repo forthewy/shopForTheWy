@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ItemController {
 
+	/**
+	 * 상품 등록 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/item_create_view")
 	public String itemCreateView(
 			HttpSession session,

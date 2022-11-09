@@ -25,4 +25,8 @@ public class SellerBO {
 	public Seller getSellerByUserId(int userId) {
 		return sellerDAO.selectSellerByUserId(userId);
 	}
+	
+	public int updateSellerByUserId() {
+		return sellerDAO.updateSellerByUserId()
+	}
 }
