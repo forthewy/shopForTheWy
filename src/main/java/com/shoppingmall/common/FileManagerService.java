@@ -1,7 +1,10 @@
 package com.shoppingmall.common;
 
 import java.io.File;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,12 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class FileManagerService {
 	
-	public static final String FILE_UPLOAD_PATH = "D:\\parkjeesoo\\shop\\workspace\\images/";
+	public static final String FILE_UPLOAD_PATH = "D:\\Jane\\spring-project\\shop\\workspace\\images/";
 	
-	// 사진 여러장 등록을 위해 변경
-	/*public List<String> saveFile(String userLoginId, List<MultipartFile> fileList) {
+	public String saveFile(String userLoginId, MultipartFile file) {
 		
-		String directoryName = userLoginId + System.currentTimeMillis() + "/" ;
+		String directoryName = userLoginId + "_" + System.currentTimeMillis() + "/" ;
 		String filePath = FILE_UPLOAD_PATH + directoryName;
 		
 		File directory = new File(filePath);
@@ -22,15 +24,17 @@ public class FileManagerService {
 			return null;
 		}
 		
-		for (MultipartFile fileName : fileList) {
-			File 
-		}
-		 "/images/" + directoryName + file.getOriginalFilename();
-		
-		return ;
-	}*/
-	
-	
 
+			try {
+				byte[] bytes = file.getBytes();
+				Path path = Paths.get(filePath + file.getOriginalFilename());
+				Files.write(path, bytes);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+			return "/images/" + directoryName + file.getOriginalFilename();
+	}
 }
 

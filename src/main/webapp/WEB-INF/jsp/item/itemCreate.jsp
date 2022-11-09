@@ -3,7 +3,6 @@
 <div class="d-flex justify-content-center">
 	<div class="item-create-box w-75">
 		<h1 class="pb-3">상품 등록</h1>
-		<form method="post" id="itemCreateForm" action="/item/create">
 			<%-- 상품 명 --%>
 			<div class="d-flex align-items-center">
 				<label for="name" class="mb-3">상품명</label>
@@ -46,9 +45,8 @@
 				<input type="file" accept=".jpg, .jpeg, .png, .webp" name="thumbnailImg" id="thumbnailImg">
 			</div>
 			<div class="d-flex justify-content-center">
-				<button type="submit" class="btn btn-primary col-4 mb-4">등록</button>
+				<button type="button" id="itemCreateBtn" class="btn btn-primary col-4 mb-4">등록</button>
 			</div>
-		</form>
 	</div>
 </div>
 
@@ -110,7 +108,7 @@ $(document).ready(function() {
 	
 	
 	<%-- 등록 --%>
-	$('#itemCreateForm').on('submit', function(e) {
+	$('#itemCreateBtn').on('click', function(e) {
 		e.preventDefault();
 		
 		// 수량에서 숫자 외 제거 1,000 같이 쓰는 것 방지
@@ -154,6 +152,40 @@ $(document).ready(function() {
 			alert('대표이미지를 등록해주세요.');
 			return;
 		}
-	});
+		
+		let formData = new FormData();
+		formData.append('name', name);
+		let sort = $('select[name=sort]').val();
+		formData.append('sort', sort);
+		let content = $('#content').val();
+		formData.append('content', content);
+		formData.append('price', price);
+		formData.append('number', number);
+		if (deliveryPrice != 0 && deliveryPrice != "") {
+			formData.append('deliveryPrice', deliveryPrice);
+		}
+		formData.append('thumbnailImg', $('#thumbnailImg')[0].files[0]);
+		
+			
+		
+		$.ajax({
+			type:"POST"
+			, data: formData
+			, url: "/item/create"
+			, enctype: "multipart/form-data"
+			, processData: false
+			, contentType: false
+			, success:function(data) {
+				if (data.code == 300) {
+					alert(data.result);
+				} else {
+					alert(data.errorMessage);
+				}
+			}
+			, error:function(e) {
+				alert("상품 등록에 실패했습니다. 관리자에게 문의주세요");
+			}
+		}); // ajax 끝
+	}); // 등록 끝
 });
 </script>
