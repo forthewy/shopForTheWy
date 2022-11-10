@@ -19,4 +19,21 @@
  		WHERE
  			`userId` = #{userId}
  	</select>
+ 	<update id="updateSellerByUserId" parameterType="map">
+ 		UPDATE
+ 			`seller`
+ 		SET
+ 			`shopName` = #{shopName}
+			,`address` = #{address}
+			,`shopPhoneNumber` = #{shopPhoneNumber}
+			<if test="bannerImg != null">
+			,`bannerImg` = #{bannerImg}
+			</if>
+			<if test="shopMainImg != null">
+			,`shopMainImg` = #{shopMainImg}
+			</if>
+			,`updatedAt` = NOW()
+ 		WHERE
+ 			`userId` = #{userId}
+ 	</update>
  </mapper>

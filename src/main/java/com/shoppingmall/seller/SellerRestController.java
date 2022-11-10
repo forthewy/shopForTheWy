@@ -5,15 +5,21 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.shoppingmall.seller.bo.SellerBO;
+
 @RequestMapping("/seller")
 @RestController
 public class SellerRestController {
+	
+	@Autowired
+	private SellerBO sellerBO;
 	
 	@PostMapping("/update")
 	public Map<String, Object> update(
@@ -25,9 +31,10 @@ public class SellerRestController {
 			HttpSession session) {
 		
 		Integer userId = (Integer) session.getAttribute("userId");
+		String userLoginId = (String) session.getAttribute("userLoginId");
 		
 		
-		
+		sellerBO.updateSellerByUserId(userId, userLoginId,  shopName, address, shopPhoneNumber, bannerImg, shopMainImg);
 		
 		
 		Map<String, Object> result = new HashMap<>();
