@@ -28,8 +28,13 @@ public class ItemBO {
 		return itemDAO.insertItem(sellerId, name, number, price, content, sort, imagePath, deliveryPrice);
 	};
 	
+	// 상품 리스트
 	public List<Item> getItemBySellerId(int sellerId) {
 		return itemDAO.selectItemBySellerId(sellerId);
 	}
 	
+	// 상품 아이디로 상품 조회
+	public Item getItemByItemId(int itemId) {
+		return itemDAO.selectItemByItemId(itemId);
+	}
 }

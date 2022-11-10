@@ -1,5 +1,7 @@
 package com.shoppingmall.shop;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +21,13 @@ public class ShopController {
 	@RequestMapping("/shop_view/{sellerLoginId}") 
 	public String signInView(
 			@PathVariable("sellerLoginId") String sellerLoginId,
+			HttpSession session,
 			Model model) {
 		
-		ShopView shop = shopViewBO.generateShopView(sellerLoginId);
+		// 상점 홈화면은 누구나 볼수 있으므로 Integer
+		Integer userId = (Integer) session.getAttribute("userId");
+		
+		ShopView shop = shopViewBO.generateShopView(sellerLoginId, userId);
 		
 		model.addAttribute("shop", shop);
 		model.addAttribute("viewName", "/shop/shop");

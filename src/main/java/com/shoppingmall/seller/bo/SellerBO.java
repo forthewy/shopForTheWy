@@ -3,6 +3,7 @@ package com.shoppingmall.seller.bo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.common.FileManagerService;
@@ -40,7 +41,7 @@ public class SellerBO {
 		
 		// 배너이미지가 비어있지 않다면
 		String bannerImgPath = null;
-		if (!bannerImg.isEmpty()) {
+		if (!ObjectUtils.isEmpty(bannerImg)) {
 			bannerImgPath = fileManagerService.saveFile(userLoginId, bannerImg);
 			
 			if (bannerImgPath != null && seller.getBannerImg() != null) {
@@ -50,7 +51,7 @@ public class SellerBO {
 		
 		// 상점 이미지가 비어있지 않다면
 		String shopMainImgPath = null;
-		if (!shopMainImg.isEmpty()) {
+		if (!ObjectUtils.isEmpty(shopMainImg)) {
 			shopMainImgPath = fileManagerService.saveFile(userLoginId, shopMainImg);
 					
 			if (shopMainImgPath != null && seller.getShopMainImg() != null) {

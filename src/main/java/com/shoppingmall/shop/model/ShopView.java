@@ -10,6 +10,8 @@ public class ShopView {
 	private Seller seller;
 	
 	private List<Item> itemList;
+	
+	private boolean isBookmarked;
 
 	public Seller getSeller() {
 		return seller;
@@ -27,4 +29,12 @@ public class ShopView {
 		this.itemList = itemList;
 	}
 
+	public boolean getIsBookmarked() {
+		return isBookmarked;
+	}
+
+	public void setIsBookmarked(boolean isBookmarked) {
+		this.isBookmarked = isBookmarked;
+	}
+	
 }

@@ -23,9 +23,9 @@ public class SellerRestController {
 	
 	@PostMapping("/update")
 	public Map<String, Object> update(
-			@RequestParam("shopName") String shopName,
-			@RequestParam("address") String address,
-			@RequestParam("shopPhoneNumber") String shopPhoneNumber,
+			@RequestParam(value="shopName" , required=false) String shopName,
+			@RequestParam(value="address" , required=false) String address,
+			@RequestParam(value="shopPhoneNumber" , required=false) String shopPhoneNumber,
 			@RequestParam(value="bannerImg", required=false) MultipartFile bannerImg,
 			@RequestParam(value="shopMainImg", required=false) MultipartFile shopMainImg,
 			HttpSession session) {
@@ -34,13 +34,18 @@ public class SellerRestController {
 		String userLoginId = (String) session.getAttribute("userLoginId");
 		
 		
-		sellerBO.updateSellerByUserId(userId, userLoginId,  shopName, address, shopPhoneNumber, bannerImg, shopMainImg);
+		int row = sellerBO.updateSellerByUserId(userId, userLoginId,  shopName, address, shopPhoneNumber, bannerImg, shopMainImg);
 		
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		result.put("code", 300);
-		result.put("result", "success");
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "상점 정보 수정에 실패했습니다");
+		}
 		
 		return result;
 	}

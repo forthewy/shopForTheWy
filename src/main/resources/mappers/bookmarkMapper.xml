@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.shoppingmall.bookmark.dao.BookmarkDAO">
+ 	<select id="existBookmarkBysellerIdAndUserId" parameterType="map" resultType="boolean">
+ 		SELECT
+ 			COUNT(1)
+		FROM
+			`bookmark`
+		WHERE
+			`userId` = #{userId}
+			AND
+			`sellerId` = #{sellerId}
+ 	</select>
+ </mapper>

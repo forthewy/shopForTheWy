@@ -24,7 +24,10 @@ public class SellerController {
 		
 		int userId = (int) session.getAttribute("userId");
 		
+		// 상점 홈화면의 주인 유저와 로그인 유저의 아이디가 달라도 설정화면으로는 넘어간다.
+		// 단, 본인 설정화면으로 넘어간다. 
 		Seller seller = sellerBO.getSellerByUserId(userId);
+		
 		
 		model.addAttribute("seller", seller);
 		model.addAttribute("viewName", "seller/sellerUpdate");

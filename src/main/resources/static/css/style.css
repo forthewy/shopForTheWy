@@ -38,6 +38,7 @@ section {
 }
 #banner {
 	height: 400px;
+	width: 90%;
 }
 .item-box {
 	width: 80%;

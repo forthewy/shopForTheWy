@@ -23,4 +23,6 @@ public interface ItemDAO {
 	
 	
 	public List<Item> selectItemBySellerId(int sellerId);
+	
+	public Item selectItemByItemId(int itemId);
 }

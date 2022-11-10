@@ -12,7 +12,7 @@
 			</div>
 			<div class="d-flex align-items-center mb-3 mt-3 pl-5">
 				<label for="shopName" class="mr-5"><h3>상점명</h3></label>
-				<input type="text" class=" form-control col-3" id="shopName" name="shopName" placeholder="${seller.shopName}">
+				<input type="text" class=" form-control col-3" id="shopName" name="shopName" value="${seller.shopName}" placeholder="${seller.shopName}">
 			</div>
 			<div class="d-flex align-items-center mb-3 mt-3 pl-5">
 				<label for="shopMainImg" class="mr-5"><h3>이미지</h3></label>
@@ -22,17 +22,17 @@
 				<label class="pr-5"><h3>주소</h3></label>
 				<div class="address-box">
 					<c:set value="${fn:split(seller.address, '/')}" var="addressArr"/>
-					<input type="text" class="address ml-4 mb-1 form-control col-5" id="postcode" placeholder="${addressArr[0]}">
-					<input type="text" class="address ml-4 mb-1 form-control col-8" id="roadAddress" placeholder="${addressArr[1]}">
-					<input type="text" class="ml-4 form-control col-10" id="extraAddress" placeholder="${addressArr[2]}">
+					<input type="text" class="address ml-4 mb-1 form-control col-5" id="postcode" placeholder="${addressArr[0]}"  value="${addressArr[0]}">
+					<input type="text" class="address ml-4 mb-1 form-control col-8" id="roadAddress" placeholder="${addressArr[1]}" value="${addressArr[1]}">
+					<input type="text" class="ml-4 form-control col-10" id="extraAddress" placeholder="${addressArr[2]}" value="${addressArr[2]}">
 				</div>
 			</div>
 			<div class="d-flex align-items-center mb-3 mt-3 pl-5">
 				<label for="address" class="mr-5"><h3>전화번호</h3></label>
-				<input type="text" class=" form-control col-3" id=shopPhoneNumber name="shopPhoneNumber" placeholder="${seller.shopPhoneNumber}">
+				<input type="text" class=" form-control col-3" id=shopPhoneNumber name="shopPhoneNumber" placeholder="${seller.shopPhoneNumber}" value="${seller.shopPhoneNumber}">
 			</div>
 			<div class="d-flex justify-content-center">
-				<button class="btn btn-info" type="button" id="sellerUpdateBtn">설정 완료</button>
+				<button class="btn btn-info" type="button" id="sellerUpdateBtn" data-seller-login-id="${userLoginId}">설정 완료</button>
 			</div>
 		</div>
 	</div>
@@ -94,6 +94,7 @@
 			// 상점 대표 이미지
 			formData.append('shopMainImg', $('#shopMainImg')[0].files[0]);
 			
+			let sellerLoginId = $(this).data('seller-login-id');
 			
 			$.ajax({
 				type:"POST"
@@ -105,6 +106,7 @@
 				, success: function(data) {
 					if (data.code == 300) {
 						alert("성공입니다");
+						location.href = "/shop/shop_view/" + sellerLoginId;
 					} else {
 						alert(data.errorMessage);
 					}

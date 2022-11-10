@@ -2,14 +2,23 @@ package com.shoppingmall.item;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.shoppingmall.item.bo.ItemBO;
+import com.shoppingmall.item.model.Item;
 
 @RequestMapping("/item")
 @Controller
 public class ItemController {
 
+	@Autowired
+	private ItemBO itemBO;
+	
+	
 	/**
 	 * 상품 등록 화면
 	 * @param session
@@ -25,6 +34,19 @@ public class ItemController {
 		
 		model.addAttribute("sellerId", sellerId);
 		model.addAttribute("viewName", "item/itemCreate");
+		return "template/layout";
+	}
+	
+	@RequestMapping("/item_detail_view")
+	public String itemDetailView(
+			@RequestParam("itemId") int itemId,
+			Model model) {
+		
+		Item item = itemBO.getItemByItemId(itemId);
+		
+		
+		model.addAttribute("item", item);
+		model.addAttribute("viewName", "item/itemDetail");
 		return "template/layout";
 	}
 }

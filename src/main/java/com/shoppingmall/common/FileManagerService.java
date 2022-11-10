@@ -16,7 +16,7 @@ public class FileManagerService {
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	public static final String FILE_UPLOAD_PATH = "D:\\Jane\\spring-project\\shop\\workspace\\images\\aaa/";
+	public static final String FILE_UPLOAD_PATH = "D:\\parkjeesoo\\shop\\workspace\\images\\aaa/";
 			// 노트북 주소 "D:\Jane\spring-project\shop\workspace\images\aaa/";
 			// "D:\\parkjeesoo\\shop\\workspace\\images\\aaa/";
 	
@@ -44,10 +44,11 @@ public class FileManagerService {
 	}
 	
 	public void deleteFile(String imgPath) {
-		Path path = Paths.get(FILE_UPLOAD_PATH + imgPath.replace("/aaa/", ""));
+		Path path = Paths.get(FILE_UPLOAD_PATH + imgPath.replace("/images/", ""));
 		
 		if (Files.exists(path)) {
 			try {
+				// 파일 삭제 성공 확인 완료
 				Files.delete(path);
 			} catch (IOException e) {
 				log.error("[이미지 삭제] 이미지 삭제 실패 imgPath:{}", imgPath);
@@ -57,6 +58,7 @@ public class FileManagerService {
 		path = path.getParent();
 		if (Files.exists(path)) {
 			try {
+				// 폴더 삭제 성공 확인 완료
 				Files.delete(path);
 			} catch (IOException e) {
 				log.error("[디렉토리 삭제] 디렉토리 삭제 실패 directoryPath:{}", path);
