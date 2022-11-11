@@ -1,6 +1,7 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%-- 배너 이미지 --%>
 <div class="d-flex justify-content-center">
 	<div id="banner" class="bg-success">
@@ -30,6 +31,12 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+<%-- 페이징 --%>
+<div class="d-flex justify-content-center mb-3">
+	<c:forEach begin="1" end="${fn:length(shop.itemList) / 3 + 1}" var="page">
+		<button class="page-btn btn btn-outline-success mr-2">${page}</button>
+	</c:forEach>
+</div>
 <%-- 상품들 --%>
 <div class="d-flex justify-content-center">
 	<div class="item-box d-flex flex-wrap justify-content-start">
@@ -44,28 +51,37 @@
 		</c:forEach>
 	</div>
 </div>
-<%-- 페이징 --%>
+
 
 
 <script>
 	$(document).ready(function() {
 		
 		<%-- 즐겨찾기 버튼 클릭 --%>
-		$('.like-btn').on('click', function() {
+		$('.like-btn').on('click', function(e) {
+			e.preventDefault();
 			let sellerId = $(this).data('seller-id');
-			$.ajax({
+			 $.ajax({
 				url: "/bookmark/" + sellerId
 				, success:function(data) {
 					if (data.code == 300) {
 						location.reload();
+						return;
 					} else {
 						alert(data.errorMessage);
+						return;
 					}
 				}
 				, error:function(e) {
 					alert("즐겨찾기 등록에 실패했습니다. 관리자에게 문의바랍니다");
+					return;
 				}
-			});
-		});
+			});  // ajax 끝
+		}); // 즐겨찾기 버튼 끝
+		
+		<%-- 페이지 버튼 클릭 --%>
+		$('.page-btn').on('click', function() {
+			alert('페이지를 이동한다.');
+		})
 	});
 </script>

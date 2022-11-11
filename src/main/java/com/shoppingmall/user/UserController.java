@@ -48,6 +48,7 @@ public class UserController {
 		session.removeAttribute("userPhoneNumber");
 		session.removeAttribute("userName");
 		session.removeAttribute("userType");
+		session.removeAttribute("lastLookItem");
 		
 		return "redirect:/home/home_view";
 	}

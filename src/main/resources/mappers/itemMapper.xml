@@ -67,4 +67,24 @@
  		WHERE
  			`id` = #{itemId}
  	</select>
+ 	<select id="selectItemBySellerIdLimitPage" parameterType="map" resultType="com.shoppingmall.item.model.Item">
+ 		SELECT
+ 			`id` 
+ 			,`sellerId`
+			,`name`
+			,`number`
+			,`price`
+			,`content`
+			,`sort`
+			,`thumbnailImg`
+			,`deliveryPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`item`
+ 		WHERE
+ 			`sellerId` = #{sellerId}
+ 		LIMIT 3
+ 		OFFSET ${page - 1}
+ 	</select>
  </mapper>

@@ -24,5 +24,10 @@ public interface ItemDAO {
 	
 	public List<Item> selectItemBySellerId(int sellerId);
 	
+	public List<Item> selectItemBySellerIdLimitPage (
+			@Param("sellerId") int sellerId,
+			@Param("page") Integer page);
+	
+	
 	public Item selectItemByItemId(int itemId);
 }

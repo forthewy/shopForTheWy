@@ -25,7 +25,7 @@ public class BookmarkRestController {
 			@PathVariable("sellerId") int sellerId,
 			HttpSession session) {
 		
-	    Integer userId =  (Integer) session.getAttribute("userId");
+		Integer userId =  (Integer) session.getAttribute("userId");
 		
 	    int row = bookmarkBO.bookmarkToggle(sellerId, userId);
 	    

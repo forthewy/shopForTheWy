@@ -40,11 +40,13 @@ public class ItemController {
 	@RequestMapping("/item_detail_view")
 	public String itemDetailView(
 			@RequestParam("itemId") int itemId,
+			HttpSession session,
 			Model model) {
 		
 		Item item = itemBO.getItemByItemId(itemId);
 		
-		
+		// 최근 본 상품 세션에 넣기
+		session.setAttribute("lastLookItem", item);
 		model.addAttribute("item", item);
 		model.addAttribute("viewName", "item/itemDetail");
 		return "template/layout";

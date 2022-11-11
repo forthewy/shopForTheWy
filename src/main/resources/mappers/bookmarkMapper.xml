@@ -4,10 +4,10 @@
  <mapper namespace="com.shoppingmall.bookmark.dao.BookmarkDAO">
  	<select id="existBookmark" parameterType="map" resultType="boolean">
  		SELECT
- 			COUNT(1)
-		FROM
-			`bookmark`
-		WHERE
+ 			 COUNT(*)
+ 		FROM 
+ 			`bookmark`
+ 		WHERE
 			`sellerId` = #{sellerId}
 			AND
 			`userId` = #{userId}
@@ -15,7 +15,7 @@
  	<insert id="insertBookmark" parameterType="map">
  		INSERT INTO
  			`bookmark`
- 		(
+ 		(	
  			`sellerId`
  			,`userId`
  		)

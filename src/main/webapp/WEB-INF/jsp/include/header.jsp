@@ -29,12 +29,28 @@
 	<c:choose>
 		<%-- 로그인시 보여지는 메뉴 --%>
 		<c:when test="${not empty userId}">
-			<div class="pl-5">
-				<a href="#"><img class="user-menu" alt="장바구니" src="/static/img/shoppingCart.png"></a>
-				<a href="#"><img class="user-menu" alt="최근 본 상품" src="/static/img/look.png" ></a>
-				<a href="#"><img class="user-menu" alt="회원 정보, 상점 신청, 주문조회" src="/static/img/person.webp"></a>
-				<a href="#"><img class="user-menu" alt="문의 내역" src="/static/img/letter.webp"></a>
-				<a href="#"><img class="user-menu"  alt="즐겨찾기" src="/static/img/star.png"></a>
+			<div class="pl-5 d-flex">
+				<div>
+					<a href="#"><img class="user-menu" alt="장바구니" src="/static/img/shoppingCart.png"></a>
+				</div>
+				<%-- 최근 본 상품 --%>
+				<div>
+					<div>
+						<a href="#" id="lastLookItemBtn"><img class="user-menu" alt="최근 본 상품" src="/static/img/look.png" ></a>
+					</div>
+					<div class="d-none" id="lastLookItemImg">
+						<img src="${lastLookItem.thumbnailImg}" width="50px" height="50px">
+					</div>
+				</div>
+				<div>
+					<a href="#" ><img class="user-menu" alt="회원 정보, 상점 신청, 주문조회" src="/static/img/person.webp"></a>
+				</div>
+				<div>
+					<a href="#"><img class="user-menu" alt="문의 내역" src="/static/img/letter.webp"></a>
+				</div>
+				<div>
+					<a href="#"><img class="user-menu"  alt="즐겨찾기" src="/static/img/star.png"></a>
+				</div>
 				<%-- 상점 회원 로그인시 추가로 보이는 메뉴 --%>
 				<c:if test="${userType eq 2}">
 					<a href="/shop/shop_view/${userLoginId}"><img class="user-menu" alt="상점 홈" src="/static/img/home.png"></a>
@@ -51,3 +67,16 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+
+<script>
+	$(document).ready(function() {
+		/* $('#lastLookItemBtn').on('mouseover', function() {
+			$('#lastLookItemImg').removeClass('d-none');
+		})
+		
+		$('#lastLookItemBtn').on('blur', function() {
+			$('#lastLookItemImg').addClass('d-none');
+		}) */
+	})
+
+</script>

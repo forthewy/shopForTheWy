@@ -10,8 +10,7 @@ public class BookmarkBO {
 
 	@Autowired
 	private BookmarkDAO bookmarkDAO;
-
-
+	
 	public int bookmarkToggle(int sellerId, int userId) {
 		
 		int row = 0;
@@ -36,8 +35,10 @@ public class BookmarkBO {
 		return bookmarkDAO.deleteBookmark(sellerId, userId);
 	}
 
-	// 비로그인 --> null --> Integer
 	public boolean existBookmark(int sellerId, Integer userId) {
 		return bookmarkDAO.existBookmark(sellerId, userId);
 	}
+
+
+	
 }
