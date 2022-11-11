@@ -12,14 +12,14 @@
 	<c:choose>
 		<c:when test="${userId ne shop.seller.userId}">
 			<div class="mr-4">
-				<%-- <c:choose>
+				<c:choose>
 					<c:when test="${shop.isBookmarked}">
 						<button class="like-btn mr-3 btn  btn-outline-info" data-seller-id="${shop.seller.id}">즐겨찾기 취소</button>
 					</c:when>
 					<c:otherwise>
-						<button class="like-btn mr-3 btn btn-info" data-seller-id="${shop.seller.id}">이 상점을 즐겨 찾기</button>
+						<button class="like-btn mr-3 btn btn-info" data-seller-id="${shop.seller.id}">즐겨찾기 등록</button>
 					</c:otherwise>
-				</c:choose> --%>
+				</c:choose>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -44,6 +44,8 @@
 		</c:forEach>
 	</div>
 </div>
+<%-- 페이징 --%>
+
 
 <script>
 	$(document).ready(function() {
@@ -55,9 +57,9 @@
 				url: "/bookmark/" + sellerId
 				, success:function(data) {
 					if (data.code == 300) {
-						alert('성공');
+						location.reload();
 					} else {
-						alert('실패!');
+						alert(data.errorMessage);
 					}
 				}
 				, error:function(e) {

@@ -47,11 +47,10 @@ public class ItemRestController {
 
 		Map<String, Object> result = new HashMap<>();
 		
-		int sellerId = (int) session.getAttribute("userId");
 		String sellerLoginId = (String) session.getAttribute("userLoginId");
 		
 		// DB insert
-		int row = itemBO.addItem(sellerId, sellerLoginId, name, number, price, content, sort, thumbnailImg, deliveryPrice);
+		int row = itemBO.addItem(sellerLoginId, name, number, price, content, sort, thumbnailImg, deliveryPrice);
 		
 		if (row > 0) {
 			result.put("code", 300);

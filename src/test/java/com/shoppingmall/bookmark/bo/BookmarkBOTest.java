@@ -12,7 +12,7 @@ class BookmarkBOTest {
 
 	@Test
 	void 즐겨찾기조회하기() {
-		boolean isbookmarked = bookmarkBO.existBookmarkBysellerIdAndUserId(1, 2);
+		boolean isbookmarked = bookmarkBO.existBookmark(1, 2);
 	}
 
 }

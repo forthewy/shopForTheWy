@@ -37,8 +37,8 @@ public class ShopViewBO {
 		shopView.setItemList(itemList);
 		
 		// 즐겨찾기 여부 확인하기
-		//boolean isbookMarked = bookmarkBO.existBookmarkBysellerIdAndUserId(seller.getId(), userId);
-		shopView.setIsBookmarked(false);
+		boolean isbookMarked = bookmarkBO.existBookmark(seller.getId(), userId);
+		shopView.setIsBookmarked(isbookMarked);
 		
 		return shopView;
 	}

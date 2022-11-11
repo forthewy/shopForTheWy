@@ -10,15 +10,34 @@ public class BookmarkBO {
 
 	@Autowired
 	private BookmarkDAO bookmarkDAO;
+
+
+	public int bookmarkToggle(int sellerId, int userId) {
+		
+		int row = 0;
+		
+		if (existBookmark(sellerId, userId)) {
+			//즐겨찾기 취소
+			row = deleteBookmark(sellerId, userId);
+		} else {
+			// 즐겨찾기 추가
+			row = createBookmark(sellerId, userId);
+		}
+		
+		return row; 
+	}
 	
-	/*
-	 * public int bookmarkToggle(int sellerId,int userId) { return; }
-	 */
 	
+	public int createBookmark(int sellerId, int userId) {
+		return bookmarkDAO.insertBookmark(sellerId, userId);
+	}
 	
+	public int deleteBookmark(int sellerId, int userId) {
+		return bookmarkDAO.deleteBookmark(sellerId, userId);
+	}
+
 	// 비로그인 --> null --> Integer
-	// existBookmark 오류 잡는 중...
-	public boolean existBookmarkBysellerIdAndUserId(int sellerId, Integer userId) {
-		return bookmarkDAO.existBookmarkBysellerIdAndUserId(sellerId, userId);
+	public boolean existBookmark(int sellerId, Integer userId) {
+		return bookmarkDAO.existBookmark(sellerId, userId);
 	}
 }

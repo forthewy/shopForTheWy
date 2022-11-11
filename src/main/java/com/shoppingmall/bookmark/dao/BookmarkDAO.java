@@ -6,7 +6,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookmarkDAO {
 
-	public boolean existBookmarkBysellerIdAndUserId(
+	public boolean existBookmark(
 			@Param("sellerId") int sellerId,
 			@Param("userId") Integer userId);
+	
+	public int insertBookmark(
+			@Param("sellerId") int sellerId,
+			@Param("userId") int userId);
+	
+	public int deleteBookmark(
+			@Param("sellerId") int sellerId,
+			@Param("userId") int userId);
 }

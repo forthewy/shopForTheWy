@@ -2,14 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.shoppingmall.bookmark.dao.BookmarkDAO">
- 	<select id="existBookmarkBysellerIdAndUserId" parameterType="map" resultType="boolean">
+ 	<select id="existBookmark" parameterType="map" resultType="boolean">
  		SELECT
  			COUNT(1)
 		FROM
 			`bookmark`
 		WHERE
-			`userId` = #{userId}
-			AND
 			`sellerId` = #{sellerId}
+			AND
+			`userId` = #{userId}
  	</select>
+ 	<insert id="insertBookmark" parameterType="map">
+ 		INSERT INTO
+ 			`bookmark`
+ 		(
+ 			`sellerId`
+ 			,`userId`
+ 		)
+ 		VALUES
+ 		(
+ 			#{sellerId}
+ 			,#{userId}
+ 		)
+ 	</insert>
+ 	<delete id="deleteBookmark" parameterType="map">
+ 		DELETE FROM
+ 			`bookmark`
+ 		WHERE
+			`sellerId` = #{sellerId}
+			AND
+			`userId` = #{userId}
+ 	</delete>
  </mapper>
