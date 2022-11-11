@@ -30,5 +30,5 @@ public interface UserDAO {
 			@Param("password")String  password);
 	
 	// loginId로 Id 찾기
-	public int selectIdByLoginId(String loginId);
+	public Integer selectIdByLoginId(String loginId);
 }
