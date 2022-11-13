@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.shoppingmall.bookmark.bo.BookmarkBO;
 import com.shoppingmall.item.bo.ItemBO;
@@ -24,7 +25,7 @@ public class ShopViewBO {
 	@Autowired
 	private BookmarkBO bookmarkBO;
 	
-	public ShopView generateShopView(String sellerLoginId, Integer userId) {
+	public ShopView generateShopView(String sellerLoginId, Integer userId, Integer page) {
 		
 		ShopView shopView = new ShopView();
 		
@@ -33,8 +34,12 @@ public class ShopViewBO {
 		shopView.setSeller(seller);
 		
 		// 아이템 리스트 가져오기
-		List<Item> itemList = itemBO.getItemBySellerId(seller.getId());
+		List<Item> itemList = itemBO.getItemBySellerIdLimitPage(seller.getId(), page);
 		shopView.setItemList(itemList);
+		
+		// 아이템 갯수 가져오기
+		int itemCount = itemBO.getItemCountBySellerId(seller.getId());
+		shopView.setItemCount(itemCount);
 		
 		// 즐겨찾기 여부 확인하기
 		boolean isbookMarked = bookmarkBO.existBookmark(seller.getId(), userId);

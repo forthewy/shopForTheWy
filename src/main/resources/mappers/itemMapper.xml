@@ -84,7 +84,16 @@
  			`item`
  		WHERE
  			`sellerId` = #{sellerId}
+ 		ORDER BY `id` DESC	
  		LIMIT 3
- 		OFFSET ${page - 1}
+ 		OFFSET #{offsetNum}
+ 	</select>
+ 	<select id="selectItemCountBySellerId" parameterType="int" resultType="int">
+ 		SELECT
+ 			COUNT(*)
+ 		FROM
+ 			`item`
+ 		WHERE
+ 			`sellerId` = #{sellerId}
  	</select>
  </mapper>

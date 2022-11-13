@@ -7,8 +7,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.shoppingmall.common.FileManagerService;
+import com.shoppingmall.common.SummernoteFile;
 import com.shoppingmall.interceptor.PermissionInterceptor;
-import com.shoppingmall.item.SummernoteFile;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{

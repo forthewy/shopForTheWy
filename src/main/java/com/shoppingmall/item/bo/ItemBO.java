@@ -43,13 +43,19 @@ public class ItemBO {
 	}
 
 	// 페이지로 상품 일부만 조회
-	public List<Item> getItemBySellerIdLimitPage(int sellerId, Integer page) {
-		return itemDAO.selectItemBySellerIdLimitPage(sellerId, page);
+	public List<Item> getItemBySellerIdLimitPage(int sellerId, int page) {
+		int offsetNum = 3 * (page - 1); // 조회시 건너뛰고 조회해야할 행 갯수 0 3 6...
+		return itemDAO.selectItemBySellerIdLimitPage(sellerId, offsetNum);
 	}
 	
 	// 상품 아이디로 상품 조회
 	public Item getItemByItemId(int itemId) {
 		return itemDAO.selectItemByItemId(itemId);
+	}
+	
+	// 한 상점의 상품 총 갯수 확인
+	public int getItemCountBySellerId(int sellerId) {
+		return itemDAO.selectItemCountBySellerId(sellerId);
 	}
 	
 }

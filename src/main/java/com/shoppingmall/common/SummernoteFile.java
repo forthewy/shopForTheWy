@@ -1,4 +1,4 @@
-package com.shoppingmall.item;
+package com.shoppingmall.common;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import com.google.gson.JsonObject;
 @Controller
 public class SummernoteFile {
 
-	public static final String FILE_UPLOAD_PATH = "D:\\parkjeesoo\\shop\\workspace\\images\\temp/";
+	public static final String FILE_UPLOAD_PATH = "D:\\Jane\\spring-project\\shop\\workspace\\images\\temp/";
 			// 노트북 "D:\\Jane\\spring-project\\shop\\workspace\\images\\temp/";
 			//"D:\\parkjeesoo\\shop\\workspace\\images\\temp/";
 

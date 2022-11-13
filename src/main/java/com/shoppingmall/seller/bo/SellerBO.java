@@ -23,14 +23,21 @@ public class SellerBO {
 	@Autowired
 	private FileManagerService fileManagerService;
 	
+	// 로그인 아이디로 상점 가져오기
 	public Seller getSellerByUserLoginId(String loginId) {
 		int userId = userBO.getIdByLoginId(loginId);
 		
 		return getSellerByUserId(userId);
 	}
 	
-	public Seller getSellerByUserId(int userId) {
+	// 유저아이디로 상점 가져오기
+	public Seller getSellerByUserId(Integer userId) {
 		return sellerDAO.selectSellerByUserId(userId);
+	}
+	
+	// 상점아이디로 상점 가져오기
+	public Seller getSellerById(int id) {
+		return sellerDAO.selectSellerById(id);
 	}
 	
 	// 상점 정보 수정

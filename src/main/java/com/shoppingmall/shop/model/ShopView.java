@@ -9,8 +9,13 @@ public class ShopView {
 
 	private Seller seller;
 	
+	// 페이지에 나와야 할 아이템 리스트
 	private List<Item> itemList;
 	
+	// 상점이 가진 상품 갯수
+	private int itemCount;
+	
+	// 즐겨찾기 여부
 	private boolean isBookmarked;
 
 	public Seller getSeller() {
@@ -27,6 +32,18 @@ public class ShopView {
 
 	public void setItemList(List<Item> itemList) {
 		this.itemList = itemList;
+	}
+
+	public int getItemCount() {
+		return itemCount;
+	}
+
+	public void setItemCount(int itemCount) {
+		this.itemCount = itemCount;
+	}
+
+	public void setBookmarked(boolean isBookmarked) {
+		this.isBookmarked = isBookmarked;
 	}
 
 	public boolean getIsBookmarked() {

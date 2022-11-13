@@ -8,7 +8,7 @@ import com.shoppingmall.seller.model.Seller;
 @Repository
 public interface SellerDAO {
 
-	public Seller selectSellerByUserId(int userId);
+	public Seller selectSellerByUserId(Integer userId);
 	
 	public int updateSellerByUserId(
 			@Param("userId")int userId,
@@ -17,5 +17,7 @@ public interface SellerDAO {
 			@Param("shopPhoneNumber") String shopPhoneNumber,
 			@Param("bannerImg") String bannerImg,
 			@Param("shopMainImg") String shopMainImg);
+	
+	public Seller selectSellerById (int id);
 	
 }

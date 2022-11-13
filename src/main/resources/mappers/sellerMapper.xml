@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.shoppingmall.seller.dao.SellerDAO">
- 	<select id="selectSellerByUserId" parameterType="int" resultType="com.shoppingmall.seller.model.Seller">
+ 	<select id="selectSellerByUserId" parameterType="Integer" resultType="com.shoppingmall.seller.model.Seller">
  		SELECT
  			`id`
 			,`userId`
@@ -36,4 +36,21 @@
  		WHERE
  			`userId` = #{userId}
  	</update>
+ 	<select id="selectSellerById" parameterType="int" resultType="com.shoppingmall.seller.model.Seller">
+		SELECT
+			`id`
+			,`userId`
+			,`shopName`
+			,`address`
+			,`shopPhoneNumber`
+			,`file`
+			,`bannerImg`
+			,`shopMainImg`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+ 			`seller`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
  </mapper>

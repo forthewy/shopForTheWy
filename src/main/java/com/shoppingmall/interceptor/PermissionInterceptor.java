@@ -22,6 +22,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("userName");
+		Integer userType = (Integer) session.getAttribute("userType");
 		
 		// 요청 url
 		String uri = request.getRequestURI();

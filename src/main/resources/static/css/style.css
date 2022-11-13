@@ -38,7 +38,7 @@ section {
 }
 #banner {
 	height: 400px;
-	width: 90%;
+	width: 100%;
 }
 .item-box {
 	width: 80%;
@@ -63,6 +63,7 @@ section {
 .item-detail-box {
 	min-height: 500px;
 }
+
 footer {
 	height: 100px;
 }

@@ -26,8 +26,10 @@ public interface ItemDAO {
 	
 	public List<Item> selectItemBySellerIdLimitPage (
 			@Param("sellerId") int sellerId,
-			@Param("page") Integer page);
+			@Param("offsetNum") int offsetNum);
 	
 	
 	public Item selectItemByItemId(int itemId);
+	
+	public int selectItemCountBySellerId(int sellerId);
 }
