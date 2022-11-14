@@ -63,4 +63,35 @@ public class ItemRestController {
 		return result;
 	}
 	
+	@PostMapping("/update")
+	public Map<String, Object> updateItem(
+			@RequestParam("name") String name,
+			@RequestParam("sort") String sort,
+			@RequestParam(value= "content", required=false) String content,
+			@RequestParam("price") int price,
+			@RequestParam("number") int number,
+			@RequestParam("deliveryPrice") int deliveryPrice,
+			@RequestParam(value="thumbnailImg", required=false) MultipartFile thumbnailImg,
+			@RequestParam("itemId") int itemId,
+			HttpSession session
+			) {
+
+		Map<String, Object> result = new HashMap<>();
+		
+		String sellerLoginId = (String) session.getAttribute("userLoginId");
+		
+		// DB update
+		int row = itemBO.updateItem(sellerLoginId, name, number, price, content, sort, thumbnailImg, deliveryPrice, itemId);
+		
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("result", "상품 수정에 실패했습니다.");
+		}
+		
+		return result;
+	}
+	
 }

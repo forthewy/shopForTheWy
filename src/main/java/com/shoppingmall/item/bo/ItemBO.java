@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.common.FileManagerService;
@@ -25,7 +26,8 @@ public class ItemBO {
 	private ItemDAO itemDAO;
 	
 	// 상품 등록
-	public int addItem(String sellerLoginId, String name, int number, int price, String content, String sort, MultipartFile thumbnailImg, int deliveryPrice) {
+	public int addItem(String sellerLoginId, String name, int number, int price, String content, String sort
+			, MultipartFile thumbnailImg, int deliveryPrice) {
 		String imagePath = null;
 		
 		Seller seller = sellerBO.getSellerByUserLoginId(sellerLoginId);
@@ -35,6 +37,29 @@ public class ItemBO {
 		imagePath = fileManagerService.saveFile(sellerLoginId, thumbnailImg);
 		
 		return itemDAO.insertItem(sellerId, name, number, price, content, sort, imagePath, deliveryPrice);
+	};
+	
+	// 상품 수정
+	public int updateItem(String sellerLoginId, String name, int number, int price, String content, String sort
+			, MultipartFile thumbnailImg, int deliveryPrice, int itemId) {
+		
+		// 수정할 아이템을 가져온다.
+		Item item = getItemByItemId(itemId);
+		
+		
+		// 썸네일 이미지가 있다면
+		String imagePath = null;
+		Seller seller = sellerBO.getSellerByUserLoginId(sellerLoginId);
+		int sellerId = seller.getId();
+
+		if (!ObjectUtils.isEmpty(thumbnailImg)) {
+			// 기존 사진은 지우고
+			fileManagerService.deleteFile(item.getThumbnailImg());
+			// 새로운 사진 저장
+			imagePath = fileManagerService.saveFile(sellerLoginId, thumbnailImg);
+		}
+		
+		return itemDAO.updateItem(name, number, price, content, sort, imagePath, deliveryPrice, itemId);
 	};
 	
 	// 상품 전체 리스트

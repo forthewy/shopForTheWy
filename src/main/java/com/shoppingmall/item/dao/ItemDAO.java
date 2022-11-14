@@ -21,6 +21,16 @@ public interface ItemDAO {
 			@Param("deliveryPrice") int deliveryPrice
 			);
 	
+	public int updateItem(
+		@Param("name") String name,
+		@Param("number") int number,
+		@Param("price") int price,
+		@Param("content") String content,
+		@Param("sort") String sort,
+		@Param("imagePath") String imagePath,
+		@Param("deliveryPrice") int deliveryPrice,
+		@Param("itemId") int itemId
+		);
 	
 	public List<Item> selectItemBySellerId(int sellerId);
 	

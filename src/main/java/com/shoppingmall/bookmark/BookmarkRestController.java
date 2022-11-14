@@ -18,8 +18,13 @@ public class BookmarkRestController {
 
 	@Autowired
 	private BookmarkBO bookmarkBO;
-	
-	// 인터셉터에서 비로그인시 로그인 화면 이동하도록 설정하기
+
+	/**
+	 * 즐겨찾기 토글
+	 * @param sellerId
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/{sellerId}")
 	public Map<String, Object> bookmark(
 			@PathVariable("sellerId") int sellerId,

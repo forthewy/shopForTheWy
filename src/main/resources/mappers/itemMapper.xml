@@ -31,6 +31,23 @@
 			,NOW()
 		)
  	</insert>
+ 	<update id="updateItem" parameterType="map">
+ 	UPDATE
+ 		`item`
+	SET 
+		`name` =  #{name}
+		,`number` = #{number}
+		,`price` =  #{price}
+		,`content` = #{content}
+		,`sort` = #{sort}
+		<if test="imagePath != null">
+		,`thumbnailImg` = #{imagePath}
+		</if>
+		,`deliveryPrice` = #{deliveryPrice}
+		,`updatedAt` = NOW()
+ 	WHERE
+ 		`id` = #{itemId}
+ 	</update>
  	<select id="selectItemBySellerId" parameterType="int" resultType="com.shoppingmall.item.model.Item">
  		SELECT
  			`id` 

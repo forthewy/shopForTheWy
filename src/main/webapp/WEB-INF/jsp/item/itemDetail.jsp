@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="d-flex justify-content-center">
 	<div class="w-75">
 		<div class="item-detail-box d-flex">
@@ -39,7 +40,7 @@
 						</c:when>
 						<c:otherwise>
 							<div class="d-flex justify-content-end mr-5">
-								<button class="btn btn-info mr-3">수정하기</button>
+								<button class="btn btn-info mr-3" onClick="location.href='/item/item_update_view?id=${itemDetailView.item.id}'"">수정하기</button>
 								<button class="btn btn-danger">삭제하기</button>
 							</div>
 						</c:otherwise>
@@ -68,10 +69,40 @@
 					${itemDetailView.item.content}
 				</div>
 				<div id="review" class="tab-info d-none">
-					
+					<div class="pl-5">
+						<div class="review-box border p-3">
+							<img src="/static/img/star_yellow.png" width="30px">
+							<img src="/static/img/star_yellow.png" width="30px">
+							<img src="/static/img/star_yellow.png" width="30px">
+							<img src="/static/img/star_yellow.png" width="30px">
+							<img src="/static/img/star_yellow.png" width="30px">
+							<div class="review-box">
+								<h3>유저 아이디</h3>
+								<h5>리뷰 내용</h5>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div id="sellerInfo" class="tab-info d-none">
-					
+				<div id="sellerInfo" class="tab-info d-none w-100">
+					<div class="d-flex justify-content-center">
+						<div class="w-50">
+							<table class="table">
+								<tr>
+									<td><b>상호명</b></td>
+									<td>${itemDetailView.seller.shopName}</td>
+								</tr>
+								<tr>
+									<c:set value="${fn:replace(itemDetailView.seller.address, '/', ' ')}" var="addressArr"/>
+									<td><b>주소</b></td>
+									<td>${addressArr} </td>
+								</tr>
+								<tr>
+									<td><b>연락처</b></td>
+									<td>${itemDetailView.seller.shopPhoneNumber}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -107,13 +138,15 @@
 			if (showContent == 'content') {
 				$('.tab-info').addClass('d-none');
 				$('#itemContent').removeClass('d-none');
+			} else if (showContent == 'seller') {
+				$('.tab-info').addClass('d-none');
+				$('#sellerInfo').removeClass('d-none');
 			} else if (showContent == 'review') {
 				$('.tab-info').addClass('d-none');
 				$('#review').removeClass('d-none');
-			} else {
-				$('.tab-info').addClass('d-none');
-				$('#sellerInfo').removeClass('d-none');
+				$('#sellerInfo').addClass('d-none');
 			}
+			return false;
 			
 		});
 	});

@@ -3,7 +3,7 @@ header {
 	height: 100px;
 }
 .bg-green {
-	background-color: #78bf02;	
+	background-color: rgb(139, 194, 12);	
 }
 a {
 	color:black;
@@ -63,7 +63,10 @@ section {
 .item-detail-box {
 	min-height: 500px;
 }
-
+.review-box {
+	border: 50px;
+	border-radius: 25px;
+}
 footer {
 	height: 100px;
 }

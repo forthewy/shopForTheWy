@@ -1,5 +1,58 @@
 package com.shoppingmall.review.model;
 
-public class Review {
+import java.util.Date;
 
+public class Review {
+	private int id;
+	private int userId;
+	private int orderId;
+	private String content;
+	private boolean point;
+	private Date createdAt;
+	private Date updatedAt;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public boolean isPoint() {
+		return point;
+	}
+	public void setPoint(boolean point) {
+		this.point = point;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+	
 }

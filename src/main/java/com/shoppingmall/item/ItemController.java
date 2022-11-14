@@ -37,4 +37,17 @@ public class ItemController {
 		return "template/layout";
 	}
 	
+	@RequestMapping("/item_update_view")
+	public String itemUpdateView(
+			@RequestParam("id") int id,
+			HttpSession session,
+			Model model) {
+		
+		Item item = itemBO.getItemByItemId(id);
+		
+		model.addAttribute("item", item);
+		model.addAttribute("viewName", "item/itemUpdate");
+		return "template/layout";
+	}
+	
 }
