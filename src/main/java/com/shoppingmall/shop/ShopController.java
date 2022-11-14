@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shoppingmall.seller.bo.SellerBO;
 import com.shoppingmall.shop.bo.ShopViewBO;
 import com.shoppingmall.shop.model.ShopView;
 
@@ -19,8 +20,11 @@ public class ShopController {
 	@Autowired
 	private ShopViewBO shopViewBO;
 	
+	@Autowired
+	private SellerBO sellerBO;
+	
 	@RequestMapping("/shop_view/{sellerLoginId}") 
-	public String signInView(
+	public String shopView(
 			@PathVariable("sellerLoginId") String sellerLoginId,
 			@RequestParam(value="page", defaultValue = "1") Integer page,
 			HttpSession session,
@@ -38,4 +42,5 @@ public class ShopController {
 		model.addAttribute("viewName", "/shop/shop");
 		return "template/layout";
 	}
+	
 }

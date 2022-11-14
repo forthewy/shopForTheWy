@@ -34,14 +34,14 @@
 							</div>
 							<div class="d-flex justify-content-end mr-5 mt-3">
 								<button class="btn btn-dark mr-3">상품 문의(쪽지)</button>
-								<button class="btn btn-info mr-3">장바구니</button>
+								<button class="btn btn-info mr-3" type="button" id="basketBtn" data-item-id="${itemDetailView.item.id}">장바구니</button>
 								<button class="btn btn-warning">바로 주문하기</button>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="d-flex justify-content-end mr-5">
 								<button class="btn btn-info mr-3" onClick="location.href='/item/item_update_view?id=${itemDetailView.item.id}'"">수정하기</button>
-								<button class="btn btn-danger">삭제하기</button>
+								<button class="btn btn-danger" type="button" id="deleteBtn" data-item-id="${itemDetailView.item.id}">삭제하기</button>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -111,6 +111,7 @@
 
 <script>
 	$(document).ready(function() {
+		
 		<%-- (-) 버튼 클릭시 클릭시 --%>
 		$('#minusBtn').on('click', function() {
 			let buyCount = parseInt($('#buyCount').val()) - 1;
@@ -149,5 +150,38 @@
 			return false;
 			
 		});
+		
+		<%-- 삭제 버튼 클릭시 --%>
+		$('#deleteBtn').on('click', function() {
+			
+			let itemId = $(this).data('item-id');
+			let sellerLoginId = "${userLoginId}";
+			
+			$.ajax({
+				 type:"DELETE"
+				 ,data:{"itemId":itemId}
+			 	 ,url: "/item/delete"
+			 	 ,success:function(data){
+			 		 if(data.code == 300) {
+			 			 alert(data.result);
+			 			 location.href = "/shop/shop_view/" + sellerLoginId;
+			 		 } else {
+			 			 alert(data.errorMessage);
+			 		 }
+			 	 }
+			 	 , error:function(e) {
+			 		 alert("상품 삭제에 실패했습니다. 관리자에게 문의 주세요");
+			 	 }
+			 })
+		}); // 삭제 끝
+		
+		$('#basketBtn').on('click', function() {
+			let itemId = $(this).data('item-id');
+			let number = $('#buyCount').val();
+			let price = $()
+			$.ajax({
+				 type:"POST"
+				 , data:{"itemId":itemId, ""}
+		}); 
 	});
 </script>

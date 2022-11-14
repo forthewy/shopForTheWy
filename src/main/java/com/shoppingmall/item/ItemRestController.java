@@ -6,7 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,7 +65,21 @@ public class ItemRestController {
 		return result;
 	}
 	
-	@PostMapping("/update")
+	/**
+	 * 상품 수정
+	 * @param name
+	 * @param sort
+	 * @param content
+	 * @param price
+	 * @param number
+	 * @param deliveryPrice
+	 * @param thumbnailImg
+	 * @param itemId
+	 * @param session
+	 * @return
+	 */
+	
+	@PutMapping("/update")
 	public Map<String, Object> updateItem(
 			@RequestParam("name") String name,
 			@RequestParam("sort") String sort,
@@ -88,9 +104,36 @@ public class ItemRestController {
 			result.put("result", "success");
 		} else {
 			result.put("code", 500);
-			result.put("result", "상품 수정에 실패했습니다.");
+			result.put("errorMessage", "상품 수정에 실패했습니다.");
 		}
 		
+		return result;
+	}
+	
+	/**
+	 * 상품 삭제
+	 * @param itemId
+	 * @param session
+	 * @return
+	 */
+	@DeleteMapping("/delete")
+	public Map<String, Object> deleteItem(
+			@RequestParam("itemId") int itemId,
+			HttpSession session) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		//DB delete
+		int row = itemBO.deleteItem(itemId);
+				
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "상품 삭제에 실패했습니다.");
+		}
+				
 		return result;
 	}
 	

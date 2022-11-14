@@ -174,7 +174,7 @@ $(document).ready(function() {
 		formData.append('itemId', itemId);
 		
 		$.ajax({
-			type:"POST"
+			type:"PUT"
 			, data: formData
 			, url: "/item/update"
 			, enctype: "multipart/form-data"

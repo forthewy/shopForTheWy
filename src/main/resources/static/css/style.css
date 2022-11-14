@@ -67,6 +67,9 @@ section {
 	border: 50px;
 	border-radius: 25px;
 }
+.basket-list-box {
+	min-height: 500px;
+}
 footer {
 	height: 100px;
 }

@@ -56,7 +56,7 @@
 		</div>
 <%-- 상품들 --%>
 		<div class="w-100">
-			<div class="item-box d-flex justify-content-between flex-wrap w-100">
+			<div class="item-box d-flex justify-content-start flex-wrap w-100">
 				<c:forEach items="${shop.itemList}" var="item">
 					<div class="mb-4 col-4">
 						<a href="/item/item_detail_view?itemId=${item.id}">

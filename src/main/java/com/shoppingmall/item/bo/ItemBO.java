@@ -52,6 +52,7 @@ public class ItemBO {
 		Seller seller = sellerBO.getSellerByUserLoginId(sellerLoginId);
 		int sellerId = seller.getId();
 
+		// 기존 이미지 삭제 후 새로운 사진 저장 테스트 완료
 		if (!ObjectUtils.isEmpty(thumbnailImg)) {
 			// 기존 사진은 지우고
 			fileManagerService.deleteFile(item.getThumbnailImg());
@@ -61,6 +62,17 @@ public class ItemBO {
 		
 		return itemDAO.updateItem(name, number, price, content, sort, imagePath, deliveryPrice, itemId);
 	};
+	
+	public int deleteItem(int itemId) {
+		
+		// 삭제할 상품을 가져온다.
+		Item item = getItemByItemId(itemId);
+		
+		// 이미지를 삭제한다.
+		fileManagerService.deleteFile(item.getThumbnailImg());
+		
+		return itemDAO.deleteItem(itemId);
+	}
 	
 	// 상품 전체 리스트
 	public List<Item> getItemBySellerId(int sellerId) {

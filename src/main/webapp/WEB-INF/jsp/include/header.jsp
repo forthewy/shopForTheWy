@@ -31,7 +31,7 @@
 		<c:when test="${not empty userId}">
 			<div class="pl-5 d-flex">
 				<div>
-					<a href="#"><img class="user-menu" alt="장바구니" src="/static/img/shoppingCart.png"></a>
+					<a href="/basket/basket_list_view"><img class="user-menu" alt="장바구니" src="/static/img/shoppingCart.png"></a>
 				</div>
 				<%-- 최근 본 상품 --%>
 				<div>

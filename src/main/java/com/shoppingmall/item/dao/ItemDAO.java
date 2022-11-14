@@ -32,6 +32,8 @@ public interface ItemDAO {
 		@Param("itemId") int itemId
 		);
 	
+	public int deleteItem(int itemId);
+	
 	public List<Item> selectItemBySellerId(int sellerId);
 	
 	public List<Item> selectItemBySellerIdLimitPage (

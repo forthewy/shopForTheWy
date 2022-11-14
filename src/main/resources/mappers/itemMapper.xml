@@ -48,6 +48,12 @@
  	WHERE
  		`id` = #{itemId}
  	</update>
+ 	<delete id="deleteItem" parameterType="int">
+ 		DELETE FROM
+ 			`item`
+ 		WHERE
+ 			`id` = #{itemId}
+ 	</delete>
  	<select id="selectItemBySellerId" parameterType="int" resultType="com.shoppingmall.item.model.Item">
  		SELECT
  			`id` 
