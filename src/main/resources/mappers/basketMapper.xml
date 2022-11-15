@@ -31,4 +31,34 @@
 			,NOW()
   		)
   	</insert>
+  	<select id="existBasketByUserIdAndItemId" parameterType="map" resultType="com.shoppingmall.basket.model.Basket">
+  		SELECT
+			`id`
+			,`userId`
+			,`itemId`
+			,`number`
+			,`createdAt`
+		FROM 
+			`basket`
+		WHERE
+			`userId` = #{userId}
+			AND
+			`itemId` = #{itemId}
+  	</select>
+  	<update id="updateBasket" parameterType="map">
+  		UPDATE
+  			`basket`
+  		SET
+  			`number` = #{number}
+  		WHERE
+			`userId` = #{userId}
+			AND
+			`itemId` = #{itemId}
+  	</update>
+  	<delete id="deleteBasket" parameterType="int">
+  		DELETE FROM
+  			`basket`
+  		WHERE
+  			`id` = #{id}
+  	</delete>
   </mapper>

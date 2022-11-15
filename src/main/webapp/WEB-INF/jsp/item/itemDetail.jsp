@@ -187,13 +187,13 @@
 				 , url:"/basket/create"
 				 , success:function(data) {
 					 if (data.code == 300) {
-						 alert('success');
+						 location.href = "/basket/basket_list_view";
 					 } else {
-						 alert('fail');
+						 alert(data.errorMessage);
 					 }
 				 }
 				 , error: function(e) {
-					 alert('error');
+					 alert('장바구니 넣기에 실패했습니다. 관리자에게 문의하여 주세요');
 				 }
 			}); // ajax 끝
 		}); // 장바구니 넣기 끝

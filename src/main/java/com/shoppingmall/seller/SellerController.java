@@ -17,6 +17,12 @@ public class SellerController {
 	@Autowired
 	private SellerBO sellerBO;
 	
+	/**
+	 * 상점 수정
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/update_view")
 	public String sellerUpdateView(
 			HttpSession session,

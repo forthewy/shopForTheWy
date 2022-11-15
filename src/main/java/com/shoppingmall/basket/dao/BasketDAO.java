@@ -17,4 +17,14 @@ public interface BasketDAO {
 			@Param("itemId") int itemId,
 			@Param("number") int number);
 	
+	public Basket existBasketByUserIdAndItemId(
+			@Param("userId") int userId,
+			@Param("itemId") int itemId);
+	
+	public int updateBasket(
+			@Param("userId") int userId,
+			@Param("itemId") int itemId,
+			@Param("number") int number);
+	
+	public int deleteBasket(int id);
 }

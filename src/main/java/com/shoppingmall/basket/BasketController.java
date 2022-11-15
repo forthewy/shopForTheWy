@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shoppingmall.basket.bo.BasketBO;
-import com.shoppingmall.basket.model.Basket;
+import com.shoppingmall.basket.model.BasketItemView;
 
 @RequestMapping("/basket")
 @Controller
@@ -24,10 +24,12 @@ public class BasketController {
 			HttpSession session,
 			Model model) {
 		
-		Integer userId = (Integer)session.getAttribute("userId");
+		// 로그인되지 않은 상태라면 인터셉터에서 로그인으로 이동
+		int userId = (int)session.getAttribute("userId");
 		
-		List<Basket> basketList = basketBO.getBasketListByUserId(userId);
-				
+		List<BasketItemView> baskteItemViewList  = basketBO.getBasketItemList(userId);
+		
+		model.addAttribute("basketItemList", baskteItemViewList);
 		model.addAttribute("viewName", "basket/basketList");
 		return "template/layout";
 	}

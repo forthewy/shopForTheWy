@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,13 @@ public class BasketRestController {
 	@Autowired
 	private BasketBO basketBO;
 	
+	/**
+	 * 장바구니 넣기
+	 * @param itemId
+	 * @param number
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("itemId") int itemId,
@@ -30,9 +38,30 @@ public class BasketRestController {
 		Integer userId = (Integer) session.getAttribute("userId"); 
 		 // DB insert
 		int row = basketBO.addBasket(userId, itemId, number);
-		 
+		
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "장바구니 넣기에 실패했습니다.");
+		}
+		
+		return result;
+	}
+	
+	@DeleteMapping("/delete")
+	public Map<String, Object> delete(
+			@RequestParam("basketId") int basketId) {
+		
+		
+		// DB delete
+		basketBO.deleteBasket(basketId);
+		
+		Map<String, Object> result = new HashMap<>();
+		
 		result.put("code", 300);
-	    result.put("result", "success");
+		result.put("result", "success");
 		
 		return result;
 	}
