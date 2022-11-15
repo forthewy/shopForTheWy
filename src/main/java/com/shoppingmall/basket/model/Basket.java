@@ -7,7 +7,6 @@ public class Basket {
 	private int userId;
 	private int itemId;
 	private int number;
-	private int price;
 	private Date createdAt;
 	public int getId() {
 		return id;
@@ -32,12 +31,6 @@ public class Basket {
 	}
 	public void setNumber(int number) {
 		this.number = number;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

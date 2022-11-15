@@ -23,13 +23,13 @@ public class BasketRestController {
 	public Map<String, Object> create(
 			@RequestParam("itemId") int itemId,
 			@RequestParam("number") int number,
-			@RequestParam("price") int price,
 			HttpSession session) {
 
 		 Map<String, Object> result = new HashMap<>();
 
+		Integer userId = (Integer) session.getAttribute("userId"); 
 		 // DB insert
-		 //int row = basketBO.insertBasket()
+		int row = basketBO.addBasket(userId, itemId, number);
 		 
 		result.put("code", 300);
 	    result.put("result", "success");

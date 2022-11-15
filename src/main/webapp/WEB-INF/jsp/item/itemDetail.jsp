@@ -12,7 +12,8 @@
 			<div class="w-50">
 				<div class="ml-3 pt-5 d-flex justify-content-between">
 					<h1>${itemDetailView.item.name}</h1>
-					<h1 class="text-success mr-5"><fmt:formatNumber value="${itemDetailView.item.price}" type="number"/> 원</h1>
+					<fmt:formatNumber value="${itemDetailView.item.price}" type="number" var="price"/>
+					<h1 class="text-success mr-5">${price} 원</h1>
 				</div>
 				<hr>
 				<div class="d-flex justify-content-end mr-5">
@@ -175,13 +176,26 @@
 			 })
 		}); // 삭제 끝
 		
+		<%-- 장바구니 넣기 --%>
 		$('#basketBtn').on('click', function() {
 			let itemId = $(this).data('item-id');
 			let number = $('#buyCount').val();
-			let price = $()
+			
 			$.ajax({
 				 type:"POST"
-				 , data:{"itemId":itemId, ""}
-		}); 
+				 , data:{"itemId":itemId, "number":number}
+				 , url:"/basket/create"
+				 , success:function(data) {
+					 if (data.code == 300) {
+						 alert('success');
+					 } else {
+						 alert('fail');
+					 }
+				 }
+				 , error: function(e) {
+					 alert('error');
+				 }
+			}); // ajax 끝
+		}); // 장바구니 넣기 끝
 	});
 </script>

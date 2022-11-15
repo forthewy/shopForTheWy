@@ -8,11 +8,27 @@
 			,`userId`
 			,`itemId`
 			,`number`
-			,`price`
 			,`createdAt`
 		FROM 
 			`basket`
 		WHERE
 			`userId` = #{userId}
   	</select>
+  	<insert id="insertBasket" parameterType="map">
+  		INSERT INTO
+  			`basket`
+  		(
+	  		`userId`
+			,`itemId`
+			,`number`
+			,`createdAt`
+  		)
+  		VALUES
+  		(
+  			#{userId}
+			,#{itemId}
+			,#{number}
+			,NOW()
+  		)
+  	</insert>
   </mapper>
