@@ -1,8 +1,8 @@
-package com.shoppingmall.basket.model;
+package com.shoppingmall.directBasket.model;
 
 import java.util.Date;
 
-public class Basket {
+public class DirectBasket {
 	private int id;
 	private int userId;
 	private int itemId;

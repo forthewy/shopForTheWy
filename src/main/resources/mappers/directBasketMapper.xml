@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.shoppingmall.directBasket.dao.DirectBasketDAO">
+ 	<insert id="insertDirectBasket" parameterType="map" useGeneratedKeys="true" keyProperty="id" >
+ 		INSERT INTO
+ 			`direct_basket`
+ 		(	
+			`userId`
+			,`itemId`
+			,`number`
+ 		)
+ 		VALUES
+ 		(
+	 		#{userId}
+	 		,#{itemId}
+	 		,#{number}
+ 		)
+ 	</insert>
+ 	<select id="selectDirectBasketById" parameterType="int" resultType="com.shoppingmall.directBasket.model.DirectBasket">
+ 		SELECT 
+ 			`id`
+ 			,`userId`
+			,`itemId`
+			,`number`
+			,`createdAt`
+ 		FROM
+ 			`direct_basket`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
+ 	<select id="selectDirectBasketByUserIdAndItemId" parameterType="map" resultType="com.shoppingmall.directBasket.model.DirectBasket">
+ 		SELECT 
+ 			`id`
+ 			,`userId`
+			,`itemId`
+			,`number`
+			,`createdAt`
+ 		FROM
+ 			`direct_basket`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND
+ 			`itemId` = #{itemId}
+ 	</select>
+ 	<delete id="deleteDirectBasketById" parameterType="int">
+ 		DELETE FROM
+ 			`direct_basket`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
+ </mapper>

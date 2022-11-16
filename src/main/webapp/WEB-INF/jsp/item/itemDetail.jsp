@@ -205,8 +205,20 @@
 			let number = $('#buyCount').val();
 			
 			$.ajax({
-				
-			})
-		})
+				type:"POST"
+			 	, data:{"itemId":itemId, "number":number}
+				, url:"/direct_basket/create"
+				, success:function(data) {
+					if (data.code == 300) {
+						 location.href = "/order/order_create_view?directBasketId=" + data.directBasketId;
+					 } else {
+						 alert(data.errorMessage);
+					 }
+				 }
+				, error:function(e) {
+					alert('바로주문에 실패했습니다. 관리자에게 문의하여 주세요');
+				}
+			}); // ajax 끝
+		});
 	});
 </script>
