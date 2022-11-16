@@ -50,18 +50,28 @@ public class BasketRestController {
 		return result;
 	}
 	
+	/**
+	 * 장바구니 삭제
+	 * @param basketId
+	 * @return
+	 */
+	
 	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
 			@RequestParam("basketId") int basketId) {
 		
-		
-		// DB delete
-		basketBO.deleteBasket(basketId);
-		
 		Map<String, Object> result = new HashMap<>();
+
+		// DB delete
+		int row = basketBO.deleteBasket(basketId);
 		
-		result.put("code", 300);
-		result.put("result", "success");
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "장바구니 삭제에 실패했습니다.");
+		}
 		
 		return result;
 	}

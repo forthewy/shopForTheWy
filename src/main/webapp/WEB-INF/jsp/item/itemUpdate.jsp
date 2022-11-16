@@ -174,7 +174,7 @@ $(document).ready(function() {
 		formData.append('itemId', itemId);
 		
 		$.ajax({
-			type:"PUT"
+			type:"POST"
 			, data: formData
 			, url: "/item/update"
 			, enctype: "multipart/form-data"
@@ -182,7 +182,6 @@ $(document).ready(function() {
 			, contentType: false
 			, success:function(data) {
 				if (data.code == 300) {
-					alert(data.result);
 					location.href = "/item/item_detail_view?itemId=" + itemId;
 				} else {
 					alert(data.errorMessage);

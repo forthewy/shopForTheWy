@@ -36,7 +36,7 @@
 							<div class="d-flex justify-content-end mr-5 mt-3">
 								<button class="btn btn-dark mr-3">상품 문의(쪽지)</button>
 								<button class="btn btn-info mr-3" type="button" id="basketBtn" data-item-id="${itemDetailView.item.id}">장바구니</button>
-								<button class="btn btn-warning">바로 주문하기</button>
+								<button class="btn btn-warning" type="button" id="directOrderBtn" data-item-id="${itemDetailView.item.id}">바로 주문하기</button>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -197,5 +197,16 @@
 				 }
 			}); // ajax 끝
 		}); // 장바구니 넣기 끝
+		
+		<%-- 바로 주문하기 버튼 --%>
+		$('#directOrderBtn').on('click', function() {
+			// 바로 주문 장바구니에 넣고,
+			let itemId = $(this).data('item-id');
+			let number = $('#buyCount').val();
+			
+			$.ajax({
+				
+			})
+		})
 	});
 </script>

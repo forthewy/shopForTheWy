@@ -83,10 +83,9 @@
 				, url: "/basket/delete"
 				, success: function(data) {
 					if (data.code == 300) {
-						alert(data.result);
 						location.reload();
 					} else {
-						alert('실패');
+						alert(data.errorMessage);
 					}
 				}
 				, error:function(e) {

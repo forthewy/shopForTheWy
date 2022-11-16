@@ -79,7 +79,7 @@ public class ItemRestController {
 	 * @return
 	 */
 	
-	@PutMapping("/update")
+	@PostMapping("/update")
 	public Map<String, Object> updateItem(
 			@RequestParam("name") String name,
 			@RequestParam("sort") String sort,

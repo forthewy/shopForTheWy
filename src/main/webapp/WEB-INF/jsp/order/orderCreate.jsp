@@ -38,7 +38,7 @@
 			</div>
 			<div class="d-flex align-items-center mb-3 pl-5">
 				<label for="phoneNumber">전화번호</label>
-				<input type="text" class="ml-4 form-control col-5 mr-4" id="phoneNumber" name="phoneNumber" value="${userPhoneNumber}">
+				<input type="text" class="ml-5 form-control col-5" id="phoneNumber" name="phoneNumber" value="${userPhoneNumber}">
 			</div>
 		</div>
 		<%-- 주문 버튼 --%>
