@@ -22,13 +22,19 @@ public class BasketBO {
 	@Autowired
 	private ItemBO itemBO;
 	
-	// 장바구니 목록 가져오기
+	// 유저아이디로 장바구니 목록 가져오기
 	public List<Basket> getBasketListByUserId(int userId) {
 		return basketDAO.selectBasketListByUserId(userId);
 	}
 	
+	public List<BasketItemView> getBasketItemViewList(int[] basketIdArr) {
+		
+		
+		return ;
+	}
+	
 	// 장바구니에 아이템 정보 넣기
-	public List<BasketItemView> getBasketItemList(int userId) {
+	public List<BasketItemView> getBasketItemViewList(int userId) {
 		List<BasketItemView> baskteItemViewList = new ArrayList<>();
 		// 유저의 장바구니 목록을 가져온다.
 		List<Basket> basketList = getBasketListByUserId(userId);

@@ -9,7 +9,7 @@
 		<c:forEach items="${basketItemList}" var="basketItem">
 			<div class="d-flex pl-3">
 				<div class="col-2">
-					<input type="checkbox" class="col-1" data-basket-id="${basketItem.basket.id}"">
+					<input type="checkbox" name="check" class="col-1" value="${basketItem.basket.id}" data-basket-id="${basketItem.basket.id}">
 					<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
 						<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="80%">
 					</a>
@@ -49,29 +49,13 @@
 			<h1>총 금액 <span id="totalPrice">0</span>원</h1>
 		</div>
 		<div class="d-flex justify-content-center mb-5">
-			<button class="btn btn-success col-2" id="orderBtn" type="button" onClick="location.href='/order/order_create_view'">주문하기</button>
+			<button class="btn btn-success col-2" id="orderBtn" type="button">주문하기</button>
 		</div>
 	</div>
 </div>
 
 <script>
 	$(document).ready(function() {
-		<%-- 총 금액 계산 --%>
-		$("input:checkbox").on('change', function() {
-			let price = $(this).data('price');
-			$('#totalPrice').html('0');
-			
-			if($(this).is(":checked")) {
-				let totalPrice = $('#totalPrice').val() + price;
-				$('#totalPrice').html(totalPrice);
-				return false;
-			} else {
-				let totalPrice = $('#totalPrice').val() - price;
-				$('#totalPrice').html(totalPrice);
-				return false;
-			}
-		}); 
-		
 		<%-- 장바구니 삭제 --%>
 		$('.delete-btn').on('click', function() {
 			
@@ -94,7 +78,16 @@
 			});
 		}); // 장바구니 삭제 끝
 		
-		
+		<%-- 주문 버튼 클릭 --%>
+		$('#orderBtn').on('click', function() {
+			let basketIdArr = new Array();
+			 $('input:checkbox[name=check]:checked').each(function() {
+				 basketIdArr.push(this.value);
+			 });
+			 
+			 location.href="/order/order_create_view?basketIdArr=" + basketIdArr;
+			 
+		}); // 주문 버튼 클릭 끝
 	});
 
 </script>

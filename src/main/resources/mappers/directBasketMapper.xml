@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.shoppingmall.directBasket.dao.DirectBasketDAO">
- 	<insert id="insertDirectBasket" parameterType="map" useGeneratedKeys="true" keyProperty="id" >
+ 	<insert id="insertDirectBasket" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id">
  		INSERT INTO
  			`direct_basket`
  		(	
@@ -16,6 +16,9 @@
 	 		,#{itemId}
 	 		,#{number}
  		)
+ 		<selectKey keyProperty="id" resultType="integer" order="AFTER">
+ 			SELECT LAST_INSERT_ID()
+ 		</selectKey>
  	</insert>
  	<select id="selectDirectBasketById" parameterType="int" resultType="com.shoppingmall.directBasket.model.DirectBasket">
  		SELECT 

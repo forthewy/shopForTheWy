@@ -1,5 +1,7 @@
 package com.shoppingmall.order;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +21,11 @@ public class OrderViewController {
 	@RequestMapping("/order_create_view")
 	public String orderCreateView(
 			@RequestParam(value="directBasketId", required=false) Integer directBasketId,
+			@RequestParam(value="basketIdList", required=false) int[] basketIdArr,
 			Model model) {
 		
 		
-		OrderView orderView = orderViewBO.generateOrderView(directBasketId);
+		OrderView orderView = orderViewBO.generateOrderView(directBasketId, basketIdArr);
 		
 		model.addAttribute("orderView", orderView);
 		model.addAttribute("viewName", "order/orderCreate");

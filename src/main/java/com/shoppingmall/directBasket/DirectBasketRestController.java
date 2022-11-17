@@ -16,7 +16,6 @@ import com.shoppingmall.directBasket.bo.DirectBasketBO;
 @RequestMapping("/direct_basket")
 @RestController
 public class DirectBasketRestController {
-	// 바로주문은 주문 안되면 basket이 바로 삭제되도록 만들것!
 	
 	@Autowired
 	private DirectBasketBO directBasketBO;
@@ -31,15 +30,15 @@ public class DirectBasketRestController {
 
 		Integer userId = (Integer) session.getAttribute("userId"); 
 		
-		// DB insert 후 selectKey 로 insert 한 값의 pk를 바로 가져온다.
+		// DB insert 
 		Integer directBasketId = directBasketBO.addDirectBasket(userId, itemId, number);
 		
-		if (ObjectUtils.isEmpty(directBasketId)) {
-			result.put("code", 500);
-			result.put("errorMessage", "바로 주문에 실패했습니다.");
-		} else {
+		if (!ObjectUtils.isEmpty(directBasketId)) {
 			result.put("code", 300);
 			result.put("directBasketId", directBasketId);
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "바로 주문에 실패했습니다");
 		}
 		
 		return result;

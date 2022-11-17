@@ -1,5 +1,8 @@
 package com.shoppingmall.directBasket.bo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -20,18 +23,26 @@ public class DirectBasketBO {
 	@Autowired
 	private ItemBO itemBO;
 	
+	// insert 하고 id 를 바로 받아온다.
 	public Integer addDirectBasket(int userId, int itemId, int number) {
+		
 		// 같은 상품을 바로 주문 한적 있는 지 확인
 		DirectBasket directBasket = getDirectBasketByUserIdAndItemId(userId, itemId);
 		
-		// 없다면 새로 넣는다
-		if (ObjectUtils.isEmpty(directBasket)) {
-			return directBasketDAO.insertDirectBasket(userId, itemId, number);
-		} else {
-		// 있다면 지우고 새로 넣는다.	
+		// 있다면 먼저 지운다.
+		if (!ObjectUtils.isEmpty(directBasket)) {
 			deleteDirectBasketById(directBasket.getId());
-			return directBasketDAO.insertDirectBasket(userId, itemId, number);
 		}
+		
+		Map<String, Object> directBasketMap = new HashMap<>();
+		directBasketMap.put("id", null);
+		directBasketMap.put("userId", userId);
+		directBasketMap.put("itemId", itemId);
+		directBasketMap.put("number", number);
+		
+		directBasketDAO.insertDirectBasket(directBasketMap);
+		
+		return (Integer) directBasketMap.get("id");
 	}
 	
 	public DirectBasket getDirectBasketById(int id) {

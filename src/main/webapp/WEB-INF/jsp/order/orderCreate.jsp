@@ -8,12 +8,21 @@
 		<%-- 주문한 상품 목록 --%>
 		<div class="ml-5">
 			<div class="d-flex">
-				<img src="/static/img/menu.png" width="70px" alt="상품 썸네일 사진">
-				<div class="ml-5">
-					<h4>상품명</h4>
-					<h4>상품 금액</h4>
-					<h4>배달비</h4>
-				</div>
+				<c:choose>
+					<%-- 바로 주문이라면 --%>
+					<c:when test="${orderView.directBasketItemView ne null}">
+						<img src="${orderView.directBasketItemView.item.thumbnailImg}" width="70px" alt="상품 썸네일 사진">
+						<div class="ml-5">
+							<h4>${orderView.directBasketItemView.item.name}</h4>
+							<h4>${orderView.directBasketItemView.item.price}</h4>
+							<h4>${orderView.directBasketItemView.item.deliveryPrice}</h4>
+						</div>
+					</c:when>
+					<%-- 장바구니 주문이라면 --%>
+					<%-- <c:otherwise>
+						<c:forEach></c:forEach>
+					</c:otherwise> --%>
+				</c:choose>
 			</div>
 		</div>
 		<%-- 총 금액 --%>
