@@ -9,7 +9,7 @@
 		<c:forEach items="${basketItemList}" var="basketItem">
 			<div class="d-flex pl-3">
 				<div class="col-2">
-					<input type="checkbox" name="check" class="col-1" value="${basketItem.basket.id}" data-basket-id="${basketItem.basket.id}">
+					<input type="checkbox" name="check" class="col-1" value="${basketItem}" data-basket-id="${basketItem.basket.id}">
 					<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
 						<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="80%">
 					</a>
@@ -49,7 +49,7 @@
 			<h1>총 금액 <span id="totalPrice">0</span>원</h1>
 		</div>
 		<div class="d-flex justify-content-center mb-5">
-			<button class="btn btn-success col-2" id="orderBtn" type="button">주문하기</button>
+			<button class="btn btn-success col-2" id="orderBtn" type="submit">주문하기</button>
 		</div>
 	</div>
 </div>
@@ -84,8 +84,7 @@
 			 $('input:checkbox[name=check]:checked').each(function() {
 				 basketIdArr.push(this.value);
 			 });
-			 
-			 location.href="/order/order_create_view?basketIdArr=" + basketIdArr;
+			 alert(basketIdArr);
 			 
 		}); // 주문 버튼 클릭 끝
 	});

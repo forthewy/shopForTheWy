@@ -7,14 +7,15 @@ import com.shoppingmall.directBasket.model.DirectBasketItemView;
 
 public class OrderView {
 	
-	private List<BasketItemView> BasketItemViewList;
+	private List<BasketItemView> basketItemViewList;
 	private DirectBasketItemView directBasketItemView;
 	
+	
 	public List<BasketItemView> getBasketItemViewList() {
-		return BasketItemViewList;
+		return basketItemViewList;
 	}
 	public void setBasketItemViewList(List<BasketItemView> basketItemViewList) {
-		BasketItemViewList = basketItemViewList;
+		this.basketItemViewList = basketItemViewList;
 	}
 	public DirectBasketItemView getDirectBasketItemView() {
 		return directBasketItemView;
@@ -22,6 +23,6 @@ public class OrderView {
 	public void setDirectBasketItemView(DirectBasketItemView directBasketItemView) {
 		this.directBasketItemView = directBasketItemView;
 	}
-	
 }
+	
 	

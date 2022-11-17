@@ -27,14 +27,14 @@ public class BasketBO {
 		return basketDAO.selectBasketListByUserId(userId);
 	}
 	
-	public List<BasketItemView> getBasketItemViewList(int[] basketIdArr) {
-		
-		
-		return ;
+	// 장바구니 아이디 리스크로 장바구니 목록 가져오기
+	public List<Basket> getBasketListByBasketIdList(List<Integer> basketIdList) {
+		return basketDAO.selectBasketListByBasketIdList(basketIdList);
 	}
 	
-	// 장바구니에 아이템 정보 넣기
-	public List<BasketItemView> getBasketItemViewList(int userId) {
+	
+	// 유저의 장바구니 화면에 아이템 정보 같이 가져오기
+	public List<BasketItemView> generateBasketItemViewListByUserId(int userId) {
 		List<BasketItemView> baskteItemViewList = new ArrayList<>();
 		// 유저의 장바구니 목록을 가져온다.
 		List<Basket> basketList = getBasketListByUserId(userId);
@@ -50,6 +50,26 @@ public class BasketBO {
 		}
 		return baskteItemViewList;
 	}
+	
+	// 주문서용 장바구니 화면 구성
+	public List<BasketItemView> generateBasketItemViewListBy(List<Integer> basketIdList) {
+		List<BasketItemView> baskteItemViewList = new ArrayList<>();
+		
+		// 유저의 장바구니 목록을 가져온다.
+		List<Basket> basketList = getBasketListByBasketIdList(basketIdList);
+		
+		for (Basket basket: basketList) {
+			BasketItemView basketItemView = new BasketItemView();
+			Item item = itemBO.getItemByItemId(basket.getItemId());
+			
+			basketItemView.setBasket(basket);
+			basketItemView.setItem(item);
+			
+			baskteItemViewList.add(basketItemView);
+		}
+		return baskteItemViewList;
+	}
+	
 	
 	// 장바구니 넣기
 	public int addBasket(int userId, int itemId, int number) {

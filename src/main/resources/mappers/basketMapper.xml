@@ -14,6 +14,20 @@
 		WHERE
 			`userId` = #{userId}
   	</select>
+  	<select id="selectBasketListByBasketIdList" parameterType="list" resultType="com.shoppingmall.basket.model.Basket">
+  		SELECT
+			`id`
+			,`userId`
+			,`itemId`
+			,`number`
+			,`createdAt`
+		FROM 
+			`basket`
+		WHERE
+			<foreach collection="list" item="id">
+				`id` = 
+			</foreach>
+  	</select>
   	<insert id="insertBasket" parameterType="map">
   		INSERT INTO
   			`basket`

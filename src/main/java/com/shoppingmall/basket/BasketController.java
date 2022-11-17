@@ -27,7 +27,7 @@ public class BasketController {
 		// 로그인되지 않은 상태라면 인터셉터에서 로그인으로 이동
 		int userId = (int)session.getAttribute("userId");
 		
-		List<BasketItemView> baskteItemViewList  = basketBO.getBasketItemList(userId);
+		List<BasketItemView> baskteItemViewList  = basketBO.generateBasketItemViewListByUserId(userId);
 		
 		model.addAttribute("basketItemList", baskteItemViewList);
 		model.addAttribute("viewName", "basket/basketList");

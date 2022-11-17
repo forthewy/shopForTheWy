@@ -1,5 +1,7 @@
 package com.shoppingmall.order.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -19,7 +21,7 @@ public class OrderViewBO {
 	@Autowired
 	private DirectBasketBO directBasketBO;
 	
-	public OrderView generateOrderView(Integer directBasketId, int[] basketIdArr) {
+	public OrderView generateOrderView(Integer directBasketId, List<Integer> basketIdList) {
 		
 		OrderView orderView = new OrderView();
 		
@@ -28,9 +30,9 @@ public class OrderViewBO {
 			DirectBasketItemView directBasketView = directBasketBO.generateDirectBasketItemView(directBasketId);
 			orderView.setDirectBasketItemView(directBasketView);
 		} else {
-			BasketItemView basketItemView = ;
+			basketBO.get
+			orderView.setBasketItemViewList(basketItemViewList);
 		}
-		
 		return orderView;
 	}
 }

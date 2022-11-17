@@ -14,13 +14,15 @@
 						<img src="${orderView.directBasketItemView.item.thumbnailImg}" width="70px" alt="상품 썸네일 사진">
 						<div class="ml-5">
 							<h4>${orderView.directBasketItemView.item.name}</h4>
-							<h4>${orderView.directBasketItemView.item.price}</h4>
+							<h4 id="directPrice" value="${orderView.directBasketItemView.item.price}">${orderView.directBasketItemView.item.price}</h4>
 							<h4>${orderView.directBasketItemView.item.deliveryPrice}</h4>
 						</div>
 					</c:when>
 					<%-- 장바구니 주문이라면 --%>
 					<%-- <c:otherwise>
-						<c:forEach></c:forEach>
+						<c:forEach items="${orderView.basketItemViewArr}" var="basketItem">
+							${basketItem}
+						</c:forEach>
 					</c:otherwise> --%>
 				</c:choose>
 			</div>
@@ -31,7 +33,7 @@
 			총 금액 = 상품 가격 + 배송비
 		</div>
 		<%-- 주문자 정보 --%>
-		<div>
+		<form id="userInfoForm" action="/basket_order/create">
 			<div class="d-flex align-items-center mb-3 pl-5">
 				<label for="name" class="pr-5">이름</label>
 				<input type="text" class="ml-4 form-control col-4" id="name" name="name" value="${userName}">
@@ -49,10 +51,47 @@
 				<label for="phoneNumber">전화번호</label>
 				<input type="text" class="ml-5 form-control col-5" id="phoneNumber" name="phoneNumber" value="${userPhoneNumber}">
 			</div>
-		</div>
-		<%-- 주문 버튼 --%>
-		<div class="d-flex justify-content-center">
-			<button class="btn btn-info">주문 완료</button>
-		</div>
+			<%-- 주문 버튼 --%>
+			<div class="d-flex justify-content-center">
+				<button class="btn btn-info" type="submit" id="orderFinishBtn">주문 완료</button>
+			</div>
+		</form>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		$('#userInfoForm').on('submit', function(e) {
+			e.preventDefault();
+			
+			let url = $(this).attr('action');
+			let params = $(this).serialize();
+			
+			let postcode = $('#postcode').val();
+			let roadAddress = $('#roadAddress').val();
+			let extraAddress = $('#extraAddress').val();
+			
+			let address = postcode + "/" + roadAddress  + "/" + extraAddress;
+			let price = $('#directPrice').val();
+			// 주소 추가
+			params += "&address=" + address;
+			
+			params += "&directBasketId=" + "${orderView.directBasketItemView.directBasket.id}";
+			params += "&price=" + 100;
+			
+			console.log(params);
+			
+			$.post(url, params)
+			.done(function(data) {
+				if (data.code == 300) {
+					alert("주문!");
+					location.href = "/home/home_view";
+				} else {
+					alert("실패!");
+				}
+			});
+		});
+		
+	});
+
+</script>

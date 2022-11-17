@@ -12,6 +12,8 @@ public interface BasketDAO {
 
 	public List<Basket> selectBasketListByUserId(int userId);
 	
+	public List<Basket> selectBasketListByBasketIdList(List<Integer> basketIdList);
+	
 	public int insertBasket(
 			@Param("userId") int userId,
 			@Param("itemId") int itemId,

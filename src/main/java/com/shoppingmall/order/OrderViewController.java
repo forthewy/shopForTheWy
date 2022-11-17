@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shoppingmall.basket.model.BasketItemView;
 import com.shoppingmall.order.bo.OrderViewBO;
 import com.shoppingmall.order.model.OrderView;
 
@@ -21,11 +22,11 @@ public class OrderViewController {
 	@RequestMapping("/order_create_view")
 	public String orderCreateView(
 			@RequestParam(value="directBasketId", required=false) Integer directBasketId,
-			@RequestParam(value="basketIdList", required=false) int[] basketIdArr,
+			@RequestParam(value="basketIdList", required=false) List<BasketItemView> basketItemViewList,
 			Model model) {
 		
 		
-		OrderView orderView = orderViewBO.generateOrderView(directBasketId, basketIdArr);
+		OrderView orderView = orderViewBO.generateOrderView(directBasketId, basketItemViewList);
 		
 		model.addAttribute("orderView", orderView);
 		model.addAttribute("viewName", "order/orderCreate");
