@@ -6,52 +6,55 @@
 		<h1 class="pl-3 pt-3"><b>장바구니 목록</b></h1>
 		<hr>
 		<%-- 장바구니 상품 --%>
-		<c:forEach items="${basketItemList}" var="basketItem">
-			<div class="d-flex pl-3">
-				<div class="col-2">
-					<input type="checkbox" name="check" class="col-1" value="${basketItem.basket.id}" data-price="${basketItem.item.price}">
-					<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
-						<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="80%">
-					</a>
-				</div>
-				<div class="col-8 d-flex">
-					<div class="d-flex align-items-center col-3">
-						<div class="w-100">
-							<h2>${basketItem.item.name}</h2>
-						</div>
+		<form action="/order/order_create_view" method="post" id="basketOrderForm">
+			<c:forEach items="${basketItemList}" var="basketItem">
+				<%-- 개당 가격 --%>
+				<c:set value="${basketItem.item.price}" var="eachPrice"/>	
+				<%-- 배송비 --%>	
+				<c:set value="${basketItem.item.deliveryPrice}" var="deliveryPrice"/>
+				<%-- 바구니에 넣은 갯수 --%>						
+				<c:set value="${basketItem.basket.number}" var="basketNumber"/>
+				<div class="d-flex pl-3">
+					<div class="col-2">
+						<input type="checkbox" name="check" class="col-1" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
+						<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
+							<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="80%">
+						</a>
 					</div>
-					<div>
-						<div class="d-flex align-items-center h-100 ">
-							<%-- 바구니에 넣은 갯수 --%>						
-							<c:set value="${basketItem.basket.number}" var="basketNumber"/>
-							<h4>장바구니에 담은 갯수 : ${basketNumber}</h4>
+					<div class="col-8 d-flex">
+						<div class="d-flex align-items-center col-3">
+							<div class="w-100">
+								<h2>${basketItem.item.name}</h2>
+							</div>
 						</div>
-					</div>
-					<div class="d-flex justify-content-end align-items-center ml-5">
 						<div>
-							<%-- 개당 가격 --%>
-							<c:set value="${basketItem.item.price}" var="eachPrice"/>	
-							<h4>개당 가격 : ${eachPrice}</h4>
-							<%-- 배송비 --%>	
-							<c:set value="${basketItem.item.deliveryPrice}" var="deliveryPrice"/>				
-							<h4>배송비 : ${deliveryPrice}</h4>
-							<h4>가격 : <span class="price">${eachPrice * basketNumber + deliveryPrice}</span>원</h4>
+							<div class="d-flex align-items-center h-100 ">
+								<h4>장바구니에 담은 갯수 : ${basketNumber}</h4>
+							</div>
+						</div>
+						<div class="d-flex justify-content-end align-items-center ml-5">
+							<div>
+								<h4>개당 가격 : ${eachPrice}</h4>
+								<h4>배송비 : ${deliveryPrice}</h4>
+								<h4>가격 : <span class="price">${eachPrice * basketNumber + deliveryPrice}</span>원</h4>
+							</div>
 						</div>
 					</div>
+					<div class="d-flex align-items-center pl-3">
+						<button class="delete-btn btn btn-danger" data-basket-id="${basketItem.basket.id}">장바구니에서 삭제</button>
+					</div>
 				</div>
-				<div class="d-flex align-items-center pl-3">
-					<button class="delete-btn btn btn-danger" data-basket-id="${basketItem.basket.id}">장바구니에서 삭제</button>
-				</div>
+				<hr>
+			</c:forEach>
+			<%-- 총 금액 --%>
+			<div class="d-flex justify-content-end mr-3">
+				<input type="text" value="0" id="totalPrice" class="d-none">
+				<h1>총 금액 <span id="span">0</span>원</h1>
 			</div>
-			<hr>
-		</c:forEach>
-		<%-- 총 금액 --%>
-		<div class="d-flex justify-content-end mr-3">
-			<h1>총 금액 <input type="text" value="0" id="totalPrice">원</h1>
-		</div>
-		<div class="d-flex justify-content-center mb-5">
-			<button class="btn btn-success col-2" id="orderBtn" type="submit">주문하기</button>
-		</div>
+			<div class="d-flex justify-content-center mb-5">
+				<button class="btn btn-success col-2" id="orderBtn" type="submit">주문하기</button>
+			</div>
+		</form>
 	</div>
 </div>
 
@@ -62,11 +65,11 @@
 			if ($(this).prop('checked') ) {
 				let price = parseInt($(this).data('price'));
 				let totalPrice = parseInt($('#totalPrice').val());
-				$('#totalPrice').val(totalPrice+price);
-		      } else {
-		    	  let price = parseInt($(this).data('price'));
-				  let totalPrice = parseInt($('#totalPrice').val());
-				  $('#totalPrice').val(totalPrice-price);
+				$('#span').text($('#totalPrice').val(totalPrice+price).val());
+		      } else {		    	  
+				let price = parseInt($(this).data('price'));
+				let totalPrice = parseInt($('#totalPrice').val());
+				$('#span').text($('#totalPrice').val(totalPrice-price).val());
 		      }
 		 });
 		
@@ -93,14 +96,15 @@
 		}); // 장바구니 삭제 끝
 		
 		<%-- 주문 버튼 클릭 --%>
-		$('#orderBtn').on('click', function() {
-			let basketIdArr = new Array();
-			 $('input:checkbox[name=check]:checked').each(function() {
-				 basketIdArr.push(this.value);
+		$('#basketOrderForm').on('submit', function(e) {
+			
+			 let url = $(this).attr('action');
+			 let params = $(this).serialize();
+			 
+			 $.post(url, params)
+			 .done({
+				 // 화면으로 넘어간다
 			 });
-			
-			 console.log("obj: " + JSON.stringify(basketIdArr));
-			
 		}); // 주문 버튼 클릭 끝
 	});
 

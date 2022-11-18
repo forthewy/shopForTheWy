@@ -55,7 +55,7 @@ public class BasketBO {
 	public List<BasketItemView> generateBasketItemViewListBy(List<Integer> basketIdList) {
 		List<BasketItemView> baskteItemViewList = new ArrayList<>();
 		
-		// 유저의 장바구니 목록을 가져온다.
+		// 선택한 장바구니 목록을 가져온다.
 		List<Basket> basketList = getBasketListByBasketIdList(basketIdList);
 		
 		for (Basket basket: basketList) {
@@ -92,12 +92,12 @@ public class BasketBO {
 		return basketDAO.existBasketByUserIdAndItemId(userId, itemId);
 	}
 	
-	//장바구니 삭제
+	// 장바구니 삭제
 	public int deleteBasket(int id) {
 		return basketDAO.deleteBasket(id); 
 	}
 	
-	
+	// 장바구니 수정
 	public int updateBasket(int userId, int itemId, int number) {
 		return basketDAO.updateBasket(userId, itemId, number);
 	}

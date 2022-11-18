@@ -22,7 +22,7 @@ public class OrderViewController {
 	@RequestMapping("/order_create_view")
 	public String orderCreateView(
 			@RequestParam(value="directBasketId", required=false) Integer directBasketId,
-			@RequestParam(value="basketIdList", required=false) List<Integer> basketIdList,
+			@RequestParam(value="check", required=false) List<Integer> basketIdList,
 			Model model) {
 		
 		

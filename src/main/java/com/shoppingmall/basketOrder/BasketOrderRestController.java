@@ -20,20 +20,20 @@ public class BasketOrderRestController {
 	@Autowired
 	private BasketOrderBO basketOrderBO;
 	
-	@PostMapping("create")
+	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("name") String name,
 			@RequestParam("address") String address,
 			@RequestParam("phoneNumber") String phoneNumber,
-			@RequestParam(value="directBasketId", required=false) int directBasketId,
-			@RequestParam("price") int price,
+			@RequestParam(value="directBasketId", required=false) Integer directBasketId,
+			@RequestParam(value="directPrice", required=false) Integer directPrice,
 			HttpSession session
 			) {
 		
 		Integer userId = (Integer) session.getAttribute("userId");
 		
 		// 주문 도중에 금액을 바꾸는 상점이 있을 수 있기에 가격은 주문서 그대로 가져오기로 한다.
-		basketOrderBO.addBasketOrder(userId, name, phoneNumber, address,  directBasketId, price);
+		basketOrderBO.addBasketOrder(userId, name, phoneNumber, address,  directBasketId, directPrice);
 		
 		Map<String, Object> result = new HashMap<>();
 		

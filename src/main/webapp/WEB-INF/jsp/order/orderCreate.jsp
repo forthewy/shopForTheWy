@@ -3,42 +3,67 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="d-flex justify-content-center ">
-	<div class="order-box w-50 bg-warning">
+	<div class="order-box w-50">
 		<h1 class="pl-3 pt-3 text-center"><b>주문서</b></h1>
+		<form id="orderForm" action="/basket_order/create" method="post">
 		<%-- 주문한 상품 목록 --%>
-		<div class="ml-5">
-			<div class="d-flex">
-				<c:choose>
-					<%-- 바로 주문이라면 --%>
-					<c:when test="${orderView.directBasketItemView ne null}">
-						<img src="${orderView.directBasketItemView.item.thumbnailImg}" width="70px" alt="상품 썸네일 사진">
-						<div class="ml-5">
-							<h4>${orderView.directBasketItemView.item.name}</h4>
-							<h4>개당 금액: ${orderView.directBasketItemView.item.price}</h4>
-							<h4>배송비 :${orderView.directBasketItemView.item.deliveryPrice}</h4>
-							<h4>갯수 : ${orderView.directBasketItemView.directBasket.number}</h4>
-						</div>
-					</c:when>
-					<%-- 장바구니 주문이라면 --%>
-					<%-- <c:otherwise>
-						<c:forEach items="${orderView.basketItemViewArr}" var="basketItem">
-							${basketItem}
-						</c:forEach>
-					</c:otherwise> --%>
-				</c:choose>
+			<div class="ml-5">
+				<div class="d-flex">
+					<c:choose>
+						<%-- 바로 주문이라면 --%>
+						<c:when test="${orderView.directBasketItemView ne null}">
+							<img src="${orderView.directBasketItemView.item.thumbnailImg}" width="150px" alt="상품 썸네일 사진">
+							<div class="ml-5">
+								<%-- 바로주문 id --%>
+								<c:set value="${orderView.directBasketItemView.directBasket.id}" var="directId"/>
+								<%-- 개당 금액 --%>
+								<c:set value="${orderView.directBasketItemView.item.price}" var="directEachPrice"/>
+								<%-- 배송비 --%>
+								<c:set value="${orderView.directBasketItemView.item.deliveryPrice}" var="directDeliveryPrice"/>
+								<%-- 주문할 갯수 --%>
+								<c:set value="${orderView.directBasketItemView.directBasket.number}" var="directCount"/>
+								<h4>${orderView.directBasketItemView.item.name}</h4>
+								<h4>개당 금액: ${directEachPrice}</h4>
+								<h4>배송비 :${directDeliveryPrice}</h4>
+								<h4>갯수 : ${directCount}</h4>
+								<%-- 상품 금액 --%>
+								<c:set value="${directEachPrice * directCount + directDeliveryPrice}" var="directPrice"/>
+								<h4>상품 금액 : ${directPrice}</h4>
+							</div>
+						</c:when>
+						<%-- 장바구니 주문이라면 --%>
+						<c:otherwise>
+							<div class="w-100">
+								<c:forEach items="${orderView.basketItemViewList}" var="basketItem">
+									<div class="d-flex w-100">
+										<img src="${basketItem.item.thumbnailImg}" width="150px" alt="상품 썸네일 사진">
+										<div class="m-3">
+											<h4>${basketItem.item.name}</h4>
+											<%-- 개당 금액 --%>
+											<c:set value="${basketItem.item.price}" var="eachPrice"/>
+											<%-- 주문할 갯수 --%>
+											<c:set value="${basketItem.basket.number}" var="count"/>
+											<%-- 배송비 --%>
+											<c:set value="${basketItem.item.deliveryPrice}" var="deliveryPrice"/>
+											<h4>개당 금액: ${eachPrice}</h4>
+											<h4>배송비 :${deliveryPrice}</h4>
+											<h4>갯수 : ${count}</h4>
+											<h4>상품 금액 : ${eachPrice * count + deliveryPrice}</h4>
+										</div>
+									</div>
+									<hr>
+								</c:forEach>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
-		</div>
-		<%-- 총 금액 --%>
-		<hr>
-		<div class="d-flex justify-content-end mr-5">
-			<c:set value="${orderView.directBasketItemView.item.price}" var="eachPrice"/>
-			<c:set value="${orderView.directBasketItemView.directBasket.number}" var="count"/>
-			<c:set value="${orderView.directBasketItemView.item.deliveryPrice}" var="deliveryPrice"/>
-			<h3>총 금액 = ${eachPrice * count + deliveryPrice} 원</h3>
-			<c:set value="${eachPrice * count + deliveryPrice}" var="totalPrice"/>
-		</div>
-		<%-- 주문자 정보 --%>
-		<form id="userInfoForm" action="/basket_order/create">
+			<%-- 총 금액 --%>
+			<div class="d-flex justify-content-end mr-5">
+				<h3>총 금액 = <span></span> 원</h3>
+				<c:set value="${eachPrice * count + deliveryPrice}" var="totalPrice"/>
+			</div>
+			<%-- 주문자 정보 --%>
 			<div class="d-flex align-items-center mb-3 pl-5">
 				<label for="name" class="pr-5">이름</label>
 				<input type="text" class="ml-4 form-control col-4" id="name" name="name" value="${userName}">
@@ -58,7 +83,7 @@
 			</div>
 			<%-- 주문 버튼 --%>
 			<div class="d-flex justify-content-center">
-				<button class="btn btn-info" type="submit" id="orderFinishBtn">주문 완료</button>
+				<button class="btn btn-info mb-5" type="submit" id="orderFinishBtn">주문 완료</button>
 			</div>
 		</form>
 	</div>
@@ -66,9 +91,10 @@
 
 <script>
 	$(document).ready(function() {
-		$('#userInfoForm').on('submit', function(e) {
+		$('#orderForm').on('submit', function(e) {
 			e.preventDefault();
 			
+			//공통 부분
 			let url = $(this).attr('action');
 			let params = $(this).serialize();
 			
@@ -77,12 +103,15 @@
 			let extraAddress = $('#extraAddress').val();
 			
 			let address = postcode + "/" + roadAddress  + "/" + extraAddress;
-			let price = $('#directPrice').val();
-			// 주소 추가
 			params += "&address=" + address;
 			
-			params += "&directBasketId=" + "${orderView.directBasketItemView.directBasket.id}";
-			params += "&price=" + ${totalPrice};
+			// 바로 주문			
+			params += "&directBasketId=" + "${directId}";
+			params += "&directPrice=" + "${directPrice}";
+			
+			//장바구니 주문
+			let basketMap = new Map();
+			
 			
 			console.log(params);
 			
