@@ -24,8 +24,8 @@
 		FROM 
 			`basket`
 		WHERE
-			<foreach collection="list" item="id">
-				`id` = 
+			<foreach collection="basketIdList" item="id" separator="," open="(" close=")">
+				`id` = #{id}
 			</foreach>
   	</select>
   	<insert id="insertBasket" parameterType="map">

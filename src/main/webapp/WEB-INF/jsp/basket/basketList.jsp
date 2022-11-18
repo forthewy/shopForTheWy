@@ -9,7 +9,7 @@
 		<c:forEach items="${basketItemList}" var="basketItem">
 			<div class="d-flex pl-3">
 				<div class="col-2">
-					<input type="checkbox" name="check" class="col-1" value="${basketItem}" data-basket-id="${basketItem.basket.id}">
+					<input type="checkbox" name="check" class="col-1" value="${basketItem.basket.id}" data-price="${basketItem.item.price}">
 					<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
 						<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="80%">
 					</a>
@@ -31,10 +31,11 @@
 						<div>
 							<%-- 개당 가격 --%>
 							<c:set value="${basketItem.item.price}" var="eachPrice"/>	
+							<h4>개당 가격 : ${eachPrice}</h4>
 							<%-- 배송비 --%>	
 							<c:set value="${basketItem.item.deliveryPrice}" var="deliveryPrice"/>				
-							<h4>가격 : <span class="price">${eachPrice * basketNumber}</span>원</h4>
 							<h4>배송비 : ${deliveryPrice}</h4>
+							<h4>가격 : <span class="price">${eachPrice * basketNumber + deliveryPrice}</span>원</h4>
 						</div>
 					</div>
 				</div>
@@ -46,7 +47,7 @@
 		</c:forEach>
 		<%-- 총 금액 --%>
 		<div class="d-flex justify-content-end mr-3">
-			<h1>총 금액 <span id="totalPrice">0</span>원</h1>
+			<h1>총 금액 <input type="text" value="0" id="totalPrice">원</h1>
 		</div>
 		<div class="d-flex justify-content-center mb-5">
 			<button class="btn btn-success col-2" id="orderBtn" type="submit">주문하기</button>
@@ -56,6 +57,19 @@
 
 <script>
 	$(document).ready(function() {
+		<%-- 체크 박스 클릭시 총금액 변하게 하기 --%>
+		$("input:checkbox").on('click', function() {
+			if ($(this).prop('checked') ) {
+				let price = parseInt($(this).data('price'));
+				let totalPrice = parseInt($('#totalPrice').val());
+				$('#totalPrice').val(totalPrice+price);
+		      } else {
+		    	  let price = parseInt($(this).data('price'));
+				  let totalPrice = parseInt($('#totalPrice').val());
+				  $('#totalPrice').val(totalPrice-price);
+		      }
+		 });
+		
 		<%-- 장바구니 삭제 --%>
 		$('.delete-btn').on('click', function() {
 			
@@ -84,8 +98,9 @@
 			 $('input:checkbox[name=check]:checked').each(function() {
 				 basketIdArr.push(this.value);
 			 });
-			 alert(basketIdArr);
-			 
+			
+			 console.log("obj: " + JSON.stringify(basketIdArr));
+			
 		}); // 주문 버튼 클릭 끝
 	});
 

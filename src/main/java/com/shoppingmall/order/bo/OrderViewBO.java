@@ -30,7 +30,7 @@ public class OrderViewBO {
 			DirectBasketItemView directBasketView = directBasketBO.generateDirectBasketItemView(directBasketId);
 			orderView.setDirectBasketItemView(directBasketView);
 		} else {
-			basketBO.get
+			List<BasketItemView> basketItemViewList = basketBO.generateBasketItemViewListBy(basketIdList);
 			orderView.setBasketItemViewList(basketItemViewList);
 		}
 		return orderView;

@@ -14,8 +14,9 @@
 						<img src="${orderView.directBasketItemView.item.thumbnailImg}" width="70px" alt="상품 썸네일 사진">
 						<div class="ml-5">
 							<h4>${orderView.directBasketItemView.item.name}</h4>
-							<h4 id="directPrice" value="${orderView.directBasketItemView.item.price}">${orderView.directBasketItemView.item.price}</h4>
-							<h4>${orderView.directBasketItemView.item.deliveryPrice}</h4>
+							<h4>개당 금액: ${orderView.directBasketItemView.item.price}</h4>
+							<h4>배송비 :${orderView.directBasketItemView.item.deliveryPrice}</h4>
+							<h4>갯수 : ${orderView.directBasketItemView.directBasket.number}</h4>
 						</div>
 					</c:when>
 					<%-- 장바구니 주문이라면 --%>
@@ -29,8 +30,12 @@
 		</div>
 		<%-- 총 금액 --%>
 		<hr>
-		<div class="d-flex justify-content-end">
-			총 금액 = 상품 가격 + 배송비
+		<div class="d-flex justify-content-end mr-5">
+			<c:set value="${orderView.directBasketItemView.item.price}" var="eachPrice"/>
+			<c:set value="${orderView.directBasketItemView.directBasket.number}" var="count"/>
+			<c:set value="${orderView.directBasketItemView.item.deliveryPrice}" var="deliveryPrice"/>
+			<h3>총 금액 = ${eachPrice * count + deliveryPrice} 원</h3>
+			<c:set value="${eachPrice * count + deliveryPrice}" var="totalPrice"/>
 		</div>
 		<%-- 주문자 정보 --%>
 		<form id="userInfoForm" action="/basket_order/create">
@@ -77,7 +82,7 @@
 			params += "&address=" + address;
 			
 			params += "&directBasketId=" + "${orderView.directBasketItemView.directBasket.id}";
-			params += "&price=" + 100;
+			params += "&price=" + ${totalPrice};
 			
 			console.log(params);
 			

@@ -22,11 +22,11 @@ public class OrderViewController {
 	@RequestMapping("/order_create_view")
 	public String orderCreateView(
 			@RequestParam(value="directBasketId", required=false) Integer directBasketId,
-			@RequestParam(value="basketIdList", required=false) List<BasketItemView> basketItemViewList,
+			@RequestParam(value="basketIdList", required=false) List<Integer> basketIdList,
 			Model model) {
 		
 		
-		OrderView orderView = orderViewBO.generateOrderView(directBasketId, basketItemViewList);
+		OrderView orderView = orderViewBO.generateOrderView(directBasketId, basketIdList);
 		
 		model.addAttribute("orderView", orderView);
 		model.addAttribute("viewName", "order/orderCreate");
