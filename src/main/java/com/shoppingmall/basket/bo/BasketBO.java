@@ -33,6 +33,11 @@ public class BasketBO {
 	}
 	
 	
+	// 장바구니 아이디로 장바구니 가져오기
+	public Basket getBasketById(int id) {
+		return basketDAO.selectBasketById(id);
+	}
+	
 	// 유저의 장바구니 화면에 아이템 정보 같이 가져오기
 	public List<BasketItemView> generateBasketItemViewListByUserId(int userId) {
 		List<BasketItemView> baskteItemViewList = new ArrayList<>();

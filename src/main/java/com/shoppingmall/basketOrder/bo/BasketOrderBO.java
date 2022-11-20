@@ -1,13 +1,20 @@
 package com.shoppingmall.basketOrder.bo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import com.shoppingmall.basket.bo.BasketBO;
+import com.shoppingmall.basket.model.Basket;
 import com.shoppingmall.basketOrder.dao.BasketOrderDAO;
 import com.shoppingmall.directBasket.bo.DirectBasketBO;
 import com.shoppingmall.directBasket.model.DirectBasket;
 import com.shoppingmall.order.bo.OrderBO;
-import com.shoppingmall.order.model.Order;
 
 @Service
 public class BasketOrderBO {
@@ -17,18 +24,54 @@ public class BasketOrderBO {
 	
 	@Autowired
 	private OrderBO orderBO;
-	
+
 	@Autowired
 	private DirectBasketBO directBasketBO;
 	
-	public int addBasketOrder(int userId, String name, String phoneNumber, String address,
-			Integer directBasketId, int price) {
+	@Autowired
+	private BasketBO basketBO;
+	
+	public int addBasketOrder(int userId, String phoneNumber, String address,
+			Integer directBasketId, Integer directPrice, List<String> basketIdAndEachTotalPriceList) {
 		
-		// 먼저 order에 등록해서 등록할 orderId를 얻는다.
-		int orderId = orderBO.addOrder(userId, name, phoneNumber, address);
+		int row = 0;
 		
-		DirectBasket directBasket = directBasketBO.getDirectBasketById(directBasketId);
+		// 먼저 order에 등록해서 등록할 orderId를 얻는다. (바로 주문, 장바구니 주문 공통)
+		int orderId = orderBO.addOrder(userId, phoneNumber, address);
 		
-		return basketOrderDAO.insertBasketOrder(orderId,  directBasket.getItemId(), directBasket.getNumber(), price);
+		// 바로 주문시
+		if (!ObjectUtils.isEmpty(directBasketId)) {
+			DirectBasket directBasket = directBasketBO.getDirectBasketById(directBasketId);
+			
+			directBasketBO.deleteDirectBasketById(directBasket.getId());
+			
+			row = basketOrderDAO.insertDirectBasketOrder(orderId,  directBasket.getItemId(), directBasket.getNumber(), directPrice);
+		
+		} else {
+		// 장바구니 주문시
+			List<Map<String, Integer>> basketMapList = new ArrayList<>();
+			
+			for (String basketIdAndEachTotalPrice : basketIdAndEachTotalPriceList) {
+				Map<String, Integer> basketMap = new HashMap<>();
+				//  basketId / price
+				String[] basketIdAndEachTotalPriceArr = basketIdAndEachTotalPrice.split("/");
+				
+				Basket basket = basketBO.getBasketById(Integer.parseInt(basketIdAndEachTotalPriceArr[0]));
+				
+				basketMap.put("itemId", basket.getItemId());
+				basketMap.put("number", basket.getNumber());
+				basketMap.put("price", Integer.parseInt(basketIdAndEachTotalPriceArr[1]));
+				basketMapList.add(basketMap);
+				
+				// 장바구니 삭제
+				basketBO.deleteBasket(basket.getId());
+			}
+			
+			row = basketOrderDAO.insertBasketOrder(orderId, basketMapList);
+			
+			
+		}
+		
+		return row;
 	}
 }

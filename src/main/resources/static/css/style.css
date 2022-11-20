@@ -73,6 +73,9 @@ section {
 .order-box {
 	min-height: 700px;
 }
+.order-list-box {
+	min-height: 500px;
+}
 footer {
 	height: 100px;
 }

@@ -178,6 +178,13 @@
 		
 		<%-- 장바구니 넣기 --%>
 		$('#basketBtn').on('click', function() {
+			// 로그인 되어있지 않다면 로그인 화면으로 이동
+			if (${userId eq null}) {
+				alert('로그인 후 이용가능 합니다.');
+				location.href = "/user/sign_in_view";
+				return;
+			}
+			
 			let itemId = $(this).data('item-id');
 			let number = $('#buyCount').val();
 			
@@ -200,6 +207,13 @@
 		
 		<%-- 바로 주문하기 버튼 --%>
 		$('#directOrderBtn').on('click', function() {
+			// 로그인 되어있지 않다면 로그인 화면으로 이동
+			if (${userId eq null}) {
+				alert('로그인 후 이용가능 합니다.');
+				location.href = "/user/sign_in_view";
+				return;
+			}
+			
 			// 바로 주문 장바구니에 넣고, 주문서 화면으로 이동
 			let itemId = $(this).data('item-id');
 			let number = $('#buyCount').val();

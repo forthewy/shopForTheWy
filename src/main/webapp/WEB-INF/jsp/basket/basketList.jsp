@@ -101,6 +101,12 @@
 			 let url = $(this).attr('action');
 			 let params = $(this).serialize();
 			 
+			 // 아무것도 체크하지 않으면 화면이 넘어가지 않는다.
+			 if (params.replace('check').length < 1) {
+				 alert('주문할 상품을 선택해주세요');
+				 return false;
+			 }
+			 
 			 $.post(url, params)
 			 .done({
 				 // 화면으로 넘어간다

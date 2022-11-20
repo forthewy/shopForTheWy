@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.shoppingmall.basketOrder.dao.BasketOrderDAO">
-  	<insert id="insertBasketOrder" parameterType="map">
+  	<insert id="insertDirectBasketOrder" parameterType="map">
   		INSERT INTO
   			`basket_order`
   		(
@@ -20,5 +20,26 @@
 			, #{price}
 			, NOW()
   		)
+  	</insert>
+  	<insert id="insertBasketOrder" parameterType="map">
+  	INSERT INTO
+  			`basket_order`
+  		(
+  			`orderId`
+			,`itemId`
+			,`number`
+			,`price`
+			,`createdAt`
+  		)
+  		VALUES
+  		<foreach collection="itemIdNumberPriceMapList" item="map" separator=",">
+  		(
+  			#{orderId}
+  			, #{map.itemId}
+			, #{map.number}
+			, #{map.price}
+			, NOW()
+  		)
+  		</foreach>
   	</insert>
   </mapper>

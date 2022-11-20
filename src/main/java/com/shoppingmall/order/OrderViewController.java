@@ -2,13 +2,14 @@ package com.shoppingmall.order;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.shoppingmall.basket.model.BasketItemView;
 import com.shoppingmall.order.bo.OrderViewBO;
 import com.shoppingmall.order.model.OrderView;
 
@@ -18,6 +19,7 @@ public class OrderViewController {
 	
 	@Autowired
 	private OrderViewBO orderViewBO;
+	
 	
 	@RequestMapping("/order_create_view")
 	public String orderCreateView(
@@ -30,6 +32,17 @@ public class OrderViewController {
 		
 		model.addAttribute("orderView", orderView);
 		model.addAttribute("viewName", "order/orderCreate");
+		
+		return "template/layout";
+	}
+	
+	@RequestMapping("/order_list_view")
+	public String orderListView(
+			HttpSession session,
+			Model model) {
+		
+		
+		model.addAttribute("viewName", "order/orderList");
 		
 		return "template/layout";
 	}

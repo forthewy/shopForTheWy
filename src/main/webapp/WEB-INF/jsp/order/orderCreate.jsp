@@ -48,7 +48,11 @@
 											<h4>개당 금액: ${eachPrice}</h4>
 											<h4>배송비 :${deliveryPrice}</h4>
 											<h4>갯수 : ${count}</h4>
-											<h4>상품 금액 : ${eachPrice * count + deliveryPrice}</h4>
+											<%-- 각 상품 총 금액 --%>
+											<c:set value="${eachPrice * count + deliveryPrice}" var="eachTotalPrice"/>
+											<h4>상품 금액 : ${eachTotalPrice}</h4>
+											<%-- 컨트롤러 전달용 --%>
+											<input type="text" class="d-none" name="basketIdAndEachTotalPriceList" value="${basketItem.basket.id}/${eachTotalPrice}">
 										</div>
 									</div>
 									<hr>
@@ -66,7 +70,7 @@
 			<%-- 주문자 정보 --%>
 			<div class="d-flex align-items-center mb-3 pl-5">
 				<label for="name" class="pr-5">이름</label>
-				<input type="text" class="ml-4 form-control col-4" id="name" name="name" value="${userName}">
+				<input type="text" class="ml-4 form-control col-4" name="name" id="name"  value="${userName}">
 			</div>
 			<div class="d-flex align-items-center mb-3 pl-5">
 				<label class="pr-5">주소</label>
@@ -110,8 +114,6 @@
 			params += "&directPrice=" + "${directPrice}";
 			
 			//장바구니 주문
-			let basketMap = new Map();
-			
 			
 			console.log(params);
 			

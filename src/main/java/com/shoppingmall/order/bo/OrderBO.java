@@ -15,7 +15,7 @@ public class OrderBO {
 	private OrderDAO orderDAO;
 	
 	// insert 후 id 가져온다.
-	public int addOrder(int userId, String name, String phoneNumber, String address) {
+	public int addOrder(int userId, String phoneNumber, String address) {
 		
 		Map<String, Object> orderMap = new HashMap<>();
 		orderMap.put("id", null);

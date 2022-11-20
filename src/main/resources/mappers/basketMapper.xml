@@ -29,6 +29,18 @@
 				 #{id}
 			</foreach>
   	</select>
+	<select id="selectBasketById" parameterType="int" resultType="com.shoppingmall.basket.model.Basket">
+  		SELECT
+			`id`
+			,`userId`
+			,`itemId`
+			,`number`
+			,`createdAt`
+		FROM 
+			`basket`
+		WHERE
+			`id` = #{id}
+  	</select>
   	<insert id="insertBasket" parameterType="map">
   		INSERT INTO
   			`basket`
