@@ -42,8 +42,9 @@
 						<img src="${lastLookItem.thumbnailImg}" width="50px" height="50px">
 					</div>
 				</div>
+				<%-- 주문조회 화면 --%>
 				<div>
-					<a href="/order/order_list_view" ><img class="user-menu" alt="회원 정보, 상점 신청, 주문조회" src="/static/img/person.webp"></a>
+					<a href="/basket_order/order_list_view" ><img class="user-menu" alt="회원 정보, 주문조회" src="/static/img/person.webp"></a>
 				</div>
 				<div>
 					<a href="#"><img class="user-menu" alt="문의 내역" src="/static/img/letter.webp"></a>

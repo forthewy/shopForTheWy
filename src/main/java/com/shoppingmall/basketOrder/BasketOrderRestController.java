@@ -34,12 +34,17 @@ public class BasketOrderRestController {
 		Integer userId = (Integer) session.getAttribute("userId");
 		
 		// 주문 도중에 금액을 바꾸는 상점이 있을 수 있기에 가격은 주문서 그대로 가져오기로 한다.
-		basketOrderBO.addBasketOrder(userId, phoneNumber, address,  directBasketId, directPrice, basketIdAndEachTotalPriceList);
+		int row = basketOrderBO.addBasketOrder(userId, phoneNumber, address,  directBasketId, directPrice, basketIdAndEachTotalPriceList);
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		result.put("code", 300);
-		result.put("result", "success");
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "주문에 실패했습니다");
+		}
 		
 		return result;
 	}

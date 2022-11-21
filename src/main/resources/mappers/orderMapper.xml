@@ -20,4 +20,12 @@
  			SELECT LAST_INSERT_ID()
  		</selectKey>
  	</insert>
+ 	<select id="selectOrderIdListByUserId" parameterType="int" resultType="Integer">
+ 		SELECT
+ 			`id`
+ 		FROM
+ 			`order`
+ 		WHERE
+ 			`userId` = #{userId}
+ 	</select>
  </mapper>

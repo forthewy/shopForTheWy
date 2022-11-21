@@ -36,14 +36,5 @@ public class OrderViewController {
 		return "template/layout";
 	}
 	
-	@RequestMapping("/order_list_view")
-	public String orderListView(
-			HttpSession session,
-			Model model) {
-		
-		
-		model.addAttribute("viewName", "order/orderList");
-		
-		return "template/layout";
-	}
+	
 }

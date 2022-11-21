@@ -12,8 +12,12 @@ import org.springframework.util.ObjectUtils;
 import com.shoppingmall.basket.bo.BasketBO;
 import com.shoppingmall.basket.model.Basket;
 import com.shoppingmall.basketOrder.dao.BasketOrderDAO;
+import com.shoppingmall.basketOrder.model.BasketOrder;
+import com.shoppingmall.basketOrder.model.BasketOrderView;
 import com.shoppingmall.directBasket.bo.DirectBasketBO;
 import com.shoppingmall.directBasket.model.DirectBasket;
+import com.shoppingmall.item.bo.ItemBO;
+import com.shoppingmall.item.model.Item;
 import com.shoppingmall.order.bo.OrderBO;
 
 @Service
@@ -31,6 +35,10 @@ public class BasketOrderBO {
 	@Autowired
 	private BasketBO basketBO;
 	
+	@Autowired
+	private ItemBO itemBO;
+	
+	// 주문 하기
 	public int addBasketOrder(int userId, String phoneNumber, String address,
 			Integer directBasketId, Integer directPrice, List<String> basketIdAndEachTotalPriceList) {
 		
@@ -73,5 +81,32 @@ public class BasketOrderBO {
 		}
 		
 		return row;
+	}
+	
+	// 유저Id 로 주문조회 하기
+	public List<BasketOrderView> getBasketOrderViewListByUserId(int userId) {
+		List<BasketOrderView> BasketOrderViewList = new ArrayList<>();
+		
+		// orderId 목록을 가져온다
+		List<Integer> orderIdList =  orderBO.getOrderIdListByUserId(userId);
+		
+		// BasketOrder 목록 
+		List<BasketOrder> basketOrderList = getBasketOrderByOrderIdList(orderIdList);
+		for (BasketOrder basketOrder: basketOrderList) {
+			BasketOrderView basketOrderView = new BasketOrderView();
+			basketOrderView.setBasketOrder(basketOrder);
+			
+			// item 정보를 가져온다.
+			Item item = itemBO.getItemByItemId(basketOrder.getItemId());
+			basketOrderView.setItem(item);
+			
+			BasketOrderViewList.add(basketOrderView);
+		}
+		
+		return BasketOrderViewList;
+	}
+	
+	public List<BasketOrder> getBasketOrderByOrderIdList(List<Integer> orderIdList){
+		return basketOrderDAO.selectBasketOrderByOrderIdList(orderIdList);
 	}
 }

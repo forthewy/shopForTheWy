@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.shoppingmall.basketOrder.model.BasketOrder;
+
 @Repository
 public interface BasketOrderDAO {
 
@@ -18,4 +20,6 @@ public interface BasketOrderDAO {
 	public int insertBasketOrder(
 			@Param("orderId") int orderId,
 			@Param("itemIdNumberPriceMapList") List<Map<String, Integer>> itemIdNumberPriceMapList);
+	
+	public List<BasketOrder> selectBasketOrderByOrderIdList(List<Integer> orderIdList);
 }

@@ -33,4 +33,6 @@ public class BasketController {
 		model.addAttribute("viewName", "basket/basketList");
 		return "template/layout";
 	}
+	
+	
 }

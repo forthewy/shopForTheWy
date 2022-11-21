@@ -1,6 +1,7 @@
 package com.shoppingmall.order.bo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class OrderBO {
 		orderDAO.insertOrder(orderMap);
 		
 		return (int) orderMap.get("id");
+	}
+	
+	// 주문 조회 용
+	public List<Integer> getOrderIdListByUserId(int userId) {
+		return orderDAO.selectOrderIdListByUserId(userId);
 	}
 
 }

@@ -76,6 +76,9 @@ section {
 .order-list-box {
 	min-height: 500px;
 }
+#reviewContent{
+	min-height: 150px;
+}
 footer {
 	height: 100px;
 }

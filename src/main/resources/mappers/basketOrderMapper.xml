@@ -42,4 +42,22 @@
   		)
   		</foreach>
   	</insert>
+  	<select id="selectBasketOrderByOrderIdList" parameterType="map" resultType="com.shoppingmall.basketOrder.model.BasketOrder">
+  		SELECT
+  			`id`
+  			,`orderId`
+			,`itemId`
+			,`number`
+			,`price`
+			,`createdAt`
+		FROM
+			`basket_order`
+  		WHERE
+			`orderId` IN
+			<foreach collection="list" item="orderId" separator="," open="(" close=")">
+				 #{orderId}
+			</foreach>
+		ORDER BY 
+			`id` DESC
+  	</select>
   </mapper>
