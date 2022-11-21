@@ -7,7 +7,7 @@
 	<div class="w-75">
 		<div class="item-detail-box d-flex">
 			<div class="w-50 d-flex justify-content-center align-items-center">
-				<img alt="썸네일이미지" src="${itemDetailView.item.thumbnailImg}" width="80%" height="80%">
+				<img alt="썸네일이미지" src="${itemDetailView.item.thumbnailImg}" width="550px" height="400px">
 			</div>
 			<div class="w-50">
 				<div class="ml-3 pt-5 d-flex justify-content-between">
@@ -69,21 +69,25 @@
 				<div id="itemContent" class="tab-info">
 					${itemDetailView.item.content}
 				</div>
+				<%--  리뷰 --%>
 				<div id="review" class="tab-info d-none">
 					<div class="pl-5">
-						<div class="review-box border p-3">
-							<img src="/static/img/star_yellow.png" width="30px">
-							<img src="/static/img/star_yellow.png" width="30px">
-							<img src="/static/img/star_yellow.png" width="30px">
-							<img src="/static/img/star_yellow.png" width="30px">
-							<img src="/static/img/star_yellow.png" width="30px">
-							<div class="review-box">
-								<h3>유저 아이디</h3>
-								<h5>리뷰 내용</h5>
+						<c:forEach items="${itemDetailView.reviewViewList}" var="reviewView">
+							<div class="review-box border p-3 mb-4">
+								<img src="/static/img/star_yellow.png" width="30px">
+								<img src="/static/img/star_yellow.png" width="30px">
+								<img src="/static/img/star_yellow.png" width="30px">
+								<img src="/static/img/star_yellow.png" width="30px">
+								<img src="/static/img/star_yellow.png" width="30px">
+								<div class="review-box">
+									<h3>${reviewView.userLoginId}</h3>
+									<h5>${reviewView.review.content}</h5>
+								</div>
 							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
+				<%-- 상점 정보 --%>
 				<div id="sellerInfo" class="tab-info d-none w-100">
 					<div class="d-flex justify-content-center">
 						<div class="w-50">

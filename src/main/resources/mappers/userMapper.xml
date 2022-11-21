@@ -67,4 +67,20 @@
 		WHERE
 			`loginId` = #{loginId}
 	</select>
+	<select id="selectUserByUserId" parameterType="int" resultType="com.shoppingmall.user.model.User">
+		SELECT
+			`id`
+			,`loginId`
+			,`password`
+			,`name`
+			,`address`
+			,`phoneNumber`
+			,`type`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`id` = #{id}
+	</select>
 </mapper>

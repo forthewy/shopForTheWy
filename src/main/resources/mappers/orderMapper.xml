@@ -20,7 +20,7 @@
  			SELECT LAST_INSERT_ID()
  		</selectKey>
  	</insert>
- 	<select id="selectOrderIdListByUserId" parameterType="int" resultType="Integer">
+ 	<select id="selectOrderIdListByUserId" parameterType="int" resultType="integer">
  		SELECT
  			`id`
  		FROM

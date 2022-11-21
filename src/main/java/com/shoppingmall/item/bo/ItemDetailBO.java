@@ -1,11 +1,15 @@
 package com.shoppingmall.item.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.shoppingmall.item.model.Item;
 import com.shoppingmall.item.model.ItemDetailView;
+import com.shoppingmall.review.bo.ReviewBO;
+import com.shoppingmall.review.model.ReviewView;
 import com.shoppingmall.seller.bo.SellerBO;
 import com.shoppingmall.seller.model.Seller;
 
@@ -18,8 +22,10 @@ public class ItemDetailBO {
 	@Autowired
 	private SellerBO sellerBO;
 
+	@Autowired
+	private ReviewBO reviewBO;
 	
-	// 비로그인도 상세 화면 볼수 있도록 Integer
+	// 비로그인도 상세 화면 볼수 있도록 Integer userId
 	public ItemDetailView generateItemDetailView(int itemId, Integer userId) {
 		
 		ItemDetailView itemDetailView = new ItemDetailView();
@@ -44,6 +50,10 @@ public class ItemDetailBO {
 			}
 		}
 		itemDetailView.setIsUserSeller(isUserSeller);
+		
+		// 리뷰 뷰 리스트
+		List<ReviewView> reviewViewList = reviewBO.generateReviewView(itemId);
+		itemDetailView.setReviewViewList(reviewViewList);
 		
 		
 		return itemDetailView;

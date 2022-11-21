@@ -83,6 +83,10 @@ public class BasketOrderBO {
 		return row;
 	}
 	
+	public List<BasketOrder> getBasketOrderByOrderIdList(List<Integer> orderIdList){
+		return basketOrderDAO.selectBasketOrderByOrderIdList(orderIdList);
+	}
+	
 	// 유저Id 로 주문조회 하기
 	public List<BasketOrderView> getBasketOrderViewListByUserId(int userId) {
 		List<BasketOrderView> BasketOrderViewList = new ArrayList<>();
@@ -90,9 +94,11 @@ public class BasketOrderBO {
 		// orderId 목록을 가져온다
 		List<Integer> orderIdList =  orderBO.getOrderIdListByUserId(userId);
 		
-		// BasketOrder 목록 
-		List<BasketOrder> basketOrderList = getBasketOrderByOrderIdList(orderIdList);
-		for (BasketOrder basketOrder: basketOrderList) {
+		// orderId 목록이 비어있지 않다면
+		if (!ObjectUtils.isEmpty(orderIdList)) {
+			List<BasketOrder> basketOrderList = getBasketOrderByOrderIdList(orderIdList);
+
+			for (BasketOrder basketOrder: basketOrderList) {
 			BasketOrderView basketOrderView = new BasketOrderView();
 			basketOrderView.setBasketOrder(basketOrder);
 			
@@ -101,12 +107,11 @@ public class BasketOrderBO {
 			basketOrderView.setItem(item);
 			
 			BasketOrderViewList.add(basketOrderView);
-		}
+			}
+		} 
 		
 		return BasketOrderViewList;
 	}
 	
-	public List<BasketOrder> getBasketOrderByOrderIdList(List<Integer> orderIdList){
-		return basketOrderDAO.selectBasketOrderByOrderIdList(orderIdList);
-	}
+	// seller
 }

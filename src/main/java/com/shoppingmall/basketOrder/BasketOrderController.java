@@ -19,6 +19,12 @@ public class BasketOrderController {
 	@Autowired
 	private BasketOrderBO basketOrderBO;
 	
+	/**
+	 * 유저 주문 조회 목록
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/order_list_view")
 	public String orderListView(
 			HttpSession session,
@@ -29,6 +35,17 @@ public class BasketOrderController {
 		List<BasketOrderView> basketOrderViewList =  basketOrderBO.getBasketOrderViewListByUserId(userId);
 		model.addAttribute("basketOrderViewList", basketOrderViewList);
 		model.addAttribute("viewName", "order/orderList");
+		
+		return "template/layout";
+	}
+	
+	@RequestMapping("/seller_order_list_view")
+	public String sellerOrderListView(
+			HttpSession session,
+			Model model) {
+		
+		int userId = (int)session.getAttribute("userId");
+		model.addAttribute("viewName", "order/sellerOrderList");
 		
 		return "template/layout";
 	}

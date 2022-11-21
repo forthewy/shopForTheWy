@@ -18,7 +18,7 @@
 					<div class="col-2">
 						<input type="checkbox" name="check" class="col-1" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
 						<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
-							<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="80%">
+							<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="150px" height="150px">
 						</a>
 					</div>
 					<div class="col-8 d-flex">
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center pl-3">
-						<button class="delete-btn btn btn-danger" data-basket-id="${basketItem.basket.id}">장바구니에서 삭제</button>
+						<button class="delete-btn btn btn-danger" type="button" data-basket-id="${basketItem.basket.id}">장바구니에서 삭제</button>
 					</div>
 				</div>
 				<hr>

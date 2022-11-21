@@ -31,4 +31,7 @@ public interface UserDAO {
 	
 	// loginId로 Id 찾기
 	public Integer selectIdByLoginId(String loginId);
+	
+	// id 로 유저 가져오기
+	public User selectUserByUserId(int id);
 }

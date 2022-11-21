@@ -5,11 +5,12 @@ import java.util.Date;
 public class Review {
 	private int id;
 	private int userId;
-	private int orderId;
+	private int itemId;
 	private String content;
 	private boolean point;
 	private Date createdAt;
 	private Date updatedAt;
+	
 	
 	public int getId() {
 		return id;
@@ -23,11 +24,11 @@ public class Review {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getOrderId() {
-		return orderId;
+	public int getItemId() {
+		return itemId;
 	}
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
 	}
 	public String getContent() {
 		return content;
@@ -53,6 +54,5 @@ public class Review {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 	
 }

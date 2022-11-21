@@ -29,6 +29,8 @@
 								<%-- 상품 금액 --%>
 								<c:set value="${directEachPrice * directCount + directDeliveryPrice}" var="directPrice"/>
 								<h4>상품 금액 : ${directPrice}</h4>
+								<%-- 총 금액 --%>
+								<c:set value="${directEachPrice * directCount + directDeliveryPrice}" var="totalPrice"/>
 							</div>
 						</c:when>
 						<%-- 장바구니 주문이라면 --%>
@@ -51,6 +53,8 @@
 											<%-- 각 상품 총 금액 --%>
 											<c:set value="${eachPrice * count + deliveryPrice}" var="eachTotalPrice"/>
 											<h4>상품 금액 : ${eachTotalPrice}</h4>
+											<%-- 유저가 계산할 총 금액에 계속 더한다 --%>
+											<c:set value="${totalPrice + eachTotalPrice}" var="totalPrice"/>
 											<%-- 컨트롤러 전달용 --%>
 											<input type="text" class="d-none" name="basketIdAndEachTotalPriceList" value="${basketItem.basket.id}/${eachTotalPrice}">
 										</div>
@@ -64,8 +68,7 @@
 			</div>
 			<%-- 총 금액 --%>
 			<div class="d-flex justify-content-end mr-5">
-				<h3>총 금액 = <span></span> 원</h3>
-				<c:set value="${eachPrice * count + deliveryPrice}" var="totalPrice"/>
+				<h3>총 금액 = ${totalPrice}<span></span> 원</h3>
 			</div>
 			<%-- 주문자 정보 --%>
 			<div class="d-flex align-items-center mb-3 pl-5">

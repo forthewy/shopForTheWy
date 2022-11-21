@@ -2,20 +2,23 @@ package com.shoppingmall.item.model;
 
 import java.util.List;
 
-import com.shoppingmall.review.model.Review;
+import com.shoppingmall.review.model.ReviewView;
 import com.shoppingmall.seller.model.Seller;
 
 public class ItemDetailView {
 	
+	// 상품
 	private Item item;
 	
-	private List<Review> reviewList;
+	// 리뷰 목록
+	private List<ReviewView> ReviewViewList;
 	
+	// 상점
 	private Seller seller;
 
 	// 상점이 유저가 운영하는 건지 확인
 	private boolean isUserSeller;
-	
+
 	public Item getItem() {
 		return item;
 	}
@@ -24,12 +27,12 @@ public class ItemDetailView {
 		this.item = item;
 	}
 
-	public List<Review> getReviewList() {
-		return reviewList;
+	public List<ReviewView> getReviewViewList() {
+		return ReviewViewList;
 	}
 
-	public void setReviewList(List<Review> reviewList) {
-		this.reviewList = reviewList;
+	public void setReviewViewList(List<ReviewView> reviewViewList) {
+		ReviewViewList = reviewViewList;
 	}
 
 	public Seller getSeller() {
@@ -47,8 +50,5 @@ public class ItemDetailView {
 	public void setIsUserSeller(boolean isUserSeller) {
 		this.isUserSeller = isUserSeller;
 	}
-	
-	
-	
 	
 }
