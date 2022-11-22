@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div class="d-flex justify-content-center ">
+<div class="d-flex justify-content-center">
 	<div class="w-100 d-flex justify-content-center">
-		<aside class="bg-warning col-2 d-flex justify-content-center pt-5">
-			<div class="pt-3">
+		<aside class="col-2 d-flex justify-content-center">
+			<div class="pt-5">
 				<div>
 					<button class="btn btn-info mb-3" onClick="location.href='/basket_order/order_list_view'">주문 내역</button>
 				</div>
@@ -19,7 +19,7 @@
 				</c:if>
 			</div>
 		</aside>
-		<section class="order-list-box bg-danger col-8 pl-5">
+		<section class="order-list-box col-8 pl-5">
 			<h1><b>주문 조회</b></h1>
 			<c:choose>
 				<c:when test="${empty basketOrderViewList}">
@@ -61,22 +61,31 @@
       </div>
       <div class="modal-body">
       	<div class="pb-2">
-	      	<a href="#none" class="point-star">
-		      	<img alt="별점" src="/static/img/star_yellow.png" width="30px">
-	      	</a>
-	      	<a href="#none" class="point-star">
-		      	<img alt="별점" src="/static/img/star_yellow.png" width="30px">
-	      	</a>
-	      	<a href="#none" class="point-star">
-		      	<img alt="별점" src="/static/img/star_yellow.png" width="30px">
-	      	</a>
-	      	<a href="#none" class="point-star">
-		      	<img alt="별점" src="/static/img/star_yellow.png" width="30px">
-	      	</a>
-	      	<a href="#none" class="point-star">
-		      	<img alt="별점" src="/static/img/star_yellow.png" width="30px">
-	      	</a>
-      	</div>
+		    <input type="radio" id="point1" value="1" name="point">
+      		<label for="point1" class="point-star">
+      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		</label>
+	 	    <input type="radio" class="d-none" id="point2" value="2" name="point">
+      		<label for="point2" class="point-star">
+      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		</label>
+      		<input type="radio" class="d-none" id="point3" value="3" name="point">
+      		<label for="point3" class="point-star">
+      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		</label>
+	      	<input type="radio" class="d-none" id="point4" value="4" name="point">
+      		<label for="point4" class="point-star">
+      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		</label>
+      		<input type="radio" class="d-none" id="point5" value="5" name="point">
+      		<label for="point5" class="point-star">
+      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		</label>
+      		<input type="radio" class="d-none" id="point6" value="6" name="point">
+      		<label for="point6" class="point-star">
+      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		</label>
+       	</div>
         <input type="text" id="reviewContent" placeholder="리뷰를 입력하세요" class="form-control">
       </div>
       <div class="modal-footer">
@@ -88,20 +97,19 @@
 </div>
 <script>
 	$(document).ready(function() {
-		
 		<%-- 리뷰 버튼 클릭시 --%>
 		$('.review-btn').on('click', function(e) {
 			e.preventDefault();
 			let itemId = $(this).data('item-id');
 			// 모달에 아이템 아이디를 넣는다
 			$('#reviewModal').data('item-id', itemId);
-			$('.point-star').removeClass('d-none');
+	
 		});
 		
 		<%-- 별점 선택 --%>
 		$('.point-star').on('click', function(e) {
-			e.preventDefault();
-			$(this).nextAll().addClass('d-none');
+			let point = $("input[name='point']:checked").val();
+			console.log(point);
 		});
 		
 		
@@ -112,7 +120,7 @@
 			let content = $('#reviewContent').val();
 			let point = 
 			
-			console.log(itemId, content);
+			//console.log(itemId, content);
 			$.ajax({
 				type: "POST"
 				,data:{"itemId":itemId, "content":content, "point":5}
