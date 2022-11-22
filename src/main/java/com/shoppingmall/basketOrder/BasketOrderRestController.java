@@ -25,6 +25,7 @@ public class BasketOrderRestController {
 	public Map<String, Object> create(
 			@RequestParam("address") String address,
 			@RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("name") String name,
 			@RequestParam(value="directBasketId", required=false) Integer directBasketId,
 			@RequestParam(value="directPrice", required=false) Integer directPrice,
 			@RequestParam(value="basketIdAndEachTotalPriceList", required=false) List<String> basketIdAndEachTotalPriceList,
@@ -34,7 +35,7 @@ public class BasketOrderRestController {
 		Integer userId = (Integer) session.getAttribute("userId");
 		
 		// 주문 도중에 금액을 바꾸는 상점이 있을 수 있기에 가격은 주문서 그대로 가져오기로 한다.
-		int row = basketOrderBO.addBasketOrder(userId, phoneNumber, address,  directBasketId, directPrice, basketIdAndEachTotalPriceList);
+		int row = basketOrderBO.addBasketOrder(userId, phoneNumber,  address, name,  directBasketId, directPrice, basketIdAndEachTotalPriceList);
 		
 		Map<String, Object> result = new HashMap<>();
 		

@@ -74,11 +74,12 @@
 					<div class="pl-5">
 						<c:forEach items="${itemDetailView.reviewViewList}" var="reviewView">
 							<div class="review-box border p-3 mb-4">
-								<img src="/static/img/star_yellow.png" width="30px">
-								<img src="/static/img/star_yellow.png" width="30px">
-								<img src="/static/img/star_yellow.png" width="30px">
-								<img src="/static/img/star_yellow.png" width="30px">
-								<img src="/static/img/star_yellow.png" width="30px">
+								<c:forEach var="point" begin="1" end="5">
+									<c:if test="${reviewView.review.point >= point}">
+										<img src="/static/img/star_yellow.png" width="30px">
+									</c:if>
+								</c:forEach>
+								
 								<div class="review-box">
 									<h3>${reviewView.userLoginId}</h3>
 									<h5>${reviewView.review.content}</h5>

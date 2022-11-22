@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shoppingmall.basketOrder.bo.BasketOrderBO;
 import com.shoppingmall.basketOrder.model.BasketOrderView;
@@ -42,9 +43,14 @@ public class BasketOrderController {
 	@RequestMapping("/seller_order_list_view")
 	public String sellerOrderListView(
 			HttpSession session,
+			@RequestParam(value="searchName", required=false) String searchName,
 			Model model) {
 		
 		int userId = (int)session.getAttribute("userId");
+		
+		List<BasketOrderView> basketOrderViewList =  basketOrderBO.getBasketOrderViewListBySellerUserIdAndSearchName(userId, searchName);
+		
+		model.addAttribute("basketOrderViewList", basketOrderViewList);
 		model.addAttribute("viewName", "order/sellerOrderList");
 		
 		return "template/layout";

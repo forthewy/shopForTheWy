@@ -10,6 +10,8 @@ public class Order {
 	private String state;
 	private Date createdAt;
 	private Date updatedAt;
+	private String name;
+	
 	
 	public int getId() {
 		return id;
@@ -52,6 +54,12 @@ public class Order {
 	}
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

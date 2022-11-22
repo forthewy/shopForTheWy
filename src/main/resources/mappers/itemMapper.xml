@@ -72,6 +72,14 @@
  		WHERE
  			`sellerId` = #{sellerId}
  	</select>
+ 	<select id="selectItemIdListBySellerId" parameterType="int" resultType="integer">
+ 		SELECT
+ 			`id` 
+ 		FROM
+ 			`item`
+ 		WHERE
+ 			`sellerId` = #{sellerId}
+ 	</select>
  	<select id="selectItemByItemId" parameterType="int" resultType="com.shoppingmall.item.model.Item">
  		SELECT
  			`id` 

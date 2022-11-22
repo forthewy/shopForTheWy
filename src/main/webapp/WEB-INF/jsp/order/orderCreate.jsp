@@ -131,6 +131,12 @@
 				return;
 			}
 			
+			let name = $('#name').val().trim();
+			if (name == "") {
+				alert("이름이 입력되지 않았습니다.");
+				return;
+			}
+			
 			params += "&address=" + address;
 			
 			// 바로 주문			

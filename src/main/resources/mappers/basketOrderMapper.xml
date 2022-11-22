@@ -60,4 +60,22 @@
 		ORDER BY 
 			`id` DESC
   	</select>
+  	<select id="selectBasketOrderByItemIdList" parameterType="map" resultType="com.shoppingmall.basketOrder.model.BasketOrder">
+  		SELECT
+  			`id`
+  			,`orderId`
+			,`itemId`
+			,`number`
+			,`price`
+			,`createdAt`
+		FROM
+			`basket_order`
+		WHERE
+			`itemId` IN
+			<foreach collection="list" item="itemId" separator="," open="(" close=")">
+				 #{itemId}
+			</foreach>
+		ORDER BY 
+			`id` DESC
+  	</select>
   </mapper>

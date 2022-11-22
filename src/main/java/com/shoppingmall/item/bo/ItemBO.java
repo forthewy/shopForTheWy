@@ -12,6 +12,7 @@ import com.shoppingmall.item.dao.ItemDAO;
 import com.shoppingmall.item.model.Item;
 import com.shoppingmall.seller.bo.SellerBO;
 import com.shoppingmall.seller.model.Seller;
+import com.shoppingmall.user.bo.UserBO;
 
 @Service
 public class ItemBO {
@@ -21,6 +22,9 @@ public class ItemBO {
 
 	@Autowired
 	private SellerBO sellerBO;
+	
+	@Autowired
+	private UserBO userBO;
 	
 	@Autowired
 	private ItemDAO itemDAO;
@@ -74,11 +78,16 @@ public class ItemBO {
 		return itemDAO.deleteItem(itemId);
 	}
 	
-	// 상품 전체 리스트
+	// 상점의 상품 전체 리스트
 	public List<Item> getItemBySellerId(int sellerId) {
 		return itemDAO.selectItemBySellerId(sellerId);
 	}
-
+	
+	// 상점의 상품Id 리스트
+	public List<Integer> getItemIdListBySellerId(int sellerId) {
+		return itemDAO.selectItemIdListBySellerId(sellerId);
+	}
+	
 	// 페이지로 상품 일부만 조회
 	public List<Item> getItemBySellerIdLimitPage(int sellerId, int page) {
 		int offsetNum = 3 * (page - 1); // 조회시 건너뛰고 조회해야할 행 갯수 0 3 6...

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="d-flex justify-content-center">
 	<div class="w-100 d-flex justify-content-center">
 		<aside class="col-2 d-flex justify-content-center">
@@ -30,7 +31,7 @@
 				<c:otherwise>
 					<c:forEach items="${basketOrderViewList}" var="basketOrderView">
 						<h2><fmt:formatDate value="${basketOrderView.basketOrder.createdAt}" pattern="yyyy-MM-dd"/></h2>
-						<div class="d-flex justify-content-">
+						<div class="d-flex">
 							<div class="d-flex w-100">
 								<a href="/item/item_detail_view?itemId=${basketOrderView.item.id}">
 									<img alt="주문상품 대표이미지" src="${basketOrderView.item.thumbnailImg}" width="70px" height="70px">
@@ -38,6 +39,7 @@
 								<h3>${basketOrderView.item.name}</h3>	
 								<h3 class="pl-3">${basketOrderView.basketOrder.number}개</h3>	
 								<h3 class="pl-3">${basketOrderView.basketOrder.price}원</h3>
+								<h3 class="pl-3">${fn:replace(basketOrderView.order.address, '/', ' ')}</h3>
 							</div>
 							<button type="button" class="review-btn btn btn-primary" data-toggle="modal" data-target="#reviewModal" data-item-id="${basketOrderView.item.id}">리뷰 남기기</button>
 							<hr>
@@ -61,30 +63,26 @@
       </div>
       <div class="modal-body">
       	<div class="pb-2">
-		    <input type="radio" id="point1" value="1" name="point">
       		<label for="point1" class="point-star">
       			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
       		</label>
-	 	    <input type="radio" class="d-none" id="point2" value="2" name="point">
+		    <input type="radio" id="point1" class="d-none" value="1" name="point">
       		<label for="point2" class="point-star">
       			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
       		</label>
-      		<input type="radio" class="d-none" id="point3" value="3" name="point">
+	 	    <input type="radio" class="d-none" id="point2" value="2" name="point">
       		<label for="point3" class="point-star">
       			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
       		</label>
-	      	<input type="radio" class="d-none" id="point4" value="4" name="point">
+      		<input type="radio" class="d-none" id="point3" value="3" name="point">
       		<label for="point4" class="point-star">
       			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
       		</label>
-      		<input type="radio" class="d-none" id="point5" value="5" name="point">
+	      	<input type="radio" class="d-none" id="point4" value="4" name="point">
       		<label for="point5" class="point-star">
       			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
       		</label>
-      		<input type="radio" class="d-none" id="point6" value="6" name="point">
-      		<label for="point6" class="point-star">
-      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
-      		</label>
+      		<input type="radio" class="d-none" id="point5" value="5" name="point">
        	</div>
         <input type="text" id="reviewContent" placeholder="리뷰를 입력하세요" class="form-control">
       </div>
@@ -103,13 +101,16 @@
 			let itemId = $(this).data('item-id');
 			// 모달에 아이템 아이디를 넣는다
 			$('#reviewModal').data('item-id', itemId);
-	
+		    $('input[name="point"]').removeAttr('checked');
+		    $('.point-star').removeClass('d-none');
 		});
 		
 		<%-- 별점 선택 --%>
 		$('.point-star').on('click', function(e) {
-			let point = $("input[name='point']:checked").val();
-			console.log(point);
+			$('input[name="point"]').removeAttr('checked');
+			let point = $(this).next().val();
+			$('#reviewModal').data('point', point);
+			$(this).nextAll().addClass('d-none');
 		});
 		
 		
@@ -118,12 +119,12 @@
 			e.preventDefault();
 			let itemId =$('#reviewModal').data('item-id');
 			let content = $('#reviewContent').val();
-			let point = 
+			let point = $('#reviewModal').data('point');
 			
 			//console.log(itemId, content);
 			$.ajax({
 				type: "POST"
-				,data:{"itemId":itemId, "content":content, "point":5}
+				,data:{"itemId":itemId, "content":content, "point":point}
 				,url: "/review/create"
 				,success:function(data) {
 					if (data.code == 300) {

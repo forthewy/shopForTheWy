@@ -9,12 +9,14 @@
  			`userId`
  			, `phoneNumber`
  			, `address`
+ 			, `name`
  		)
  		VALUES
  		(
 	 		#{userId}
 	 		,#{phoneNumber}
 	 		,#{address}
+	 		,#{name}
  		)
  		<selectKey keyProperty="id" resultType="integer" order="AFTER">
  			SELECT LAST_INSERT_ID()
@@ -27,5 +29,19 @@
  			`order`
  		WHERE
  			`userId` = #{userId}
+ 	</select>
+ 	<select id="selectOrderById" parameterType="int" resultType="com.shoppingmall.order.model.Order">
+ 		SELECT
+ 			`id`
+ 			,`userId`
+			,`phoneNumber`
+			,`address`
+			,`createdAt`
+			,`updatedAt`
+			,`name`
+		FROM
+ 			`order`	
+		WHERE
+			`id` = #{id}
  	</select>
  </mapper>

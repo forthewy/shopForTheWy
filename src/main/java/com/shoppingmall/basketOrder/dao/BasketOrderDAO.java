@@ -22,4 +22,6 @@ public interface BasketOrderDAO {
 			@Param("itemIdNumberPriceMapList") List<Map<String, Integer>> itemIdNumberPriceMapList);
 	
 	public List<BasketOrder> selectBasketOrderByOrderIdList(List<Integer> orderIdList);
+	
+	public List<BasketOrder> selectBasketOrderByItemIdList(List<Integer> itemIdList);
 }

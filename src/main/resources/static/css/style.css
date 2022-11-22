@@ -20,7 +20,7 @@ a:hover {
 	padding-left: 10px;
 }
 section {
-	min-height: 500px;
+	min-height: 700px;
 }
 .sign-in-col {
 	height: 500px;
@@ -64,7 +64,6 @@ section {
 	min-height: 500px;
 }
 .review-box {
-	border: 50px;
 	border-radius: 25px;
 }
 .basket-list-box {
@@ -78,6 +77,10 @@ section {
 }
 #reviewContent{
 	min-height: 150px;
+}
+.seller-order-each-box{
+	border: 2px;
+	border-radius: 25px;
 }
 footer {
 	height: 100px;
