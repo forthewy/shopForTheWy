@@ -70,8 +70,13 @@ public class BasketOrderRestController {
 		Map<String, Object> result = new HashMap<>();
 		int row = basketOrderBO.updateBasketOrder(basketOrderId, state);
 		
-		result.put("code", 300);
-		result.put("result", "success");
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "주문 상태 변경에 실패했습니다.");
+		}
 		
 		return result;
 	}

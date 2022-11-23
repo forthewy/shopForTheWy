@@ -123,7 +123,7 @@ public class BasketOrderBO {
 	}
 
 	// seller의 유저아이디와 구매한 사람 이름으로 조회하기
-	  public List<BasketOrderView> getBasketOrderViewListBySellerUserIdAndSearchName(int userId, String searchName) {
+	  public List<BasketOrderView> getBasketOrderViewListBySellerUserIdAndSearchName(int userId, String searchName, String searchState) {
 		  List<BasketOrderView> basketOrderViewList = new ArrayList<>();
 		  
 		  // 상점 가져오기 
@@ -133,7 +133,18 @@ public class BasketOrderBO {
 		  List<Integer> itemList = itemBO.getItemIdListBySellerId(seller.getId());
 		  
 		  // 주문 목록 가져오기 
-		  List<BasketOrder> basketOrderList = getBasketOrderByItemIdList(itemList);
+		  List<BasketOrder> basketOrderList = new ArrayList<>();
+		  if (ObjectUtils.isEmpty(searchState)) {
+			  // 1) 상태 검색이 선택되지 않았을때
+			  basketOrderList	 = getBasketOrderByItemIdList(itemList);
+		  } else {
+			  // 2) 상태 검색이 선택되었을때			  
+			  basketOrderList	 = getBasketOrderByItemIdListAndState(itemList, searchState);
+			  if (ObjectUtils.isEmpty(basketOrderList)) {
+				  return null;
+			  }
+		  }
+		  
 		  
 		  for (BasketOrder basketOrder : basketOrderList) {
 			  BasketOrderView basketOrderView = new BasketOrderView();
@@ -173,8 +184,13 @@ public class BasketOrderBO {
 		return basketOrderDAO.selectBasketOrderByItemIdList(itemIdList);
 	}
 	
+	// 주문 상태 변경
 	public int updateBasketOrder(int id, String state) {
 		return basketOrderDAO.updateBasketOrder(id, state);
+	}
+	
+	public List<BasketOrder> getBasketOrderByItemIdListAndState(List<Integer> itemIdList, String state) {
+		return basketOrderDAO.selectBasketOrderByItemIdListAndState(itemIdList, state);
 	}
 
 }

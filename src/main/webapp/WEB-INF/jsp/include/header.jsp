@@ -47,7 +47,7 @@
 					<a href="/basket_order/order_list_view" ><img class="user-menu" alt="회원 정보, 주문조회" src="/static/img/person.webp"></a>
 				</div>
 				<div>
-					<a href="#"><img class="user-menu" alt="문의 내역" src="/static/img/letter.webp"></a>
+					<a href="/chatroom/chatroom_list_view"><img class="user-menu" alt="문의 내역" src="/static/img/letter.webp"></a>
 				</div>
 				<div>
 					<a href="#"><img class="user-menu"  alt="즐겨찾기" src="/static/img/star.png"></a>

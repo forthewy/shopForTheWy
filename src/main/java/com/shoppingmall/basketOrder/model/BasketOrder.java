@@ -53,5 +53,4 @@ public class BasketOrder {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
 }

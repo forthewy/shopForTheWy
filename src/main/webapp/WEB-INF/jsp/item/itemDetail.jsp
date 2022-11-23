@@ -34,7 +34,7 @@
 								</div>
 							</div>
 							<div class="d-flex justify-content-end mr-5 mt-3">
-								<button class="btn btn-dark mr-3">상품 문의(쪽지)</button>
+								<button class="btn btn-dark mr-3" onClick="location.href='/message/message_view?sellerId=${itemDetailView.seller.id}'">상점 문의(쪽지)</button>
 								<button class="btn btn-info mr-3" type="button" id="basketBtn" data-item-id="${itemDetailView.item.id}">장바구니</button>
 								<button class="btn btn-warning" type="button" id="directOrderBtn" data-item-id="${itemDetailView.item.id}">바로 주문하기</button>
 							</div>

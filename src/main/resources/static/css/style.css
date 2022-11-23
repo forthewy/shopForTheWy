@@ -82,6 +82,12 @@ section {
 	border: 2px;
 	border-radius: 25px;
 }
+.message-box{
+	min-height: 700px;
+}
+.chatroom-list-box {
+	min-height: 700px;
+}
 footer {
 	height: 100px;
 }

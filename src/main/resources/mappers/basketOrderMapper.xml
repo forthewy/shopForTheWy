@@ -80,6 +80,27 @@
 		ORDER BY 
 			`id` DESC
   	</select>
+  	<select id="selectBasketOrderByItemIdListAndState" parameterType="map" resultType="com.shoppingmall.basketOrder.model.BasketOrder">
+  		SELECT
+  			`id`
+  			,`orderId`
+			,`itemId`
+			,`number`
+			,`price`
+			,`state`
+			,`createdAt`
+		FROM
+			`basket_order`
+		WHERE
+			`state` = #{state}
+			AND
+			`itemId` IN
+			<foreach collection="itemIdList" item="itemId" separator="," open="(" close=")">
+				 #{itemId}
+			</foreach>
+		ORDER BY 
+			`id` DESC
+  	</select>
   	<update id="updateBasketOrder" parameterType="map">
   		UPDATE
   			`basket_order`

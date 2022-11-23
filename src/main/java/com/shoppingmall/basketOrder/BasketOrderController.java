@@ -44,11 +44,12 @@ public class BasketOrderController {
 	public String sellerOrderListView(
 			HttpSession session,
 			@RequestParam(value="searchName", required=false) String searchName,
+			@RequestParam(value="searchState", required=false) String searchState,
 			Model model) {
 		
 		int userId = (int)session.getAttribute("userId");
 		
-		List<BasketOrderView> basketOrderViewList =  basketOrderBO.getBasketOrderViewListBySellerUserIdAndSearchName(userId, searchName);
+		List<BasketOrderView> basketOrderViewList =  basketOrderBO.getBasketOrderViewListBySellerUserIdAndSearchName(userId, searchName, searchState);
 		
 		model.addAttribute("basketOrderViewList", basketOrderViewList);
 		model.addAttribute("viewName", "order/sellerOrderList");
