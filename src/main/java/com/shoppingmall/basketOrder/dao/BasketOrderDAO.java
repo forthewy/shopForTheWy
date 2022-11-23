@@ -24,4 +24,8 @@ public interface BasketOrderDAO {
 	public List<BasketOrder> selectBasketOrderByOrderIdList(List<Integer> orderIdList);
 	
 	public List<BasketOrder> selectBasketOrderByItemIdList(List<Integer> itemIdList);
+
+	public int updateBasketOrder(
+			@Param("id") int id,
+			@Param("state") String state);
 }

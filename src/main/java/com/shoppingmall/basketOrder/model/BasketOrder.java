@@ -8,6 +8,7 @@ public class BasketOrder {
 	private int itemId;
 	private int number;
 	private int price;
+	private String state;
 	
 	private Date createdAt;
 	public int getId() {
@@ -46,6 +47,11 @@ public class BasketOrder {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	
 }

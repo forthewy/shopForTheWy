@@ -36,6 +36,7 @@
  			,`userId`
 			,`phoneNumber`
 			,`address`
+			,`name`
 			,`createdAt`
 			,`updatedAt`
 			,`name`
@@ -43,5 +44,22 @@
  			`order`	
 		WHERE
 			`id` = #{id}
+ 	</select>
+ 	<select id="selectOrderByIdAndName" parameterType="map" resultType="com.shoppingmall.order.model.Order">
+ 		SELECT
+ 			`id`
+ 			,`userId`
+			,`phoneNumber`
+			,`address`
+			,`name`
+			,`createdAt`
+			,`updatedAt`
+			,`name`
+		FROM
+ 			`order`	
+		WHERE
+			`id` = #{id}
+			AND
+			`name` LIKE CONCAT(#{name},'%')
  	</select>
  </mapper>

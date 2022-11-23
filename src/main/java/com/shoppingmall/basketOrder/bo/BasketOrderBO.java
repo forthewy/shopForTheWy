@@ -141,8 +141,20 @@ public class BasketOrderBO {
 			  basketOrderView.setBasketOrder(basketOrder);
 			  
 			  // order 불러오기
-			  Order order = orderBO.getOrderByIdAndUserName(basketOrder.getOrderId(), searchName);
-			  basketOrderView.setOrder(order);
+			  	// 1) 검색어가 없을 경우
+			  if (ObjectUtils.isEmpty(searchName)) {
+				  Order order = orderBO.getOrderById(basketOrder.getOrderId());
+				  basketOrderView.setOrder(order);
+			  } else {
+				  // 2) 검색어(이름)가 있을 경우
+				  Order order = orderBO.getOrderByIdAndName(basketOrder.getOrderId(), searchName);
+				  if (ObjectUtils.isEmpty(order)) {
+					  continue;
+				  } else {
+					  basketOrderView.setOrder(order); 
+				  }
+			  }
+			  
 			  
 			  // item 정보 넣기
 			  Item item = itemBO.getItemByItemId(basketOrder.getItemId());
@@ -161,6 +173,8 @@ public class BasketOrderBO {
 		return basketOrderDAO.selectBasketOrderByItemIdList(itemIdList);
 	}
 	
-	
+	public int updateBasketOrder(int id, String state) {
+		return basketOrderDAO.updateBasketOrder(id, state);
+	}
 
 }

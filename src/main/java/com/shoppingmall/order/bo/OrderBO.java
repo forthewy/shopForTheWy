@@ -40,5 +40,10 @@ public class OrderBO {
 	public Order getOrderById(int id) {
 		return orderDAO.selectOrderById(id);
 	}
+	
+	// id와 검색어(이름)으로 가져오기
+	public Order getOrderByIdAndName(int id, String name) {
+		return orderDAO.selectOrderByIdAndName(id, name);
+	}
 
 }

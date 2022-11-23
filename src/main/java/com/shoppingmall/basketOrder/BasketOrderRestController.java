@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,17 @@ public class BasketOrderRestController {
 	@Autowired
 	private BasketOrderBO basketOrderBO;
 	
+	/**
+	 * 주문
+	 * @param address
+	 * @param phoneNumber
+	 * @param name
+	 * @param directBasketId
+	 * @param directPrice
+	 * @param basketIdAndEachTotalPriceList
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("address") String address,
@@ -46,6 +58,20 @@ public class BasketOrderRestController {
 			result.put("code", 500);
 			result.put("errorMessage", "주문에 실패했습니다");
 		}
+		
+		return result;
+	}
+	
+	@PutMapping("/update")
+	public Map<String, Object> update(
+			@RequestParam("basketOrderId") int basketOrderId,
+			@RequestParam("state") String state) {
+		
+		Map<String, Object> result = new HashMap<>();
+		int row = basketOrderBO.updateBasketOrder(basketOrderId, state);
+		
+		result.put("code", 300);
+		result.put("result", "success");
 		
 		return result;
 	}
