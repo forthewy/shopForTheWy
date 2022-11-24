@@ -33,4 +33,12 @@
 			AND
 			`userId` = #{userId}
  	</delete>
+ 	<select id="selectSellerIdListByUserId" parameterType="int" resultType="integer">
+ 		SELECT
+ 			`sellerId`
+ 		FROM 
+ 			`bookmark`
+ 		WHERE
+			`userId` = #{userId}
+ 	</select>
  </mapper>

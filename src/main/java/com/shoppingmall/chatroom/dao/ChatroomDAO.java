@@ -14,6 +14,5 @@ public interface ChatroomDAO {
 			@Param("userId") int userId,
 			@Param("sellerId")int sellerId);
 	
-	public int insertChatroom(
-			Map<String, Object> chatroomMap);
+	public int insertChatroom(Map<String, Object> chatroomMap);
 }

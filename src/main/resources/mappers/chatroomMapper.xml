@@ -16,7 +16,7 @@
  			AND
  			`sellerId` = #{sellerId}
  	</select>
- 	<insert id="insertChatroomByUserIdAndSellerId" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id">
+ 	<insert id="insertChatroom" parameterType="hashmap">
  		INSERT INTO
  			`chatroom`
  		(

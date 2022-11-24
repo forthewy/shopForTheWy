@@ -25,10 +25,20 @@
 		</div>
 		<%-- 메세지 보내기 --%>
 		<div class="input-group">
-			<input type="text" class="form-control" id="searchWord" name="searchWord">
+			<input type="text" class="form-control" id="messageContent" name="content">
 			<div class="input-group-append">
-				<button class="btn btn-dark">보내기</button>
+				<button class="btn btn-dark" type="button" id="sendMessageBtn">보내기</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		$('#sendMessageBtn').on('click', function() {
+			let messageContent = $('#messageContent').val();
+			
+		})
+	})
+
+</script>

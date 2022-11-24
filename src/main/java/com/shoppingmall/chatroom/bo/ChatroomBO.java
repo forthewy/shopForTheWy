@@ -25,7 +25,8 @@ public class ChatroomBO {
 		chatroomMap.put("id", null);
 		chatroomMap.put("userId", userId);
 		chatroomMap.put("sellerId", sellerId);
+		chatroomDAO.insertChatroom(chatroomMap);
 		
-		return chatroomDAO.insertChatroom(chatroomMap);
+		return (int)chatroomMap.get("id");
 	}
 }

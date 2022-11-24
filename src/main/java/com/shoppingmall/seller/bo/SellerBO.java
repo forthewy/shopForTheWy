@@ -1,8 +1,9 @@
 package com.shoppingmall.seller.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,6 +39,11 @@ public class SellerBO {
 	// 상점아이디로 상점 가져오기
 	public Seller getSellerById(int id) {
 		return sellerDAO.selectSellerById(id);
+	}
+	
+	// 북마크 리스트 조회용
+	public List<Seller> getSellerListByUserId(List<Integer> idList) {
+		return sellerDAO.selectSellerListByUserId(idList);
 	}
 	
 	// 상점 정보 수정

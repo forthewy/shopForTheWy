@@ -1,5 +1,7 @@
 package com.shoppingmall.seller.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +21,7 @@ public interface SellerDAO {
 			@Param("shopMainImg") String shopMainImg);
 	
 	public Seller selectSellerById (int id);
+	
+	public List<Seller> selectSellerListByUserId(List<Integer> idList);
 	
 }

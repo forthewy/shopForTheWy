@@ -53,4 +53,26 @@
  		WHERE
  			`id` = #{id}
  	</select>
+ 	<select id="selectSellerListByUserId" parameterType="int" resultType="com.shoppingmall.seller.model.Seller">
+ 		SELECT
+			`id`
+			,`userId`
+			,`shopName`
+			,`address`
+			,`shopPhoneNumber`
+			,`file`
+			,`bannerImg`
+			,`shopMainImg`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+ 			`seller`
+ 		WHERE
+ 			`id` IN
+ 		<foreach collection="list" item="id" separator="," open="(" close=")">
+				 #{id}
+		</foreach>
+		ORDER BY 
+			`id` DESC	
+ 	</select>
  </mapper>

@@ -46,11 +46,13 @@
 				<div>
 					<a href="/basket_order/order_list_view" ><img class="user-menu" alt="회원 정보, 주문조회" src="/static/img/person.webp"></a>
 				</div>
+				<%-- 문의 내역 --%>
 				<div>
 					<a href="/chatroom/chatroom_list_view"><img class="user-menu" alt="문의 내역" src="/static/img/letter.webp"></a>
 				</div>
+				<%-- 즐겨찾기 목록 --%>
 				<div>
-					<a href="#"><img class="user-menu"  alt="즐겨찾기" src="/static/img/star.png"></a>
+					<a href="/bookmark/bookmark_list_view"><img class="user-menu"  alt="즐겨찾기" src="/static/img/star.png"></a>
 				</div>
 				<%-- 상점 회원 로그인시 추가로 보이는 메뉴 --%>
 				<c:if test="${userType eq 2}">

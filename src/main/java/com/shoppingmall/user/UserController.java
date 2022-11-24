@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/user")
@@ -16,7 +17,16 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/sign_in_view") 
-	public String signInView(Model model) {
+	public String signInView(
+			HttpSession session,
+			Model model) {
+		
+		Integer userId = (Integer) session.getAttribute("userId");
+		
+		// 이미 로그인 했다면
+		if (!ObjectUtils.isEmpty(userId)) {
+			return "redirect:/home/home_view";
+		}
 		model.addAttribute("viewName", "user/signIn");
 		return "template/layout";
 	}

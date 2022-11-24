@@ -88,6 +88,13 @@ section {
 .chatroom-list-box {
 	min-height: 700px;
 }
+.box{
+	min-height: 700px;
+}
+.bookmark-box {
+	height: 300px;
+	width: 250px;
+}
 footer {
 	height: 100px;
 }
