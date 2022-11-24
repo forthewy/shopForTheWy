@@ -83,7 +83,8 @@ section {
 	border-radius: 25px;
 }
 .message-box{
-	min-height: 700px;
+	height: 700px;
+	overflow: scroll;
 }
 .chatroom-list-box {
 	min-height: 700px;
@@ -94,6 +95,12 @@ section {
 .bookmark-box {
 	height: 300px;
 	width: 250px;
+}
+.card {
+	max-width: 200px;
+}
+.chatroom-state {
+	border-radius: 5px;
 }
 footer {
 	height: 100px;

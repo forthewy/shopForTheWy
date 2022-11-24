@@ -5,29 +5,21 @@ import java.util.Date;
 public class Message {
 
 	private int id;
-	private int userId;
-	private int sellerId;
+	private int senderUserId;
 	private String content;
 	private int chatroomId;
 	private Date createdAt;
-	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getUserId() {
-		return userId;
+	public int getSenderUserId() {
+		return senderUserId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	public int getSellerId() {
-		return sellerId;
-	}
-	public void setSellerId(int sellerId) {
-		this.sellerId = sellerId;
+	public void setSenderUserId(int senderUserId) {
+		this.senderUserId = senderUserId;
 	}
 	public String getContent() {
 		return content;

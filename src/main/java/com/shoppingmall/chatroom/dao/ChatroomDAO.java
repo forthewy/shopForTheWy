@@ -1,5 +1,6 @@
 package com.shoppingmall.chatroom.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -15,4 +16,8 @@ public interface ChatroomDAO {
 			@Param("sellerId")int sellerId);
 	
 	public int insertChatroom(Map<String, Object> chatroomMap);
+	
+	public List<Chatroom> selectChatroomListByUserIdOrSellerId(
+			@Param("userId") Integer userId,
+			@Param("sellerId") Integer sellerId);
 }

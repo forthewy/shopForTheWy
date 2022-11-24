@@ -34,4 +34,18 @@
  			SELECT LAST_INSERT_ID()
  		</selectKey>
  	</insert>
+ 	<select id="selectChatroomListByUserIdOrSellerId" parameterType="map" resultType="com.shoppingmall.chatroom.model.Chatroom">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`sellerId`
+			,`state`
+			,`createdAt`
+ 		FROM
+ 			`chatroom`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND
+ 			`sellerId` = #{sellerId}
+ 	</select>
  </mapper>

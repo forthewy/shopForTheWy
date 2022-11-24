@@ -5,8 +5,7 @@
  	<select id="selectMessageListByChatroomId" parameterType="int" resultType="com.shoppingmall.message.model.Message">
  		SELECT
 	 		`id`
-			,`userId`
-			,`sellerId`
+			,`senderUserId`
 			,`content`
 			,`chatroomId`
 			,`createdAt`
@@ -15,4 +14,21 @@
  		WHERE
  			`chatroomId` = #{chatroomId}
  	</select>
+ 	<insert id="insertMessage" parameterType="map">
+ 		INSERT INTO
+ 			`message`
+ 		(
+ 			`senderUserId`
+			,`content`
+			,`chatroomId`
+			,`createdAt`
+ 		)
+ 		VALUES
+ 		(
+	 		#{senderUserId}
+			,#{content}
+			,#{chatroomId}
+			,NOW()
+		)
+	</insert>
  </mapper>

@@ -11,4 +11,9 @@ import com.shoppingmall.message.model.Message;
 public interface MessageDAO {
 
 	public List<Message> selectMessageListByChatroomId(int chatroomId);
+	
+	public int insertMessage(
+			@Param("senderUserId") int senderUserId,
+			@Param("content") String content,
+			@Param("chatroomId") int chatroomId);
 }

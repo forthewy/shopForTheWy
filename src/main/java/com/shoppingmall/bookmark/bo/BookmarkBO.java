@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.shoppingmall.bookmark.dao.BookmarkDAO;
 import com.shoppingmall.bookmark.model.BookmarkView;
@@ -64,7 +65,9 @@ public class BookmarkBO {
 		
 		// 북마크한 sellerId 리스트
 		List<Integer> sellerIdList = getSellerIdListByUserId(userId);
-		
+		if (ObjectUtils.isEmpty(sellerIdList)) {
+			return null;
+		}
 		// SellerList
 		List<Seller> sellerList = sellerBO.getSellerListByUserId(sellerIdList);
 		
@@ -75,11 +78,9 @@ public class BookmarkBO {
 			// sellerLoginId
 			User user = userBO.getUserByUserId(seller.getUserId());
 			bookmarkView.setSellerUserLoginId(user.getLoginId());
-			
+				
 			bookmarkViewList.add(bookmarkView);
 		}
-		
 		return bookmarkViewList;
 	}
-	
 }

@@ -10,6 +10,7 @@ import com.shoppingmall.chatroom.bo.ChatroomBO;
 import com.shoppingmall.chatroom.model.Chatroom;
 import com.shoppingmall.message.dao.MessageDAO;
 import com.shoppingmall.message.model.Message;
+import com.shoppingmall.message.model.MessageView;
 
 @Service
 public class MessageBO {
@@ -20,7 +21,10 @@ public class MessageBO {
 	@Autowired
 	private ChatroomBO chatroomBO;
 	
-	public List<Message> getMessageListByChatroomId(int userId, int sellerId) {
+	// 쪽지화면 만들기
+	public MessageView generateMessageView(int userId, int sellerId) {
+		
+		MessageView messageView = new MessageView();
 		
 		// 쪽지방이 있는지 조회한다.
 		Chatroom chatroom = chatroomBO.getChatroomByUserIdAndSellerId(userId, sellerId);
@@ -33,6 +37,24 @@ public class MessageBO {
 			chatroomId = chatroom.getId();
 		}
 		
+		// 채팅방 아이디 넣기
+		messageView.setChatroomId(chatroomId);
+		
+		// 메세지 리스트 넣기
+		List<Message> messageList = getMessageListByChatroomId(chatroomId);
+		messageView.setMessageList(messageList);
+		
+		return messageView;
+	}
+	
+	public List<Message> getMessageListByChatroomId(int chatroomId) {
 		return messageDAO.selectMessageListByChatroomId(chatroomId);
 	}
+	
+	// 쪽지 보내기
+	public int addMessage(int senderUserId,String content, int chatroomId) {
+		
+		return messageDAO.insertMessage(senderUserId, content, chatroomId);
+	};
+	
 }
