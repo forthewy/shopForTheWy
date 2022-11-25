@@ -63,6 +63,12 @@ public class UserController {
 		return "redirect:/home/home_view";
 	}
 	
+	@RequestMapping("/update_view")
+	public String updateView(Model model) {
+		
+		model.addAttribute("viewName", "user/update");
+		return "template/layout";
+	}
 }
 
 	

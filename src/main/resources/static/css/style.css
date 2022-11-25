@@ -31,7 +31,7 @@ section {
 }
 .gray-box {
 	background-color: rgb(226, 226, 226);
-	height: 600px;
+	height: 700px;
 }
 .address-box {
 	width: 400px;
@@ -96,12 +96,17 @@ section {
 	height: 300px;
 	width: 250px;
 }
+.bg-grey {
+	background-color: #c6c6c6;
+}
 .card {
-	max-width: 200px;
+	max-width: 400px;
 }
 .chatroom-state {
-	border-radius: 5px;
 	height: 40px;
+	width: 90px;
+	border-radius: 7px;
+	overflow: hidden;
 }
 .chatroom-each-box {
 	height: 50px;

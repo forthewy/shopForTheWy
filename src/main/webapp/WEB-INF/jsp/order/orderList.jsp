@@ -11,7 +11,7 @@
 					<button class="btn btn-info mb-3" onClick="location.href='/basket_order/order_list_view'">주문 내역</button>
 				</div>
 				<div>
-					<button class="btn btn-info mb-3">회원정보 수정</button>
+					<button class="btn btn-info mb-3"  onClick="location.href='/user/update_view'">회원정보 수정</button>
 				</div>
 				<c:if test="${userType eq 2}">
 					<div>

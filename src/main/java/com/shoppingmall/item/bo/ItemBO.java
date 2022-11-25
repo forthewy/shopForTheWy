@@ -2,6 +2,8 @@ package com.shoppingmall.item.bo;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -14,8 +16,12 @@ import com.shoppingmall.seller.bo.SellerBO;
 import com.shoppingmall.seller.model.Seller;
 import com.shoppingmall.user.bo.UserBO;
 
+
+
 @Service
 public class ItemBO {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private FileManagerService fileManagerService;
@@ -35,6 +41,12 @@ public class ItemBO {
 		String imagePath = null;
 		
 		Seller seller = sellerBO.getSellerByUserLoginId(sellerLoginId);
+		
+		// 상점이 아니라면 등록 할수 없다.
+		if (ObjectUtils.isEmpty(seller)) {
+			return 0;
+		}
+		
 		int sellerId = seller.getId();
 		
 		// 사진 등록
@@ -50,11 +62,14 @@ public class ItemBO {
 		// 수정할 아이템을 가져온다.
 		Item item = getItemByItemId(itemId);
 		
+		// 상품을 등록한 상점이 맞는 지 확인
+		Seller seller = sellerBO.getSellerByUserLoginId(sellerLoginId);
+		if (ObjectUtils.isEmpty(seller) || item.getSellerId() != seller.getId()) {
+			return 0;
+		}
 		
 		// 썸네일 이미지가 있다면
 		String imagePath = null;
-		Seller seller = sellerBO.getSellerByUserLoginId(sellerLoginId);
-		int sellerId = seller.getId();
 
 		// 기존 이미지 삭제 후 새로운 사진 저장 테스트 완료
 		if (!ObjectUtils.isEmpty(thumbnailImg)) {

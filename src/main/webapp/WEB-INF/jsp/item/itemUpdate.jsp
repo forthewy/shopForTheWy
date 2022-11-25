@@ -183,6 +183,9 @@ $(document).ready(function() {
 			, success:function(data) {
 				if (data.code == 300) {
 					location.href = "/item/item_detail_view?itemId=" + itemId;
+				} else if (data.code == 550) {
+					alert(data.errorMessage);
+					location.href = "/user/sign_in_view";
 				} else {
 					alert(data.errorMessage);
 				}

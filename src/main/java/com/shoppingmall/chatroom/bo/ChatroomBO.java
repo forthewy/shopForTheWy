@@ -98,4 +98,13 @@ public class ChatroomBO {
 		return chatroomViewList;
 	}
 	
+	// 채팅방 아이디로 채팅방 조회
+	public Chatroom getChatroomById(int id) {
+		return chatroomDAO.selectChatroomById(id);
+	}
+	
+	public int updateChatroomState(int id, String state) {
+		return chatroomDAO.updateChatroomState(id, state);
+	}
+	
 }

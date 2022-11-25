@@ -21,12 +21,13 @@ public class MessageController {
 	@RequestMapping("/message_view")
 	public String MessageView(
 			HttpSession session,
-			@RequestParam("sellerId") int sellerId,
+			@RequestParam(value="sellerId", required=false) Integer sellerId,
+			@RequestParam(value="chatroomId", required=false) Integer chatroomId,
 			Model model) {
 		
 		int userId = (int) session.getAttribute("userId");
 		
-		MessageView messageView = messageBO.generateMessageView(userId, sellerId);
+		MessageView messageView = messageBO.generateMessageView(userId, sellerId, chatroomId);
 		
 		model.addAttribute("messageView", messageView);
 		model.addAttribute("viewName", "message/message");
@@ -34,15 +35,4 @@ public class MessageController {
 		return "template/layout";
 	}
 	
-	@RequestMapping("/message_list_view")
-	public String MessageListView(
-			HttpSession session,
-			Model model) {
-		
-		int userId = (int) session.getAttribute("userId");
-		
-		
-		
-		return "template/layout";
-	}
 }

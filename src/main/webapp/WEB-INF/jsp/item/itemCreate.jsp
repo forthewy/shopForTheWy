@@ -179,6 +179,9 @@ $(document).ready(function() {
 				if (data.code == 300) {
 					alert(data.result);
 					location.href = "/shop/shop_view/" + sellerLoginId;
+				} else if (data.code == 550) {
+					alert(data.errorMessage);
+					location.href = "/user/sign_in_view";
 				} else {
 					alert(data.errorMessage);
 				}

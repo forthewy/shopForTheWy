@@ -58,4 +58,24 @@
  		WHERE
  			`sellerId` = #{sellerId}
  	</select>
+ 	<select id="selectChatroomById" parameterType="int" resultType="com.shoppingmall.chatroom.model.Chatroom">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`sellerId`
+			,`state`
+			,`createdAt`
+		FROM
+ 			`chatroom`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
+ 	<update id="updateChatroomState" parameterType="map">
+ 		UPDATE
+ 			`chatroom`
+ 		SET
+ 			`state` = #{state}
+ 		WHERE
+ 			`id` = #{id}
+ 	</update>
  </mapper>

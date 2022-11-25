@@ -37,6 +37,13 @@ public class ItemController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 상품 수정 화면
+	 * @param id
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/item_update_view")
 	public String itemUpdateView(
 			@RequestParam("id") int id,

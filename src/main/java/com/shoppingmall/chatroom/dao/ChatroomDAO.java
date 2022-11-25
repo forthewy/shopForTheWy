@@ -20,4 +20,10 @@ public interface ChatroomDAO {
 	public List<Chatroom> selectChatroomListByUserId(int userId);
 	
 	public List<Chatroom> selectChatroomListBySellerId(int sellerId);
+	
+	public Chatroom selectChatroomById(int id);
+	
+	public int updateChatroomState(
+			@Param("id") int id,
+			@Param("state") String state);
 }

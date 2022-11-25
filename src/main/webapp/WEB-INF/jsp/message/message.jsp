@@ -4,14 +4,14 @@
 <div class="w-100 d-flex justify-content-center">
 	<div class="w-50">
 		<%-- 여기는 메세지 화면 --%>
-		<div class="message-box w-100 bg-secondary">
+		<div class="message-box w-100 bg-grey">
 			<c:forEach items="${messageView.messageList}" var="message">
 				<c:choose>
 					<%-- 남이 보낸거일때 --%>
 					<c:when test="${message.senderUserId ne userId}">
 						<div class="d-flex justify-content-start pl-5 pt-3">
-							<div class="card text-dark bg-primary mb-3">
-								 <div class="card-body">
+							<div class="card text-dark bg-info mb-3">
+								 <div class="card-body each-card">
 								   <p class="card-text"><b>${message.content}</b></p>
 								 </div>
 							</div>
@@ -20,7 +20,7 @@
 					<c:otherwise>
 						<div class="d-flex justify-content-end pr-5 pt-3">
 							<div class="card text-dark bg-warning mb-3">
-								 <div class="card-body">
+								 <div class="card-body each-card">
 								   <p class="card-text"><b>${message.content}</b></p>
 								 </div>
 							</div>
@@ -31,6 +31,7 @@
 		</div>
 		<%-- 메세지 보내기 --%>
 		<div class="input-group">
+			<label class="d-none" for="messageContent" id="messageContentLabel">메세지</label>
 			<input type="text" class="form-control" id="messageContent" name="content">
 			<div class="input-group-append">
 				<button class="btn btn-dark" type="button" id="sendMessageBtn" data-chatroom-id="${messageView.chatroomId}">보내기</button>
@@ -41,6 +42,8 @@
 
 <script>
 	$(document).ready(function() {
+		// 메세지를 연속으로 보낼수 있도록 들어오자마자 클릭
+		$('#messageContentLabel').click();
 		
 		$('#messageContent').on("keyup", function(key) {
 	        if(key.keyCode == 13) {
