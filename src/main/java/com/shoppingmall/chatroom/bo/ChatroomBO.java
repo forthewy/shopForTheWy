@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.shoppingmall.chatroom.dao.ChatroomDAO;
 import com.shoppingmall.chatroom.model.Chatroom;
@@ -43,25 +44,53 @@ public class ChatroomBO {
 		return (int)chatroomMap.get("id");
 	}
 	
-	public List<Chatroom> getChatroomListByUserIdOrSellerId(Integer userId, Integer sellerId) {
-		return chatroomDAO.selectChatroomListByUserIdOrSellerId(userId, sellerId);
+	// 유저의 문의한 리스트 조회
+	public List<Chatroom> getChatroomListByUserId(int userId) {
+		return chatroomDAO.selectChatroomListByUserId(userId);
 	}
 	
 	
-	// 채팅방 리스트 조회
-	public List<ChatroomView> generateChatroomViewList(Integer userId, Integer sellerId) {
+	// 상점의 문의리스트 조회
+	public List<Chatroom> getChatroomListBySellerId(int sellerId) {
+		return chatroomDAO.selectChatroomListBySellerId(sellerId);
+	}
+	
+	
+	// 유저의 채팅방 리스트 조회
+	public List<ChatroomView> generateChatroomViewList(int userId) {
 		List<ChatroomView> chatroomViewList = new ArrayList<>();
 		
-		List<Chatroom> chatroomList = getChatroomListByUserIdOrSellerId(userId, sellerId);
+		
+		List<Chatroom> chatroomList = new ArrayList<>();
+		chatroomList = getChatroomListByUserId(userId);
 		
 		for (Chatroom chatroom: chatroomList) {
 			ChatroomView chatroomView = new ChatroomView();
 			chatroomView.setChatroom(chatroom);
 			
-			Seller seller = sellerBO.getSellerById(sellerId);
+			Seller seller = sellerBO.getSellerById(chatroom.getSellerId());
 			chatroomView.setSellerShopName(seller.getShopName());
 			
-			User user = userBO.getUserByUserId(userId);
+			chatroomViewList.add(chatroomView);
+		}
+		return chatroomViewList;
+	}
+	
+	// 상점이 조회할때
+	public List<ChatroomView> generateSellerChatroomViewList(int sellerUserId) {
+		List<ChatroomView> chatroomViewList = new ArrayList<>();
+		
+		
+		List<Chatroom> chatroomList = new ArrayList<>();
+		Seller seller = sellerBO.getSellerByUserId(sellerUserId);
+		
+		chatroomList = getChatroomListBySellerId(seller.getId());
+		
+		for (Chatroom chatroom: chatroomList) {
+			ChatroomView chatroomView = new ChatroomView();
+			chatroomView.setChatroom(chatroom);
+			
+			User user = userBO.getUserByUserId(chatroom.getUserId());
 			chatroomView.setUserName(user.getName());
 			
 			chatroomViewList.add(chatroomView);

@@ -34,7 +34,7 @@
  			SELECT LAST_INSERT_ID()
  		</selectKey>
  	</insert>
- 	<select id="selectChatroomListByUserIdOrSellerId" parameterType="map" resultType="com.shoppingmall.chatroom.model.Chatroom">
+ 	<select id="selectChatroomListByUserId" parameterType="int" resultType="com.shoppingmall.chatroom.model.Chatroom">
  		SELECT
  			`id`
 			,`userId`
@@ -45,7 +45,17 @@
  			`chatroom`
  		WHERE
  			`userId` = #{userId}
- 			AND
+ 	</select>
+ 	<select id="selectChatroomListBySellerId" parameterType="int" resultType="com.shoppingmall.chatroom.model.Chatroom">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`sellerId`
+			,`state`
+			,`createdAt`
+ 		FROM
+ 			`chatroom`
+ 		WHERE
  			`sellerId` = #{sellerId}
  	</select>
  </mapper>

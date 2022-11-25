@@ -17,7 +17,7 @@ public interface ChatroomDAO {
 	
 	public int insertChatroom(Map<String, Object> chatroomMap);
 	
-	public List<Chatroom> selectChatroomListByUserIdOrSellerId(
-			@Param("userId") Integer userId,
-			@Param("sellerId") Integer sellerId);
+	public List<Chatroom> selectChatroomListByUserId(int userId);
+	
+	public List<Chatroom> selectChatroomListBySellerId(int sellerId);
 }

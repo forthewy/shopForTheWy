@@ -25,11 +25,26 @@ public class ChatroomController {
 			Model model) {
 		
 		int userId = (int) session.getAttribute("userId");
-		List<ChatroomView> chatroomViewList = chatroomBO.generateChatroomViewList(userId, null); 
+		List<ChatroomView> chatroomViewList = chatroomBO.generateChatroomViewList(userId); 
 		
 		
 		model.addAttribute("chatroomViewList", chatroomViewList);
 		model.addAttribute("viewName", "chatroom/chatroomList");
+		
+		return "template/layout";
+	}
+	
+	@RequestMapping("/seller_chatroom_list_view")
+	public String sellerChatroomListView(
+			HttpSession session,
+			Model model) {
+		
+		int sellerUserId = (int) session.getAttribute("userId");
+		List<ChatroomView> chatroomViewList = chatroomBO.generateSellerChatroomViewList(sellerUserId); 
+		
+		
+		model.addAttribute("chatroomViewList", chatroomViewList);
+		model.addAttribute("viewName", "chatroom/sellerChatroomList");
 		
 		return "template/layout";
 	}

@@ -46,6 +46,13 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		
+		// 비로그인 && 문의로 온경우 ==> 로그인 페이지로 redirect
+		if (userName == null && uri.startsWith("/chatroom")) {
+			response.sendRedirect("/user/sign_in_view");
+			return false;
+		}
+		
+		
 		return true;
 	}
 	

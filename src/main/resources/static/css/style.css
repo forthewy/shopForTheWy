@@ -101,6 +101,12 @@ section {
 }
 .chatroom-state {
 	border-radius: 5px;
+	height: 40px;
+}
+.chatroom-each-box {
+	height: 50px;
+	border-radius: 5px;
+	width: 500px;
 }
 footer {
 	height: 100px;

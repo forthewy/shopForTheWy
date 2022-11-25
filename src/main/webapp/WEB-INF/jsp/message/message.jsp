@@ -10,18 +10,18 @@
 					<%-- 남이 보낸거일때 --%>
 					<c:when test="${message.senderUserId ne userId}">
 						<div class="d-flex justify-content-start pl-5 pt-3">
-							<div class="card text-white bg-primary mb-3">
+							<div class="card text-dark bg-primary mb-3">
 								 <div class="card-body">
-								   <p class="card-text">${message.content}</p>
+								   <p class="card-text"><b>${message.content}</b></p>
 								 </div>
 							</div>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="d-flex justify-content-end pr-5 pt-3">
-							<div class="card text-white bg-warning mb-3">
+							<div class="card text-dark bg-warning mb-3">
 								 <div class="card-body">
-								   <p class="card-text">${message.content}</p>
+								   <p class="card-text"><b>${message.content}</b></p>
 								 </div>
 							</div>
 						</div>
