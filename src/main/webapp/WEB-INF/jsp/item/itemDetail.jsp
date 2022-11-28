@@ -5,6 +5,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="d-flex justify-content-center">
 	<div class="w-75">
+		<div class="d-flex justify-content-center mt-2">
+			<a href="/shop/shop_view/${itemDetailView.sellerLoginId}">
+				<span class="item-detail-shop-name">${itemDetailView.seller.shopName}</span>
+			</a>
+		</div>
+		<hr>
 		<div class="item-detail-box d-flex">
 			<div class="w-50 d-flex justify-content-center align-items-center">
 				<img alt="썸네일이미지" src="${itemDetailView.item.thumbnailImg}" width="550px" height="400px">

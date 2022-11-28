@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- 배너 이미지 --%>
 <div class="d-flex justify-content-center">
-	<div class="w-75" >
+	<div class="w-75">
+		<%-- 배너 이미지 --%>
 		<div class="d-flex justify-content-center">
 			<div id="banner" class="bg-success">
 				<img src="${shop.seller.bannerImg}" alt="배너이미지" width="100%" height="100%"> 
 			</div>
 		</div>
-<%-- 버튼들 --%>
+		<%-- 버튼들 --%>
 		<div class="mt-3 d-flex justify-content-end w-100">
 			<c:choose>
 				<c:when test="${userId ne shop.seller.userId}">

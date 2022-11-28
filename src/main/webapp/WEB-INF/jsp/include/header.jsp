@@ -10,9 +10,9 @@
 	</div>
 	<%-- 검색 바 --%>
 	<div class="input-group col-6">
-		<input type="text" class="form-control" id="searchWord" name="searchWord">
+		<input type="text" class="form-control" id="headerSearchWord" name="searchWord">
 		<div class="input-group-append">
-			<button class="btn btn-dark">검색</button>
+			<button class="btn btn-dark" id="headerSearchBtn">검색</button>
 		</div>
 	</div>
 	<c:choose>
@@ -72,6 +72,7 @@
 
 <script>
 	$(document).ready(function() {
+		<%-- 최근 본 상품 --%>
 		$('#lastLookItemBtn').on('mouseover', function() {
 			$('#lastLookItemBtn').addClass('d-none');
 			$('#lastLookItemImg').removeClass('d-none');
@@ -81,6 +82,18 @@
 			$('#lastLookItemImg').addClass('d-none');
 			$('#lastLookItemBtn').removeClass('d-none');
 		});
-	})
+		
+		<%-- 검색 --%>
+		$('#headerSearchWord').on('keyup', function(key) {
+			 if(key.keyCode == 13) {
+		    	$('#headerSearchBtn').click();
+		     }
+		});
+		
+		$('#headerSearchBtn').on('click', function() {
+			let searchword = $('#headerSearchWord').val();
+			location.href = "/search/search_view?searchword=" + searchword;
+		});
+	});
 
 </script>

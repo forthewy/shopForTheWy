@@ -12,6 +12,7 @@ import com.shoppingmall.review.bo.ReviewBO;
 import com.shoppingmall.review.model.ReviewView;
 import com.shoppingmall.seller.bo.SellerBO;
 import com.shoppingmall.seller.model.Seller;
+import com.shoppingmall.user.bo.UserBO;
 
 @Service
 public class ItemDetailBO {
@@ -24,6 +25,9 @@ public class ItemDetailBO {
 
 	@Autowired
 	private ReviewBO reviewBO;
+	
+	@Autowired
+	private UserBO userBO;
 	
 	// 비로그인도 상세 화면 볼수 있도록 Integer userId
 	public ItemDetailView generateItemDetailView(int itemId, Integer userId) {
@@ -50,6 +54,9 @@ public class ItemDetailBO {
 			}
 		}
 		itemDetailView.setIsUserSeller(isUserSeller);
+		
+		String sellerLoginId = userBO.getUserByUserId(seller.getUserId()).getLoginId();
+		itemDetailView.setSellerLoginId(sellerLoginId);
 		
 		// 리뷰 뷰 리스트
 		List<ReviewView> reviewViewList = reviewBO.generateReviewView(itemId);

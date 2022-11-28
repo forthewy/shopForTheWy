@@ -48,7 +48,9 @@
 							<div class="w-100">
 								<c:forEach items="${orderView.basketItemViewList}" var="basketItem">
 									<div class="d-flex w-100">
-										<img src="${basketItem.item.thumbnailImg}" width="150px" height="150px" class="mt-3" alt="상품 썸네일 사진">
+										<div>
+											<img src="${basketItem.item.thumbnailImg}" width="150px" height="150px" class="mt-3" alt="상품 썸네일 사진">
+										</div>
 										<div class="d-flex col-12">
 											<%-- 개당 금액 --%>
 											<c:set value="${basketItem.item.price}" var="eachPrice"/>

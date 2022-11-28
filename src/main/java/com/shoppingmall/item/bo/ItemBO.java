@@ -99,8 +99,8 @@ public class ItemBO {
 	}
 	
 	// 홈화면용 상품 리스트
-	public List<Item> getItemListLimitNine() {
-		return itemDAO.selectItemListLimitNine();
+	public List<Item> getItemListBySortLimitFour(String sort) {
+		return itemDAO.selectItemListBySortLimitFour(sort);
 	}
 	
 	// 상점의 상품Id 리스트

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.shoppingmall.home.model.HomeView;
 import com.shoppingmall.item.bo.ItemBO;
@@ -21,10 +22,17 @@ public class HomeViewBO {
 	@Autowired
 	private SellerBO sellerBO;
 	
-	public List<HomeView> generateHomeView() {
+	public List<HomeView> generateHomeView(String sort) {
 		
 		List<HomeView> homeViewList = new ArrayList<>();
-		List<Item> itemList = itemBO.getItemListLimitNine();
+		
+		List<Item> itemList = new ArrayList<>();
+		
+		if (ObjectUtils.isEmpty(sort)) {
+			itemList = itemBO.getItemListBySortLimitFour(null);
+		} else {
+			itemList = itemBO.getItemListBySortLimitFour(sort);
+		}
 		
 		for (Item item: itemList) {
 			HomeView homeView = new HomeView();

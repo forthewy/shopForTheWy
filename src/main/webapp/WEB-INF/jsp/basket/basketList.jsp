@@ -16,7 +16,7 @@
 				<c:set value="${basketItem.basket.number}" var="basketNumber"/>
 				<div class="d-flex pl-3">
 					<div class="col-2">
-						<input type="checkbox" name="check" class="basket-check" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
+						<input type="checkbox" name="check" class="basket-check mr-3" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
 						<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
 							<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="150px" height="150px">
 						</a>
@@ -24,7 +24,7 @@
 					<div class="col-8 d-flex">
 						<div class="d-flex align-items-center col-2 border-right">
 							<div>
-								<h2>${basketItem.item.name}</h2>
+								<h3>${basketItem.item.name}</h3>
 							</div>
 						</div>
 						<div class="col-3 ml-2">

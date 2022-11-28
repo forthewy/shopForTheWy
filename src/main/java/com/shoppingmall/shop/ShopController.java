@@ -20,9 +20,6 @@ public class ShopController {
 	@Autowired
 	private ShopViewBO shopViewBO;
 	
-	@Autowired
-	private SellerBO sellerBO;
-	
 	@RequestMapping("/shop_view/{sellerLoginId}") 
 	public String shopView(
 			@PathVariable("sellerLoginId") String sellerLoginId,

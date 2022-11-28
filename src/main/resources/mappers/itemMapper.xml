@@ -80,7 +80,7 @@
  		WHERE
  			`sellerId` = #{sellerId}
  	</select>
- 	<select id="selectItemListLimitNine" resultType="com.shoppingmall.item.model.Item">
+ 	<select id="selectItemListBySortLimitFour" resultType="com.shoppingmall.item.model.Item">
  		SELECT
  			`id` 
  			,`sellerId`
@@ -95,6 +95,11 @@
 			,`updatedAt`
  		FROM
  			`item`
+ 		<if test="sort != null">
+ 		WHERE `sort` = #{sort}
+ 		</if>
+ 		ORDER BY `id` DESC 
+ 		LIMIT 4
  	</select>
  	<select id="selectItemByItemId" parameterType="int" resultType="com.shoppingmall.item.model.Item">
  		SELECT

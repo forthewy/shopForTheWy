@@ -36,7 +36,7 @@ public interface ItemDAO {
 	
 	public List<Item> selectItemBySellerId(int sellerId);
 	
-	public List<Item> selectItemListLimitNine();
+	public List<Item> selectItemListBySortLimitFour(String sort);
 	
 	public List<Integer> selectItemIdListBySellerId(int sellerId);
 	

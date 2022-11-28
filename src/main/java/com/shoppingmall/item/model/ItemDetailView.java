@@ -15,6 +15,9 @@ public class ItemDetailView {
 	
 	// 상점
 	private Seller seller;
+	
+	// 상점 로그인 아이디
+	private String sellerLoginId;
 
 	// 상점이 유저가 운영하는 건지 확인
 	private boolean isUserSeller;
@@ -48,6 +51,18 @@ public class ItemDetailView {
 	}
 
 	public void setIsUserSeller(boolean isUserSeller) {
+		this.isUserSeller = isUserSeller;
+	}
+
+	public String getSellerLoginId() {
+		return sellerLoginId;
+	}
+
+	public void setSellerLoginId(String sellerLoginId) {
+		this.sellerLoginId = sellerLoginId;
+	}
+
+	public void setUserSeller(boolean isUserSeller) {
 		this.isUserSeller = isUserSeller;
 	}
 	

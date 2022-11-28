@@ -60,6 +60,9 @@ section {
 	background-color: #ffffff;
 	border-radius: 25px;
 }
+.item-detail-shop-name {
+	font-size: 40px;
+}
 .item-detail-box {
 	min-height: 500px;
 }
@@ -118,8 +121,18 @@ section {
 	width: 500px;
 }
 .home-main {
-	height: 400px;
+	height: 500px;
 	width: 1260px;
+}
+.home-menu {
+	height: 100px;
+}
+.home-item {
+	height: 300px;
+}
+.home-item-card {
+	height: 300px;
+	width: 23%;
 }
 footer {
 	height: 100px;

@@ -29,20 +29,40 @@
 					</div>
 				</c:when>
 				<c:otherwise>
+					<c:set value="0000-00-00" var="date"/>
+					<c:set value="${basketOrderViewList[0].basketOrder.orderId}" var="id"/>
 					<c:forEach items="${basketOrderViewList}" var="basketOrderView">
-						<h2><fmt:formatDate value="${basketOrderView.basketOrder.createdAt}" pattern="yyyy-MM-dd"/></h2>
-						<div class="d-flex">
-							<div class="d-flex w-100">
+						<fmt:formatDate value="${basketOrderView.basketOrder.createdAt}" pattern="yyyy-MM-dd" var="orderDate"/>
+						<c:if test="${date ne orderDate}">
+							<h4>${orderDate}</h4>
+							<%-- 같은 날짜는 같이 보도록 한다. --%>
+							<c:set value="${orderDate}" var="date"/>
+						</c:if>
+						<c:set var="orderId" value="${basketOrderView.basketOrder.orderId}"/>
+						<c:if test="${id ne orderId}">
+							<hr>
+							<%-- 같이 주문한 장바구니 주문은 같이 보도록 한다. --%>
+							<c:set value="${orderId}" var="id"/>
+						</c:if>
+						<div class="d-flex mb-3">
+							<div class="d-flex w-100 align-items-center">
 								<a href="/item/item_detail_view?itemId=${basketOrderView.item.id}">
 									<img alt="주문상품 대표이미지" src="${basketOrderView.item.thumbnailImg}" width="70px" height="70px">
 								</a>
-								<h3>${basketOrderView.item.name}</h3>	
-								<h3 class="pl-3">${basketOrderView.basketOrder.number}개</h3>	
-								<h3 class="pl-3">${basketOrderView.basketOrder.price}원</h3>
-								<h3 class="pl-3">${fn:replace(basketOrderView.order.address, '/', ' ')}</h3>
+								<div class="col-2 border-right h-100 d-flex align-items-center">
+									<h4>${basketOrderView.item.name}</h4>	
+								</div>
+								<div class="col-1 border-right h-100 d-flex align-items-center">
+									<h5>${basketOrderView.basketOrder.number}개</h5>	
+								</div>
+								<div class="col-6 border-right h-100 d-flex align-items-center">
+									<span class="ml-3">${fn:replace(basketOrderView.order.address, '/', ' ')}</span>	
+								</div>
+								<div class="col-2 h-100 d-flex align-items-center">
+									<h5>${basketOrderView.basketOrder.price}원</h5>	
+								</div>
 							</div>
 							<button type="button" class="review-btn btn btn-primary" data-toggle="modal" data-target="#reviewModal" data-item-id="${basketOrderView.item.id}">리뷰 남기기</button>
-							<hr>
 						</div>
 					</c:forEach>
 				</c:otherwise>
