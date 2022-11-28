@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,9 +31,13 @@ public class ItemController {
 			HttpSession session,
 			Model model) {
 		
-		int sellerId = (int) session.getAttribute("userId");
+		Integer userId = (Integer) session.getAttribute("userId");
 		
-		model.addAttribute("sellerId", sellerId);
+		// 비로그인이라면 로그인화면으로 이동한다.
+		if (ObjectUtils.isEmpty(userId)) {
+			return "redirect:/user/sign_in_view";
+		}	
+		
 		model.addAttribute("viewName", "item/itemCreate");
 		return "template/layout";
 	}
@@ -49,6 +54,13 @@ public class ItemController {
 			@RequestParam("id") int id,
 			HttpSession session,
 			Model model) {
+		
+		Integer userId = (Integer) session.getAttribute("userId");
+		
+		// 비로그인이라면 로그인화면으로 이동한다.
+		if (ObjectUtils.isEmpty(userId)) {
+			return "redirect:/user/sign_in_view";
+		}	
 		
 		Item item = itemBO.getItemByItemId(id);
 		

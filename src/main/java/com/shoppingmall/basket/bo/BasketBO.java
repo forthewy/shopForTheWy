@@ -93,6 +93,7 @@ public class BasketBO {
 		return row;
 	}
 	
+	// userId와 itemId로 담은적 있는 상품인지 확인
 	public Basket getBasketByUserIdAndItemId(int userId, int itemId) {
 		return basketDAO.existBasketByUserIdAndItemId(userId, itemId);
 	}
@@ -102,7 +103,7 @@ public class BasketBO {
 		return basketDAO.deleteBasket(id); 
 	}
 	
-	// 장바구니 수정
+	// 장바구니 담은 갯수 수정
 	public int updateBasket(int userId, int itemId, int number) {
 		return basketDAO.updateBasket(userId, itemId, number);
 	}

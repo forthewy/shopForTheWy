@@ -55,7 +55,6 @@ public class ItemDetailBO {
 		List<ReviewView> reviewViewList = reviewBO.generateReviewView(itemId);
 		itemDetailView.setReviewViewList(reviewViewList);
 		
-		
 		return itemDetailView;
 	}
 }

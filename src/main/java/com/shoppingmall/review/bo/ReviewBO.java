@@ -51,4 +51,13 @@ public class ReviewBO {
 		}
 		return reviewViewList;
 	}
+	
+	// 리뷰 삭제
+	public int deleteReviewById(int id) {
+		return reviewDAO.deleteReviewById(id);
+	}
+	
+	public int updateReview(int id, String content, double point) {
+		return reviewDAO.updateReview(id, content, point);
+	}
 }

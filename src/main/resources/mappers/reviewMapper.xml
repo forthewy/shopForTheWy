@@ -37,4 +37,20 @@
 		WHERE
 			`itemId` = #{itemId}
  	</select>
+ 	<delete id="deleteReviewById" parameterType="int">
+ 		DELETE FROM
+ 	 		`review`
+		WHERE
+			`id` = #{id}
+ 	</delete>
+ 	<update id="updateReview" parameterType="map">
+ 		UPDATE
+ 			`review`
+ 		SET
+ 			`content` = #{content}
+ 			, `point` = #{point}
+ 			, `updatedAt` = NOW()
+ 		WHERE
+ 			`id` = #{id}
+ 	</update>
  </mapper>

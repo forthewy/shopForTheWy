@@ -63,26 +63,26 @@
       </div>
       <div class="modal-body">
       	<div class="pb-2">
-      		<label for="point1" class="point-star">
-      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		<label for="star1">
+      			<input type="radio" value="1" name="point" id="star1" class="point-star d-none">
+	      		<img alt="별점" src="/static/img/star_yellow.png" width="30px;" class="star">
       		</label>
-		    <input type="radio" id="point1" class="d-none" value="1" name="point">
-      		<label for="point2" class="point-star">
-      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		<label for="star2">
+      			<input type="radio" value="2" name="point" id="star2" class="point-star d-none">
+	      		<img alt="별점" src="/static/img/star_yellow.png" width="30px;" class="star">
       		</label>
-	 	    <input type="radio" class="d-none" id="point2" value="2" name="point">
-      		<label for="point3" class="point-star">
-      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		<label for="star3">
+      			<input type="radio" value="3" name="point" id="star3" class="point-star d-none">
+	      		<img alt="별점" src="/static/img/star_yellow.png" width="30px;" class="star">
       		</label>
-      		<input type="radio" class="d-none" id="point3" value="3" name="point">
-      		<label for="point4" class="point-star">
-      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		<label for="star4">
+      			<input type="radio" value="4" name="point" id="star4" class="point-star d-none">
+	      		<img alt="별점" src="/static/img/star_yellow.png" width="30px;" class="star">
       		</label>
-	      	<input type="radio" class="d-none" id="point4" value="4" name="point">
-      		<label for="point5" class="point-star">
-      			<img src="/static/img/star_yellow.png" alt="별점" width="30px">
+      		<label for="star5">
+      			<input type="radio" value="5" name="point" id="star5" class="point-star d-none">
+	      		<img alt="별점" src="/static/img/star_yellow.png" width="30px;" class="star">
       		</label>
-      		<input type="radio" class="d-none" id="point5" value="5" name="point">
        	</div>
         <input type="text" id="reviewContent" placeholder="리뷰를 입력하세요" class="form-control">
       </div>
@@ -101,16 +101,21 @@
 			let itemId = $(this).data('item-id');
 			// 모달에 아이템 아이디를 넣는다
 			$('#reviewModal').data('item-id', itemId);
-		    $('input[name="point"]').removeAttr('checked');
-		    $('.point-star').removeClass('d-none');
+			// 리뷰 쓸때 별점 초기화
+			$('.star').attr('src', "/static/img/star_yellow.png");
 		});
 		
 		<%-- 별점 선택 --%>
-		$('.point-star').on('click', function(e) {
-			$('input[name="point"]').removeAttr('checked');
-			let point = $(this).next().val();
-			$('#reviewModal').data('point', point);
-			$(this).nextAll().addClass('d-none');
+		$('.point-star').on('click', function() {
+			// 선택된 별점 노랑
+			$(this).parent().find('img').attr('src', "/static/img/star_yellow.png");
+			// 선택된 별점이전 별점 노랑
+			$(this).parent().prevAll().find('img').attr('src', "/static/img/star_yellow.png");
+			// 선택된 별점이후 별점 회색
+			$(this).parent().nextAll().find('img').attr('src', "/static/img/star_grey.png");
+			
+			// 선택한 별점 넣기
+			$('#reviewModal').data('point', $(this).val());
 		});
 		
 		

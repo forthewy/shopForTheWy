@@ -69,6 +69,10 @@ section {
 .basket-list-box {
 	min-height: 500px;
 }
+.basket-check{
+	width: 20px;
+	height: 20px;
+}
 .order-box {
 	min-height: 700px;
 }
@@ -112,6 +116,10 @@ section {
 	height: 50px;
 	border-radius: 5px;
 	width: 500px;
+}
+.home-main {
+	height: 400px;
+	width: 1260px;
 }
 footer {
 	height: 100px;

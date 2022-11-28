@@ -23,6 +23,7 @@ public class BookmarkController {
 	public String bookmarkListView(
 			HttpSession session, Model model) {
 		
+		// 로그인되어 있지 않다면 인터셉터에서 로그인 화면 이동
 		int userId = (int) session.getAttribute("userId");
 		
 		List<BookmarkView> bookmarkViewList = bookmarkBO.generateBookmarkViewListByUserId(userId);

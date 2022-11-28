@@ -14,6 +14,8 @@ public class Item {
 	private int deliveryPrice;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	
 	public int getId() {
 		return id;
 	}

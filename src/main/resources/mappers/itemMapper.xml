@@ -80,6 +80,22 @@
  		WHERE
  			`sellerId` = #{sellerId}
  	</select>
+ 	<select id="selectItemListLimitNine" resultType="com.shoppingmall.item.model.Item">
+ 		SELECT
+ 			`id` 
+ 			,`sellerId`
+			,`name`
+			,`number`
+			,`price`
+			,`content`
+			,`sort`
+			,`thumbnailImg`
+			,`deliveryPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`item`
+ 	</select>
  	<select id="selectItemByItemId" parameterType="int" resultType="com.shoppingmall.item.model.Item">
  		SELECT
  			`id` 

@@ -35,7 +35,7 @@ public class BasketRestController {
 
 		 Map<String, Object> result = new HashMap<>();
 
-		Integer userId = (Integer) session.getAttribute("userId"); 
+		int userId = (int) session.getAttribute("userId"); 
 		
 		// DB insert
 		int row = basketBO.addBasket(userId, itemId, number);

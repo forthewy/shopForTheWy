@@ -75,14 +75,29 @@
 						<c:forEach items="${itemDetailView.reviewViewList}" var="reviewView">
 							<div class="review-box border p-3 mb-4">
 								<c:forEach var="point" begin="1" end="5">
-									<c:if test="${reviewView.review.point >= point}">
-										<img src="/static/img/star_yellow.png" width="30px">
-									</c:if>
+									<c:choose>
+										<c:when test="${reviewView.review.point >= point}">
+											<img src="/static/img/star_yellow.png" width="30px">
+										</c:when>
+										<c:otherwise>
+											<img src="/static/img/star_grey.png" width="30px">
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
-								
 								<div class="review-box">
 									<h3>${reviewView.userLoginId}</h3>
-									<h5>${reviewView.review.content}</h5>
+									<div>
+										<h5 id="reviewContent${reviewView.review.id}">${reviewView.review.content}</h5>
+									</div>
+									<c:if test="${reviewView.review.userId eq userId}">
+										<input type="text" value="${reviewView.review.content}" class="form-control d-none">
+										<div class="d-flex justify-content-end">
+											<a href="#none" class="text-success pr-3" id="updateReviewContent">수정</a>
+											<button class="d-none" id="updateReviewBtn" data-review-id="${reviewView.review.id}"></button>
+											<a href="#none" class="text-danger">삭제</a>
+											<button class="d-none" id="delReviewBtn"></button>
+										</div>
+									</c:if>
 								</div>
 							</div>
 						</c:forEach>
@@ -157,7 +172,7 @@
 			
 		});
 		
-		<%-- 삭제 버튼 클릭시 --%>
+		<%-- 삭제(상품) 버튼 클릭시 --%>
 		$('#deleteBtn').on('click', function() {
 			
 			let itemId = $(this).data('item-id');
@@ -240,6 +255,15 @@
 					alert('바로주문에 실패했습니다. 관리자에게 문의하여 주세요');
 				}
 			}); // ajax 끝 */
+		}); // 바로주문하기
+		
+		<%-- 리뷰 수정하기 --%>
+		$('#updateReviewContent').on('click', function(e) {
+			e.preventDefault();
+			$(this).parent().prev().removeClass('d-none');
+			
 		});
+		
+		$('#updateReviewBtn')
 	});
 </script>

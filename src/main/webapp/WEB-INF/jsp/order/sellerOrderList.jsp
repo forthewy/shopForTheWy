@@ -85,7 +85,7 @@
 							<div class="col-10 pl-5">
 								<h5>${basketOrderView.order.name}</h5>
 								<h5>${fn:replace(basketOrderView.order.address, '/', ' ')}</h5>
-								<h5>${basketOrderView.item.name}(${basketOrderView.basketOrder.number}개)</h5>
+								<h5 class="text-success">${basketOrderView.item.name}(${basketOrderView.basketOrder.number}개)</h5>
 							</div>
 						</div>
 					</c:forEach>
@@ -106,6 +106,7 @@
 	    });
 		
 		
+		<%-- 검색 버튼 클릭 --%>
 		$('#searchBtn').on('click', function() {
 			let searchName = $('#searhName').val();
 			

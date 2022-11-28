@@ -165,7 +165,7 @@ $(document).ready(function() {
 		}
 		formData.append('thumbnailImg', $('#thumbnailImg')[0].files[0]);
 		
-		// 등록 후 넘어갈 주소를 위한 sellerId
+		// 등록 후 넘어갈 주소를 위한 sellerLoginId
 		let sellerLoginId = $(this).data('seller-login-id');
 		
 		$.ajax({

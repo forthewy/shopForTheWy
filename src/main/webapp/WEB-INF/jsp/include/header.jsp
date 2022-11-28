@@ -2,25 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="d-flex align-items-center pt-3">
-	<%-- 세로 메뉴 --%>
-	<div class="dropdown pl-3 pr-3">
-		<a id="dropdownMenuButton" data-toggle="dropdown">
-			<img src="/static/img/menu.png" alt="분류 드롭다운 버튼" width="50px">
-		</a>
-		<div class="dropdown-menu">
-		    <a class="dropdown-item" href="#">Action</a>
-		    <a class="dropdown-item" href="#">Another action</a>
-		    <a class="dropdown-item" href="#">Something else here</a>
-		</div>
-	</div>
 	<%-- 쇼핑몰 홈 화면 링크 --%>
-	<div class="pl-5 pr-5">
+	<div class="pl-5 col-3">
 		<a href="/home/home_view">
 			<h1>WY 쇼핑몰</h1>
 		</a>
 	</div>
 	<%-- 검색 바 --%>
-	<div class="input-group col-5 pl-5">
+	<div class="input-group col-6">
 		<input type="text" class="form-control" id="searchWord" name="searchWord">
 		<div class="input-group-append">
 			<button class="btn btn-dark">검색</button>
@@ -29,17 +18,23 @@
 	<c:choose>
 		<%-- 로그인시 보여지는 메뉴 --%>
 		<c:when test="${not empty userId}">
-			<div class="pl-5 d-flex">
+			<div class="pl-3 d-flex">
 				<div>
-					<a href="/basket/basket_list_view"><img class="user-menu" alt="장바구니" src="/static/img/shoppingCart.png"></a>
+					<a href="/basket/basket_list_view">
+						<img class="user-menu" alt="장바구니" src="/static/img/shoppingCart.png">
+					</a>
 				</div>
 				<%-- 최근 본 상품 --%>
 				<div>
 					<div>
-						<a href="#" id="lastLookItemBtn"><img class="user-menu" alt="최근 본 상품" src="/static/img/look.png" ></a>
+						<a href="#" id="lastLookItemBtn">
+							<img class="user-menu" alt="최근 본 상품" src="/static/img/look.png">
+						</a>
 					</div>
 					<div class="d-none" id="lastLookItemImg">
-						<img src="${lastLookItem.thumbnailImg}" width="50px" height="50px">
+						<a href="/item/item_detail_view?itemId=${lastLookItem.id}">
+							<img src="${lastLookItem.thumbnailImg}" width="40px" height="40px">
+						</a>
 					</div>
 				</div>
 				<%-- 주문조회 화면 --%>
@@ -56,10 +51,14 @@
 				</div>
 				<%-- 상점 회원 로그인시 추가로 보이는 메뉴 --%>
 				<c:if test="${userType eq 2}">
-					<a href="/shop/shop_view/${userLoginId}"><img class="user-menu" alt="상점 홈" src="/static/img/home.png"></a>
+					<div>
+						<a href="/shop/shop_view/${userLoginId}"><img class="user-menu" alt="상점 홈" src="/static/img/home.png"></a>
+					</div>
 				</c:if>
 				<%-- 로그아웃 링크 --%>
-				<a href="/user/sign_out">로그아웃</a>
+				<div class="d-flex align-items-center">
+					<a href="/user/sign_out" class="pl-5">로그아웃</a>
+				</div>
 			</div>
 		</c:when>
 		<%-- 비로그인 --%>
@@ -73,13 +72,15 @@
 
 <script>
 	$(document).ready(function() {
-		/* $('#lastLookItemBtn').on('mouseover', function() {
+		$('#lastLookItemBtn').on('mouseover', function() {
+			$('#lastLookItemBtn').addClass('d-none');
 			$('#lastLookItemImg').removeClass('d-none');
-		})
+		});
 		
-		$('#lastLookItemBtn').on('blur', function() {
+		$('#lastLookItemBtn').on('mouseout', function() {
 			$('#lastLookItemImg').addClass('d-none');
-		}) */
+			$('#lastLookItemBtn').removeClass('d-none');
+		});
 	})
 
 </script>

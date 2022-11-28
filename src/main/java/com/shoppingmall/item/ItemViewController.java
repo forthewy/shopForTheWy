@@ -29,7 +29,7 @@ public class ItemViewController {
 		ItemDetailView itemDetailView = itemDetailBO.generateItemDetailView(itemId, userId);
 		
 		// 최근 본 상품 세션에 넣기
-		//session.setAttribute("lastLookItem", itemDetailView.getItem());
+		session.setAttribute("lastLookItem", itemDetailView.getItem());
 		model.addAttribute("itemDetailView", itemDetailView);
 		model.addAttribute("viewName", "item/itemDetail");
 		return "template/layout";

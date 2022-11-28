@@ -51,4 +51,10 @@ public class UserBO {
 	public User getUserByUserId(int id) {
 		return userDAO.selectUserByUserId(id);
 	}
+	
+	// 회원정보 수정
+	public int updateUser(int userId, String password, String  name, String address, String phoneNumber) {
+		
+		return userDAO.updateUser(userId, password, name, address, phoneNumber);
+	}
 }

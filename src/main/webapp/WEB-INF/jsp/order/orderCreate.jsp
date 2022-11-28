@@ -12,8 +12,8 @@
 					<c:choose>
 						<%-- 바로 주문이라면 --%>
 						<c:when test="${orderView.directBasketItemView ne null}">
-							<img src="${orderView.directBasketItemView.item.thumbnailImg}" width="150px" alt="상품 썸네일 사진">
-							<div class="ml-5">
+							<img src="${orderView.directBasketItemView.item.thumbnailImg}" width="150px" height="150px" alt="상품 썸네일 사진">
+							<div class="d-flex col-12">
 								<%-- 바로주문 id --%>
 								<c:set value="${orderView.directBasketItemView.directBasket.id}" var="directId"/>
 								<%-- 개당 금액 --%>
@@ -22,13 +22,23 @@
 								<c:set value="${orderView.directBasketItemView.item.deliveryPrice}" var="directDeliveryPrice"/>
 								<%-- 주문할 갯수 --%>
 								<c:set value="${orderView.directBasketItemView.directBasket.number}" var="directCount"/>
-								<h4>${orderView.directBasketItemView.item.name}</h4>
-								<h4>개당 금액: ${directEachPrice}</h4>
-								<h4>배송비 :${directDeliveryPrice}</h4>
-								<h4>갯수 : ${directCount}</h4>
-								<%-- 상품 금액 --%>
+								<div class="col-2 d-flex align-items-center border-right">
+									<h5>${orderView.directBasketItemView.item.name}</h5>
+								</div>
+								<div class="col-2 d-flex align-items-center border-right">
+									<h5>수량 : ${directCount}</h5>
+								</div>
+								<div class="col-3 d-flex align-items-center border-right">
+									<div>
+										<h5>개당 금액: ${directEachPrice}</h5>
+										<h5>배송비 :${directDeliveryPrice}</h5>
+									</div>
+								</div>
+								<%-- 주문 금액 --%>
 								<c:set value="${directEachPrice * directCount + directDeliveryPrice}" var="directPrice"/>
-								<h4>상품 금액 : ${directPrice}</h4>
+								<div class="col-3 d-flex align-items-center">
+									<h5>주문 금액 : ${directPrice}</h5>
+								</div>
 								<%-- 총 금액 --%>
 								<c:set value="${directEachPrice * directCount + directDeliveryPrice}" var="totalPrice"/>
 							</div>
@@ -38,21 +48,31 @@
 							<div class="w-100">
 								<c:forEach items="${orderView.basketItemViewList}" var="basketItem">
 									<div class="d-flex w-100">
-										<img src="${basketItem.item.thumbnailImg}" width="150px" alt="상품 썸네일 사진">
-										<div class="m-3">
-											<h4>${basketItem.item.name}</h4>
+										<img src="${basketItem.item.thumbnailImg}" width="150px" height="150px" class="mt-3" alt="상품 썸네일 사진">
+										<div class="d-flex col-12">
 											<%-- 개당 금액 --%>
 											<c:set value="${basketItem.item.price}" var="eachPrice"/>
 											<%-- 주문할 갯수 --%>
 											<c:set value="${basketItem.basket.number}" var="count"/>
 											<%-- 배송비 --%>
 											<c:set value="${basketItem.item.deliveryPrice}" var="deliveryPrice"/>
-											<h4>개당 금액: ${eachPrice}</h4>
-											<h4>배송비 :${deliveryPrice}</h4>
-											<h4>갯수 : ${count}</h4>
+											<div class="col-2 d-flex align-items-center border-right">
+												<h5>${basketItem.item.name}</h5>
+											</div>
+											<div class="col-2 d-flex align-items-center border-right">
+												<h5>수량 : ${count}</h5>
+											</div>
+											<div class="col-3 d-flex align-items-center border-right">
+												<div>
+													<h5>개당 금액: ${eachPrice}</h5>
+													<h5>배송비 :${deliveryPrice}</h5>
+												</div>
+											</div>
 											<%-- 각 상품 총 금액 --%>
 											<c:set value="${eachPrice * count + deliveryPrice}" var="eachTotalPrice"/>
-											<h4>상품 금액 : ${eachTotalPrice}</h4>
+											<div class="col-3 d-flex align-items-center">
+												<h5>주문 금액 : ${eachTotalPrice}</h5>
+											</div>
 											<%-- 유저가 계산할 총 금액에 계속 더한다 --%>
 											<c:set value="${totalPrice + eachTotalPrice}" var="totalPrice"/>
 											<%-- 컨트롤러 전달용 --%>
@@ -66,11 +86,13 @@
 					</c:choose>
 				</div>
 			</div>
-			<%-- 총 금액 --%>
-			<div class="d-flex justify-content-end mr-5">
-				<h3>총 금액 = ${totalPrice}<span></span> 원</h3>
+			<%-- 총 주문 금액 --%>
+			<div class="d-flex justify-content-end mr-5 pt-3">
+				<h3>총 주문 금액 = ${totalPrice}<span></span>원</h3>
 			</div>
 			<%-- 주문자 정보 --%>
+			<hr>
+			<h2 class="ml-5 pb-3">주문자 정보</h2>
 			<div class="d-flex align-items-center mb-3 pl-5">
 				<label for="name" class="pr-5">이름</label>
 				<input type="text" class="ml-4 form-control col-4" name="name" id="name"  value="${userName}">

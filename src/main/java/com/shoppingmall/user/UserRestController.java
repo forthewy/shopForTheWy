@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,6 +101,13 @@ public class UserRestController {
 		return result;
 	}
 	
+	/**
+	 * 로그인
+	 * @param loginId
+	 * @param password
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/sign_in")
 	public Map<String, Object> signIn(
 			@RequestParam("loginId") String loginId,
@@ -125,6 +133,44 @@ public class UserRestController {
 			session.setAttribute("userPhoneNumber", user.getPhoneNumber());
 			session.setAttribute("userName", user.getName());
 			session.setAttribute("userType", user.getType());
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/update")
+	public Map<String, Object> update(
+				@RequestParam(value="password", required=false) String password,
+				@RequestParam("name") String name,
+				@RequestParam("address") String address,
+				@RequestParam("phoneNumber") String phoneNumber,
+				HttpSession session) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		int userId = (int) session.getAttribute("userId");
+		
+		
+		String encryptPassword = null;
+		
+		// 비밀번호를 바꾼다면
+		if (!ObjectUtils.isEmpty(password)) {
+			encryptPassword = EncryptUtils.md5(password);
+		}
+		
+		int row = userBO.updateUser(userId, encryptPassword, name, address, phoneNumber);
+		User user = userBO.getUserByUserId(userId);
+		
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+			session.setAttribute("userPassword", user.getPassword());
+			session.setAttribute("userAddress", user.getAddress());
+			session.setAttribute("userPhoneNumber", user.getPhoneNumber());
+			session.setAttribute("userName", user.getName());
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "회원정보 수정에 실패했습니다.");
 		}
 		
 		return result;

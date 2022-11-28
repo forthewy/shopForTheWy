@@ -42,6 +42,8 @@
 
 <script>
 	$(document).ready(function() {
+		$('.message-box').scrollTop(document.body.scrollHeight);
+		
 		// 메세지를 연속으로 보낼수 있도록 들어오자마자 클릭
 		$('#messageContentLabel').click();
 		

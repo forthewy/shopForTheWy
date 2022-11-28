@@ -98,6 +98,11 @@ public class ItemBO {
 		return itemDAO.selectItemBySellerId(sellerId);
 	}
 	
+	// 홈화면용 상품 리스트
+	public List<Item> getItemListLimitNine() {
+		return itemDAO.selectItemListLimitNine();
+	}
+	
 	// 상점의 상품Id 리스트
 	public List<Integer> getItemIdListBySellerId(int sellerId) {
 		return itemDAO.selectItemIdListBySellerId(sellerId);
@@ -114,7 +119,7 @@ public class ItemBO {
 		return itemDAO.selectItemByItemId(itemId);
 	}
 	
-	// 한 상점의 상품 총 갯수 확인
+	// 한 상점의 상품 총 갯수 확인 (페이지 용)
 	public int getItemCountBySellerId(int sellerId) {
 		return itemDAO.selectItemCountBySellerId(sellerId);
 	}

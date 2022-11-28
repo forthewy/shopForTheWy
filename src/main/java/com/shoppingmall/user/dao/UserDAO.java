@@ -34,4 +34,14 @@ public interface UserDAO {
 	
 	// id 로 유저 가져오기
 	public User selectUserByUserId(int id);
+	
+	
+	// 회원정보 수정
+	public int updateUser(
+			@Param("id") int  id,
+			@Param("password") String  password,
+			@Param("name") String  name,
+			@Param("address") String address,
+			@Param("phoneNumber") String phoneNumber);
+	
 }

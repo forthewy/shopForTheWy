@@ -16,32 +16,34 @@
 				<c:set value="${basketItem.basket.number}" var="basketNumber"/>
 				<div class="d-flex pl-3">
 					<div class="col-2">
-						<input type="checkbox" name="check" class="col-1" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
+						<input type="checkbox" name="check" class="basket-check" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
 						<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
 							<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="150px" height="150px">
 						</a>
 					</div>
 					<div class="col-8 d-flex">
-						<div class="d-flex align-items-center col-3">
-							<div class="w-100">
+						<div class="d-flex align-items-center col-2 border-right">
+							<div>
 								<h2>${basketItem.item.name}</h2>
 							</div>
 						</div>
-						<div>
-							<div class="d-flex align-items-center h-100 ">
-								<h4>장바구니에 담은 갯수 : ${basketNumber}</h4>
+						<div class="col-3 ml-2">
+							<div class="d-flex align-items-center text-center h-100 border-right">
+								<h5>담은 갯수 : ${basketNumber}</h5>
 							</div>
 						</div>
-						<div class="d-flex justify-content-end align-items-center ml-5">
+						<div class="col-3 d-flex text-center align-items-center border-right">
 							<div>
-								<h4>개당 가격 : ${eachPrice}</h4>
-								<h4>배송비 : ${deliveryPrice}</h4>
-								<h4>가격 : <span class="price">${eachPrice * basketNumber + deliveryPrice}</span>원</h4>
+								<h5>개당 가격 : ${eachPrice}</h5>
+								<h5>배송비 : ${deliveryPrice}</h5>
 							</div>
 						</div>
-					</div>
-					<div class="d-flex align-items-center pl-3">
-						<button class="delete-btn btn btn-danger" type="button" data-basket-id="${basketItem.basket.id}">장바구니에서 삭제</button>
+						<div class="col-4 d-flex align-items-center">
+							<h5>주문금액 : <span class="price">${eachPrice * basketNumber + deliveryPrice}</span>원</h5>
+						</div>
+						<div class="d-flex align-items-center col-4">
+							<button class="delete-btn btn btn-danger" type="button" data-basket-id="${basketItem.basket.id}">장바구니에서 삭제</button>
+						</div>
 					</div>
 				</div>
 				<hr>
@@ -61,8 +63,8 @@
 <script>
 	$(document).ready(function() {
 		<%-- 체크 박스 클릭시 총금액 변하게 하기 --%>
-		$("input:checkbox").on('click', function() {
-			if ($(this).prop('checked') ) {
+		$("input[name=check]").on('click', function() {
+			if ($(this).prop('checked')) {
 				let price = parseInt($(this).data('price'));
 				let totalPrice = parseInt($('#totalPrice').val());
 				$('#span').text($('#totalPrice').val(totalPrice+price).val());
