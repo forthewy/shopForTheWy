@@ -80,30 +80,35 @@
 					<div class="pl-5">
 						<c:forEach items="${itemDetailView.reviewViewList}" var="reviewView">
 							<div class="review-box border p-3 mb-4">
+								<h2 class="m-0">${reviewView.userLoginId}</h2>
 								<c:forEach var="point" begin="1" end="5">
 									<c:choose>
 										<c:when test="${reviewView.review.point >= point}">
-											<img src="/static/img/star_yellow.png" width="30px">
+											<img src="/static/img/star_yellow.png" width="25px">
 										</c:when>
 										<c:otherwise>
-											<img src="/static/img/star_grey.png" width="30px">
+											<img src="/static/img/star_grey.png" width="25px">
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-								<div class="review-box">
-									<h3>${reviewView.userLoginId}</h3>
+								<div class="review-box pt-2">
 									<div>
 										<h5 id="reviewContent${reviewView.review.id}">${reviewView.review.content}</h5>
-									</div>
-									<c:if test="${reviewView.review.userId eq userId}">
-										<input type="text" value="${reviewView.review.content}" class="form-control d-none">
-										<div class="d-flex justify-content-end">
-											<a href="#none" class="text-success pr-3" id="updateReviewContent">수정</a>
-											<button class="d-none" id="updateReviewBtn" data-review-id="${reviewView.review.id}"></button>
-											<a href="#none" class="text-danger">삭제</a>
-											<button class="d-none" id="delReviewBtn"></button>
+										<div class="d-none bg-light border">
+											<input type="text" value="${reviewView.review.content}" class="form-control border-0 bg-light">
+											<div class="d-flex justify-content-end mt-2">
+												<button class="update-insert-btn btn text-success btn-light" data-review-id="${reviewView.review.id}">등록</button>									
+												<button class="update-cancel-btn btn btn-light btn-border">취소</button>									
+											</div>
 										</div>
-									</c:if>
+										<c:if test="${reviewView.review.userId eq userId}">
+											<div class="d-flex justify-content-end">
+												<a href="#none" class="update-review text-success pr-3">수정</a>
+												<a href="#none" class="text-danger">삭제</a>
+												<button class="d-none del-review-btn" data-review-id="${reviewView.review.id}"></button>
+											</div>
+										</c:if>
+									</div>
 								</div>
 							</div>
 						</c:forEach>
@@ -263,13 +268,25 @@
 			}); // ajax 끝 */
 		}); // 바로주문하기
 		
-		<%-- 리뷰 수정하기 --%>
-		$('#updateReviewContent').on('click', function(e) {
+		<%-- 리뷰 수정 --%>
+		// 리뷰 수정하기
+		$('.update-review').on('click', function(e) {
 			e.preventDefault();
+			$(this).parent().prev().prev().addClass('d-none');
 			$(this).parent().prev().removeClass('d-none');
-			
 		});
 		
-		$('#updateReviewBtn')
+		// 리뷰 수정 취소하기
+		$('.update-cancel-btn').on('click', function(e) {
+			e.preventDefault();
+			$(this).parent().parent().addClass('d-none');
+			$(this).parent().parent().prev().removeClass('d-none');
+		});
+		
+		// 리뷰 수정하기
+		$('.update-insert-btn').on('click', function(e) {
+			let reviewId = $(this).data('review-id');
+			alert(reviewId);
+		});
 	});
 </script>

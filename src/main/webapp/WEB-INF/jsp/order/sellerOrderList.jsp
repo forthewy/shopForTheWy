@@ -49,27 +49,27 @@
 							<div class="dropdown d-flex align-items-center col-2">
 								<c:choose>
 									<c:when test="${basketOrderView.basketOrder.state eq '주문완료'}">
-									  <button class="btn btn-dark dropdown-toggle w-75" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+									  <button class="btn btn-dark dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown">
 									    주문완료
 									  </button>
 								  	</c:when>
 								  	<c:when test="${basketOrderView.basketOrder.state eq '상품 준비중'}">
-									  	<button class="btn btn-info dropdown-toggle w-75" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+									  	<button class="btn btn-info dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown">
 										   상품 준비중
 										 </button>
 								  	</c:when>
 									<c:when test="${basketOrderView.basketOrder.state eq '택배발송'}">
-									  	<button class="btn btn-primary dropdown-toggle w-75" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+									  	<button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown">
 										   택배 발송
 										 </button>
 								  	</c:when>
 								  	<c:when test="${basketOrderView.basketOrder.state eq '주문취소'}">
-								  		<button class="btn btn-danger dropdown-toggle w-75" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+								  		<button class="btn btn-danger dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown">
 										   주문취소
 										 </button>
 								  	</c:when>
 								  	<c:otherwise>
-								  		<button class="btn btn-success dropdown-toggle w-75" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+								  		<button class="btn btn-success dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown">
 										   구매확정
 										 </button>
 								  	</c:otherwise>

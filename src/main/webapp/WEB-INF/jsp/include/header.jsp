@@ -31,11 +31,20 @@
 							<img class="user-menu" alt="최근 본 상품" src="/static/img/look.png">
 						</a>
 					</div>
-					<div class="d-none" id="lastLookItemImg">
-						<a href="/item/item_detail_view?itemId=${lastLookItem.id}">
-							<img src="${lastLookItem.thumbnailImg}" width="40px" height="40px">
-						</a>
-					</div>
+					<c:choose>
+						<c:when test="${not empty lastLookItem}">
+							<div class="d-none lastLookItem">
+								<a href="/item/item_detail_view?itemId=${lastLookItem.id}">
+									<img src="${lastLookItem.thumbnailImg}" width="40px" height="40px" class="item-circle">
+								</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="d-none lastLookItem">
+								<img class="user-menu" alt="최근 본 상품" src="/static/img/look.png">
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<%-- 주문조회 화면 --%>
 				<div>
@@ -75,11 +84,11 @@
 		<%-- 최근 본 상품 --%>
 		$('#lastLookItemBtn').on('mouseover', function() {
 			$('#lastLookItemBtn').addClass('d-none');
-			$('#lastLookItemImg').removeClass('d-none');
+			$('.lastLookItem').removeClass('d-none');
 		});
 		
 		$('#lastLookItemBtn').on('mouseout', function() {
-			$('#lastLookItemImg').addClass('d-none');
+			$('.lastLookItem').addClass('d-none');
 			$('#lastLookItemBtn').removeClass('d-none');
 		});
 		

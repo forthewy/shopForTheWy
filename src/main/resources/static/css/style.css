@@ -19,6 +19,10 @@ a:hover {
 	height: 40px;
 	padding-left: 10px;
 }
+.item-circle{
+	border-radius: 70%;
+	overflow: hidden;
+}
 section {
 	min-height: 700px;
 }
@@ -81,6 +85,10 @@ section {
 }
 .order-list-box {
 	min-height: 500px;
+}
+.basket-border {
+	height: 5px;
+	background-color: #c1c1c1;
 }
 #reviewContent{
 	min-height: 150px;

@@ -15,8 +15,15 @@
 				<%-- 바구니에 넣은 갯수 --%>						
 				<c:set value="${basketItem.basket.number}" var="basketNumber"/>
 				<div class="d-flex pl-3">
-					<div class="col-2">
-						<input type="checkbox" name="check" class="basket-check mr-3" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
+					<div class="col-3">
+						<c:choose>
+							<c:when test="${empty basketItem.item}">
+								<input type="checkbox" name="check" disabled class="basket-check mr-3" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" name="check" class="basket-check mr-3" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
+							</c:otherwise>
+						</c:choose>
 						<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
 							<img alt="장바구니 이미지" src="${basketItem.item.thumbnailImg}" width="150px" height="150px">
 						</a>
