@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="w-100 d-flex justify-content-center">
-	<aside>
-		<div class="mt-3 pr-3">
-			<button type="button" class="btn btn-dark" id="goBack">뒤로가기</button>
-		</div>
-	</aside>
 	<div class="w-50">
 		<%-- 여기는 메세지 화면 --%>
 		<div class="message-box w-100 bg-grey">
@@ -47,9 +42,6 @@
 
 <script>
 	$(document).ready(function() {
-		$("#goBack").on('click', function() {
-			history.go(-1)();
-		});
 		
 		$('.message-box').scrollTop(document.body.scrollHeight);
 		

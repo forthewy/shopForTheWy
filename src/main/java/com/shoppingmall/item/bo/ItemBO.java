@@ -114,6 +114,11 @@ public class ItemBO {
 		return itemDAO.selectItemBySellerIdLimitPage(sellerId, offsetNum);
 	}
 	
+	public List<Item> getItemListLikesearchWord(String searchWord) {
+		return itemDAO.selectItemListLikesearchWord(searchWord);
+	}
+	
+	
 	// 상품 아이디로 상품 조회
 	public Item getItemByItemId(int itemId) {
 		return itemDAO.selectItemByItemId(itemId);

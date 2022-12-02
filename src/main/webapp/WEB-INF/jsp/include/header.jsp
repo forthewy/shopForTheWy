@@ -64,6 +64,12 @@
 						<a href="/shop/shop_view/${userLoginId}"><img class="user-menu" alt="상점 홈" src="/static/img/home.png"></a>
 					</div>
 				</c:if>
+				<%-- 관리자 회원 로그인시 추가로 보이는 메뉴 --%>
+				<c:if test="${userType eq 3}">
+					<div>
+						<a href="/admin/admin_view"><img class="user-menu" alt="관리자 홈" src="/static/img/menu.png"></a>
+					</div>
+				</c:if>
 				<%-- 로그아웃 링크 --%>
 				<div class="d-flex align-items-center">
 					<a href="/user/sign_out" class="pl-5">로그아웃</a>

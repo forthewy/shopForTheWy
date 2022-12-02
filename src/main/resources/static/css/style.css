@@ -142,6 +142,10 @@ section {
 	height: 300px;
 	width: 23%;
 }
+.admin-menu {
+	width: 150px;
+	font-size: 32px;
+}
 footer {
 	height: 100px;
 }

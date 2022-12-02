@@ -29,9 +29,18 @@
 					</div>
 				</c:when>
 				<c:otherwise>
+					<%-- 날짜 초기 값 --%>
 					<c:set value="0000-00-00" var="date"/>
-					
+					<%-- orderId 초기 값 --%>
+					<c:set value="${basketOrderViewList[0].basketOrder.orderId}" var="id"/>
 					<c:forEach items="${basketOrderViewList}" var="basketOrderView">
+						<c:set var="orderId" value="${basketOrderView.basketOrder.orderId}"/>
+						<c:if test="${id ne orderId}">
+							<div class="basket-border mb-3">
+							</div>
+							<%-- 같이 주문한 장바구니 주문은 같이 보도록 한다. --%>
+							<c:set value="${orderId}" var="id"/>
+						</c:if>
 						<fmt:formatDate value="${basketOrderView.basketOrder.createdAt}" pattern="yyyy-MM-dd" var="orderDate"/>
 						<c:if test="${date ne orderDate}">
 							<h4>${orderDate}</h4>
@@ -58,13 +67,6 @@
 							</div>
 							<button type="button" class="review-btn btn btn-primary" data-toggle="modal" data-target="#reviewModal" data-item-id="${basketOrderView.item.id}">리뷰 남기기</button>
 						</div>
-						<c:set var="orderId" value="${basketOrderView.basketOrder.orderId}"/>
-						<c:if test="${id ne orderId}">
-							<div class="basket-border mb-3">
-							</div>
-							<%-- 같이 주문한 장바구니 주문은 같이 보도록 한다. --%>
-							<c:set value="${orderId}" var="id"/>
-						</c:if>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>

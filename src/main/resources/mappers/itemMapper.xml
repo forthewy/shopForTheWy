@@ -140,6 +140,24 @@
  		LIMIT 3
  		OFFSET #{offsetNum}
  	</select>
+ 	<select id="selectItemListLikesearchWord" parameterType="string" resultType="com.shoppingmall.item.model.Item">
+ 		SELECT
+ 			`id` 
+ 			,`sellerId`
+			,`name`
+			,`number`
+			,`price`
+			,`content`
+			,`sort`
+			,`thumbnailImg`
+			,`deliveryPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`item`
+ 		WHERE
+ 			`name` LIKE CONCAT(#{searchWord},'%');
+ 	</select>
  	<select id="selectItemCountBySellerId" parameterType="int" resultType="int">
  		SELECT
  			COUNT(*)
