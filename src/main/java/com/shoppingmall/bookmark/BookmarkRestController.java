@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,17 +26,16 @@ public class BookmarkRestController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping("/{sellerId}")
+	@PostMapping("/{sellerId}")
 	public Map<String, Object> bookmark(
 			@PathVariable("sellerId") int sellerId,
 			HttpSession session) {
 		
-		Integer userId =  (Integer) session.getAttribute("userId");
+		Map<String, Object> result = new HashMap<>();
+		int userId =  (int) session.getAttribute("userId");
 		
 	    int row = bookmarkBO.bookmarkToggle(sellerId, userId);
-	    
-	    Map<String, Object> result = new HashMap<>();
-	    
+
 	    if (row > 0) {
 	    	result.put("code", 300);
 	    	result.put("result", "success");

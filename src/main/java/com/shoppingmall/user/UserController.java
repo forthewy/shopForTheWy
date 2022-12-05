@@ -32,13 +32,25 @@ public class UserController {
 	}
 	
 	
-	/**
-	 * 회원 가입 화면
-	 * @param model
-	 * @return
-	 */
+
+	 /**
+	  * 회원 가입 화면
+	  * @param session
+	  * @param model
+	  * @return
+	  */
 	@RequestMapping("/sign_up_view") 
-	public String signUpView(Model model) {
+	public String signUpView(
+			HttpSession session,
+			Model model) {
+		
+		Integer userId = (Integer) session.getAttribute("userId");
+		
+		// 이미 로그인 했다면
+		if (!ObjectUtils.isEmpty(userId)) {
+			return "redirect:/home/home_view";
+		}
+		
 		model.addAttribute("viewName", "user/signUp");
 		return "template/layout";
 	}
@@ -63,8 +75,23 @@ public class UserController {
 		return "redirect:/home/home_view";
 	}
 	
+	/**
+	 * 회원정보 수정 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/update_view")
-	public String updateView(Model model) {
+	public String updateView(
+			HttpSession session
+			,Model model) {
+		
+		Integer userId = (Integer) session.getAttribute("userId");
+		
+		// 비로그인이라면
+		if (ObjectUtils.isEmpty(userId)) {
+			return "redirect:/user/sign_in_view";
+		}
 		
 		model.addAttribute("viewName", "user/update");
 		return "template/layout";

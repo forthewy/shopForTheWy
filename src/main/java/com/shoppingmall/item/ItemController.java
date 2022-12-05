@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,17 +27,17 @@ public class ItemController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/item_create_view")
+	@GetMapping("/item_create_view")
 	public String itemCreateView(
 			HttpSession session,
 			Model model) {
 		
-		Integer userId = (Integer) session.getAttribute("userId");
+		Integer userId = (Integer) session.getAttribute("userType");
 		
 		// 비로그인이라면 로그인화면으로 이동한다.
 		if (ObjectUtils.isEmpty(userId)) {
 			return "redirect:/user/sign_in_view";
-		}	
+		}
 		
 		model.addAttribute("viewName", "item/itemCreate");
 		return "template/layout";

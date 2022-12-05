@@ -174,7 +174,8 @@
 			$.post(url, params)
 			.done(function(data) {
 				if (data.code == 300) {
-					location.href = "/home/home_view";
+					alert("주문이 완료되었습니다. 주문 조회화면으로 이동합니다.");
+					location.href = "/basket_order/order_list_view";
 				} else {
 					alert(data.errorMessage);
 				}

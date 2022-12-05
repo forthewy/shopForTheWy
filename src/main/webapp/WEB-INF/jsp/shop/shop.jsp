@@ -16,23 +16,23 @@
 					<div>
 						<c:choose>
 							<c:when test="${shop.isBookmarked}">
-								<button class="like-btn mr-1 btn btn-outline-info" data-seller-id="${shop.seller.id}">즐겨찾기 취소</button>
+								<button class="like-btn mr-1 btn btn-outline-info" type="button" data-seller-id="${shop.seller.id}">즐겨찾기 취소</button>
 							</c:when>
 							<c:otherwise>
-								<button class="like-btn mr-1  btn btn-info" data-seller-id="${shop.seller.id}">즐겨찾기 등록</button>
+								<button class="like-btn mr-1  btn btn-info" type="button" data-seller-id="${shop.seller.id}">즐겨찾기 등록</button>
 							</c:otherwise>
 						</c:choose>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div>
-						<button class="btn btn-secondary" onClick="location.href='/item/item_create_view'">상품 등록하기</button>
-						<button class="btn btn-dark mr-1" onClick="location.href='/seller/update_view'">설정</button>
+					<div class="d-flex">
+						<button class="btn btn-secondary mr-3" onClick="location.href='/item/item_create_view'">상품 등록하기</button>
+						<button class="btn btn-dark mr-1" type="button" onClick="location.href='/seller/update_view'">설정</button>
 					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
-<%-- 페이징 --%>
+		<%-- 페이징 --%>
 		<div class="d-flex justify-content-center mb-3">
 			<%-- 상품 갯수가 3의 배수이면 나눈 몫 그대로 마지막 페이지  --%>
 			<c:choose>
@@ -54,7 +54,7 @@
 				</c:choose>
 			</c:forEach>
 		</div>
-<%-- 상품들 --%>
+		<%-- 상품들 --%>
 		<div class="w-100">
 			<div class="item-box d-flex justify-content-start flex-wrap w-100">
 				<c:forEach items="${shop.itemList}" var="item">
@@ -74,13 +74,21 @@
 
 <script>
 	$(document).ready(function() {
-		
 		<%-- 즐겨찾기 버튼 클릭 --%>
 		$('.like-btn').on('click', function(e) {
 			e.preventDefault();
+			
+			// 로그인 되어있지 않다면 로그인 화면으로 이동
+			if (${userId eq null}) {
+				alert('로그인 후 이용가능 합니다.');
+				location.href = "/user/sign_in_view";
+				return;
+			}
+			
 			let sellerId = $(this).data('seller-id');
 			 $.ajax({
-				url: "/bookmark/" + sellerId
+				type: "POST"
+				,url: "/bookmark/" + sellerId
 				, success:function(data) {
 					if (data.code == 300) {
 						location.reload();
@@ -96,6 +104,5 @@
 				}
 			});  // ajax 끝
 		}); // 즐겨찾기 버튼 끝
-		
 	});
 </script>

@@ -17,6 +17,12 @@ public class HomeController {
 	@Autowired
 	private HomeViewBO homeViewBO;
 	
+	/**
+	 * 홈화면
+	 * @param sort
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/home/home_view") 
 	public String homeView(
 			@RequestParam(value="sort", required=false) String sort,

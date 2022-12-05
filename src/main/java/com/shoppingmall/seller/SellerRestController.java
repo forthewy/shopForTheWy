@@ -21,6 +21,16 @@ public class SellerRestController {
 	@Autowired
 	private SellerBO sellerBO;
 	
+	/**
+	 * 상점 설정 수정
+	 * @param shopName
+	 * @param address
+	 * @param shopPhoneNumber
+	 * @param bannerImg
+	 * @param shopMainImg
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/update")
 	public Map<String, Object> update(
 			@RequestParam(value="shopName" , required=false) String shopName,

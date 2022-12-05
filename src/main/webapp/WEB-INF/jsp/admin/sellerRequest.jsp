@@ -22,18 +22,31 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 <body>
-
-<div class="d-flex justify-content-center">
-	<section class="w-50 box bg-primary">
-		<h1>상점 등록 요청</h1>
-		<div class="bg-secondary d-flex">
-			<h5>상점명</h5>
-			<div class="d-flex col-3 justify-content-end">
-				<button class="btn">승인</button>
-				<button class="btn">삭제</button>
+	<div class="d-flex justify-content-center">
+		<aside class="col-2 p-0 bg-grey">
+			<ul class="nav">
+				<li class="nav-item mt-5 pl-3 w-100">
+					<h5>상점 등록 요청</h5>
+				</li>
+				<li class="nav-item mt-2 pl-3 w-100">
+					<a href="/home/home_view">
+						<h5>상점으로 되돌아가기</h5>
+					</a>
+				</li>
+			</ul>
+		</aside>
+		<section class="col-7 box bg-light">
+			<div class="p-4">
+				<h1 class="pb-3">상점 등록 요청</h1>
+				<div class="bg-grey d-flex rounded seller-request-item justify-content-between align-items-center">
+					<h5 class="pl-3">상점명</h5>
+					<div class="pr-3">
+						<button class="btn btn-info mr-3">승인</button>
+						<button class="btn btn-danger">삭제</button>
+					</div>
+				</div>
 			</div>
-		</div>
-	</section>
-</div>
+		</section>
+	</div>
 </body>
 </html>

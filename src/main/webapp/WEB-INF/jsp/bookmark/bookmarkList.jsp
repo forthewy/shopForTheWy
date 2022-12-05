@@ -10,14 +10,16 @@
 				</div>
 	 		</c:when>
 	 		<c:otherwise>
-		 		<c:forEach items="${bookmarkViewList}" var="bookmarkView">
-		 			<div class="bookmark-box m-3 border d-flex justify-content-center align-items-center">
-		 				<a href="/shop/shop_view/${bookmarkView.sellerUserLoginId}">
-			 				<img alt="상점 메인 이미지" src="${bookmarkView.seller.shopMainImg}" width="200px" height="200px">
-			 				<h1>${bookmarkView.seller.shopName}</h1>
-		 				</a>
-		 			</div>
-		 		</c:forEach>
+		 		<div class="d-flex">
+			 		<c:forEach items="${bookmarkViewList}" var="bookmarkView">
+			 			<div class="bookmark-box m-3 border d-flex justify-content-center align-items-center">
+			 				<a href="/shop/shop_view/${bookmarkView.sellerUserLoginId}">
+				 				<img alt="상점 메인 이미지" src="${bookmarkView.seller.shopMainImg}" width="200px" height="200px">
+				 				<h1>${bookmarkView.seller.shopName}</h1>
+			 				</a>
+			 			</div>
+			 		</c:forEach>
+		 		</div>
 	 		</c:otherwise>
  		</c:choose>
 	</div>

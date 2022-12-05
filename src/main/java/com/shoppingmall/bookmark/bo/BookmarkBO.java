@@ -35,14 +35,13 @@ public class BookmarkBO {
 			row = deleteBookmark(sellerId, userId);
 		} else {
 			// 즐겨찾기 추가
-			row = createBookmark(sellerId, userId);
+			row = addBookmark(sellerId, userId);
 		}
-		
 		return row; 
 	}
 	
 	
-	public int createBookmark(int sellerId, int userId) {
+	public int addBookmark(int sellerId, int userId) {
 		return bookmarkDAO.insertBookmark(sellerId, userId);
 	}
 	

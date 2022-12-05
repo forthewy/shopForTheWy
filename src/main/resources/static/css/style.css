@@ -112,7 +112,7 @@ section {
 	width: 250px;
 }
 .bg-grey {
-	background-color: #c6c6c6;
+	background-color: #c0c0c0;
 }
 .card {
 	max-width: 400px;
@@ -145,6 +145,13 @@ section {
 .admin-menu {
 	width: 150px;
 	font-size: 32px;
+}
+aside > ul > li:hover {
+	background-color: #aeaeae;
+}
+.seller-request-item{
+	height: 50px;
+	width: 100%;
 }
 footer {
 	height: 100px;

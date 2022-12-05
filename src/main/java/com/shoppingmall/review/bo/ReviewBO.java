@@ -51,13 +51,24 @@ public class ReviewBO {
 		}
 		return reviewViewList;
 	}
+
+	public Review getReviewById(int id) {
+		return reviewDAO.selectReviewById(id);
+	}
 	
 	// 리뷰 삭제
-	public int deleteReviewById(int id) {
+	public int deleteReviewById(int userId, int id) {
+		// 리뷰를 가져와서 본인이 작성한 리뷰가 맞는 지 확인
+		Review review = getReviewById(id);
+		if (review.getUserId() != userId) {
+			return 0;
+		}
+		
 		return reviewDAO.deleteReviewById(id);
 	}
 	
-	public int updateReview(int id, String content, double point) {
+	
+	public int updateReview(int userId, int id, String content, double point) {
 		return reviewDAO.updateReview(id, content, point);
 	}
 }

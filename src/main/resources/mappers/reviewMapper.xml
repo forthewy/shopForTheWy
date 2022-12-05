@@ -37,6 +37,20 @@
 		WHERE
 			`itemId` = #{itemId}
  	</select>
+ 	<select id="selectReviewById" parameterType="int" resultType="com.shoppingmall.review.model.Review">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`itemId`
+			,`content`
+			,`point`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`review`
+		WHERE
+			`id` = #{id}
+ 	</select>
  	<delete id="deleteReviewById" parameterType="int">
  		DELETE FROM
  	 		`review`

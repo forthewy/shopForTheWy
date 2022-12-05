@@ -95,17 +95,38 @@
 									<div>
 										<h5 id="reviewContent${reviewView.review.id}">${reviewView.review.content}</h5>
 										<div class="d-none bg-light border">
+											<div class="ml-2">
+												<label for="star1">
+									      			<input type="radio" value="1" name="point" id="star1" class="point-star d-none">
+										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
+									      		</label>
+									      		<label for="star2">
+									      			<input type="radio" value="2" name="point" id="star2" class="point-star d-none">
+										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
+									      		</label>
+									      		<label for="star3">
+									      			<input type="radio" value="3" name="point" id="star3" class="point-star d-none">
+										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
+									      		</label>
+									      		<label for="star4">
+									      			<input type="radio" value="4" name="point" id="star4" class="point-star d-none">
+										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
+									      		</label>
+									      		<label for="star5">
+									      			<input type="radio" value="5" name="point" id="star5" class="point-star d-none">
+										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
+									      		</label>
+											</div>
 											<input type="text" value="${reviewView.review.content}" class="form-control border-0 bg-light">
 											<div class="d-flex justify-content-end mt-2">
-												<button class="update-insert-btn btn text-success btn-light" data-review-id="${reviewView.review.id}">등록</button>									
+												<button class="update-insert-btn btn text-success btn-light" data-review-id="${reviewView.review.id}" data-point="5">등록</button>									
 												<button class="update-cancel-btn btn btn-light btn-border">취소</button>									
 											</div>
 										</div>
 										<c:if test="${reviewView.review.userId eq userId}">
 											<div class="d-flex justify-content-end">
 												<a href="#none" class="update-review text-success pr-3">수정</a>
-												<a href="#none" class="text-danger">삭제</a>
-												<button class="d-none del-review-btn" data-review-id="${reviewView.review.id}"></button>
+												<a href="#none" class="del-review text-danger" data-review-id="${reviewView.review.id}">삭제</a>
 											</div>
 										</c:if>
 									</div>
@@ -159,7 +180,6 @@
 		});
 		
 		<%-- 탭 메뉴 클릭시 보여주는 정보 --%>
-		
 		$('.nav-item').on('click', function(e) {
 			e.preventDefault();
 			$('.nav-item').children().removeClass('active');
@@ -274,6 +294,20 @@
 			e.preventDefault();
 			$(this).parent().prev().prev().addClass('d-none');
 			$(this).parent().prev().removeClass('d-none');
+			$('.star').attr('src', "/static/img/star_yellow.png");
+		});
+		
+		<%-- 별점 선택 --%>
+		$('.point-star').on('click', function() {
+			// 선택된 별점 노랑
+			$(this).parent().find('img').attr('src', "/static/img/star_yellow.png");
+			// 선택된 별점이전 별점 노랑
+			$(this).parent().prevAll().find('img').attr('src', "/static/img/star_yellow.png");
+			// 선택된 별점이후 별점 회색
+			$(this).parent().nextAll().find('img').attr('src', "/static/img/star_grey.png");
+			
+			// 선택한 별점 넣기
+			$(this).parent().parent().next().next().find('.update-insert-btn').data('point', $(this).val());
 		});
 		
 		// 리뷰 수정 취소하기
@@ -286,7 +320,49 @@
 		// 리뷰 수정하기
 		$('.update-insert-btn').on('click', function(e) {
 			let reviewId = $(this).data('review-id');
-			alert(reviewId);
+			let point = $(this).data('point');
+			let content = $(this).parent().prev().val();
+			
+			$.ajax({
+				type:"PUT"
+				,url:"/review/update"
+				,data:{"reviewId":reviewId, "point":point, "content":content}
+				,success:function(data) {
+					if (data.code == 300) {
+						alert('성공');
+						location.reload();
+					} else {
+						alert('실패');
+					}
+				}
+				,error:function(e) {
+					alert('리뷰 수정에 실패했습니다. 관리자에게 문의주세요');
+					
+				}
+			}); // ajax 끝 */
+		});
+		
+		<%-- 리뷰 삭제 --%>
+		$('.del-review').on('click', function(e) {
+			e.preventDefault();
+			let reviewId = $(this).data('review-id');
+			
+			$.ajax({
+				type: "DELETE"
+				, data:{"reviewId":reviewId}
+				, url:"/review/delete"
+				, success:function(data) {
+					if (data.code == 300) {
+						alert(data.result);
+						location.reload();
+					} else {
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(e) {
+					alert(e);
+				}
+			}); // ajax 끝
 		});
 	});
 </script>

@@ -18,6 +18,8 @@ public interface ReviewDAO {
 	
 	public List<Review> selectReviewListByItemId(int itemId);
 	
+	public Review selectReviewById(int id);
+	
 	public int deleteReviewById(int id);
 	
 	public int updateReview(

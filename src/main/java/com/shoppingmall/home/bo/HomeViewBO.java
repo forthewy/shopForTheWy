@@ -22,12 +22,13 @@ public class HomeViewBO {
 	@Autowired
 	private SellerBO sellerBO;
 	
+	// 홈화면 만들기
 	public List<HomeView> generateHomeView(String sort) {
 		
 		List<HomeView> homeViewList = new ArrayList<>();
-		
 		List<Item> itemList = new ArrayList<>();
 		
+		// 분류가 선택되지 않았다면
 		if (ObjectUtils.isEmpty(sort)) {
 			itemList = itemBO.getItemListBySortLimitFour(null);
 		} else {
