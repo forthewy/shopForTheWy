@@ -329,10 +329,10 @@
 				,data:{"reviewId":reviewId, "point":point, "content":content}
 				,success:function(data) {
 					if (data.code == 300) {
-						alert('성공');
+						alert(data.result);
 						location.reload();
 					} else {
-						alert('실패');
+						alert(data.errorMessage);
 					}
 				}
 				,error:function(e) {

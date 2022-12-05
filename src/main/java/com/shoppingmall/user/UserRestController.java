@@ -138,6 +138,15 @@ public class UserRestController {
 		return result;
 	}
 	
+	/**
+	 * 회원 정보 수정
+	 * @param password
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/update")
 	public Map<String, Object> update(
 				@RequestParam(value="password", required=false) String password,

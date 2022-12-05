@@ -83,10 +83,10 @@ public class ReviewRestController {
 		
 		if (row > 0) {
 			result.put("code", 300);
-			result.put("result", "리뷰 삭제를 성공했습니다");
+			result.put("result", "리뷰 수정을 성공했습니다");
 		} else {
 			result.put("code", 500);
-			result.put("errorMessage", "리뷰 삭제에 실패했습니다");
+			result.put("errorMessage", "리뷰 수정에 실패했습니다");
 		}
 		
 		return result;

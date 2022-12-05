@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import com.shoppingmall.basket.bo.BasketBO;
 @RequestMapping("/basket")
 @RestController
 public class BasketRestController {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private BasketBO basketBO;
@@ -43,9 +47,13 @@ public class BasketRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "success");
+			if (row > 1) {
+				log.error("[장바구니 넣기] 장바구니 넣기 중복  userId:{},itemId:{}",userId, itemId);
+			}
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "장바구니 넣기에 실패했습니다.");
+			log.error("[장바구니 넣기] 장바구니 넣기 실패  userId:{},itemId:{}",userId, itemId);
 		}
 		
 		return result;

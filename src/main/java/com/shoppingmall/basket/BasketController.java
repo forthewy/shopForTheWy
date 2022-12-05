@@ -19,6 +19,12 @@ public class BasketController {
 	@Autowired
 	private BasketBO basketBO;
 	
+	/**
+	 * 장바구니 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/basket_list_view")
 	public String basketView(
 			HttpSession session,

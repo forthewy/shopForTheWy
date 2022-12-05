@@ -1,8 +1,14 @@
 package com.shoppingmall.basket.bo;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -15,6 +21,8 @@ import com.shoppingmall.item.model.Item;
 
 @Service
 public class BasketBO {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private BasketDAO basketDAO;
@@ -56,8 +64,9 @@ public class BasketBO {
 		return baskteItemViewList;
 	}
 	
-	// 주문서용 장바구니 화면 구성
-	public List<BasketItemView> generateBasketItemViewListBy(List<Integer> basketIdList) {
+	// 장바구니 주문서용 화면 구성
+	public List<BasketItemView> generateBasketItemViewListByBasketIdList(List<Integer> basketIdList
+			, HttpServletResponse response) throws IOException {
 		List<BasketItemView> baskteItemViewList = new ArrayList<>();
 		
 		// 선택한 장바구니 목록을 가져온다.
@@ -66,7 +75,15 @@ public class BasketBO {
 		for (Basket basket: basketList) {
 			BasketItemView basketItemView = new BasketItemView();
 			Item item = itemBO.getItemByItemId(basket.getItemId());
-			
+			// 상품 불러오기 실패시 주문 불가.
+			if (ObjectUtils.isEmpty(item)) {
+				log.error("[장바구니 주문] 장바구니 주문시 상품 불러오지 못함 userId:{},itemId:{}", basket.getUserId(), basket.getItemId());
+				response.setContentType("text/html; charset=UTF-8");
+	            PrintWriter out = response.getWriter();
+	            out.println("<script>alert('장바구니 상품을 불러오지 못했습니다'); history.go(-1);</script>");
+	            out.flush(); 
+				break;
+			}
 			basketItemView.setBasket(basket);
 			basketItemView.setItem(item);
 			
@@ -100,7 +117,13 @@ public class BasketBO {
 	
 	// 장바구니 삭제
 	public int deleteBasket(int id) {
-		return basketDAO.deleteBasket(id); 
+		int row =  basketDAO.deleteBasket(id); 
+		if (row > 0) {
+			log.info("[장바구니 삭제] 장바구니 삭제 성공 basketId:{}", id);
+		} else {
+			log.error("[장바구니 삭제] 장바구니 삭제 실패 basketId:{}", id);
+		}
+		return row;
 	}
 	
 	// 장바구니 담은 갯수 수정

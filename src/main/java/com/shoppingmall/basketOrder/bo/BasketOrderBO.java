@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -25,6 +27,8 @@ import com.shoppingmall.seller.model.Seller;
 
 @Service
 public class BasketOrderBO {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private BasketOrderDAO basketOrderDAO;
@@ -45,8 +49,8 @@ public class BasketOrderBO {
 	private ItemBO itemBO;
 
 	// 주문 하기
-	public int addBasketOrder(int userId, String phoneNumber, String address, String name, Integer directBasketId,
-			Integer directPrice, List<String> basketIdAndEachTotalPriceList) {
+	public int addBasketOrder(int userId, String phoneNumber, String address, String name
+			, Integer directBasketId, Integer directPrice, List<String> basketIdAndEachTotalPriceList) {
 
 		int row = 0;
 
@@ -58,9 +62,12 @@ public class BasketOrderBO {
 			DirectBasket directBasket = directBasketBO.getDirectBasketById(directBasketId);
 
 			directBasketBO.deleteDirectBasketById(directBasket.getId());
-
+			
 			row = basketOrderDAO.insertDirectBasketOrder(orderId, directBasket.getItemId(), directBasket.getNumber(),
 					directPrice);
+			if (row > 1) {
+				log.error("[바로 주문] 바로 주문시 중복 주문 발생 orderId:{}", orderId);
+			}
 
 		} else {
 			// 장바구니 주문시
@@ -83,7 +90,12 @@ public class BasketOrderBO {
 			}
 
 			row = basketOrderDAO.insertBasketOrder(orderId, basketMapList);
-
+			
+			if (row > basketMapList.size()) {
+				log.error("[장바구니 주문] 장바구니 주문시 중복 주문 발생 orderId:{}", orderId);
+			} else if (row < basketMapList.size()){
+				log.error("[장바구니 주문] 장바구니 주문시 미주문건 발생 orderId:{}", orderId);
+			}
 		}
 
 		return row;

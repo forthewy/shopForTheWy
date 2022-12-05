@@ -63,6 +63,7 @@
 					<div class="pl-5">
 						<div class="text-danger d-none" id="duplicatePhoneNumberWarn">전화번호가 중복됩니다.</div>
 						<div class="text-primary d-none" id="availablePhoneNumber">사용가능한 전화번호 입니다</div>
+						<div class="text-danger d-none" id="needDuplicateCheck">전화번호 중복 검사가 필요합니다</div>
 					</div>
 					<div class="d-flex justify-content-center">
 						<button type="submit" class="btn btn-dark" id="userUpdateBtn">회원정보 수정</button>
@@ -93,14 +94,22 @@
 			$('#postcode').val("");
 			$('#roadAddress').val("");
 			$('#extraAddress').val("");
+			location.reload();
 			return false;
 		});
 		
+		// 전화번호 수정시 경고 멘트
+		$('#phoneNumber').on('keyup', function() {
+			$('#needDuplicateCheck').removeClass('d-none');
+			$('#duplicatePhoneNumberWarn').addClass('d-none');
+			$('#availablePhoneNumber').addClass('d-none');
+		});
 		
 		<%-- 핸드폰 번호 중복 검사 --%>
 		$('#phoneNumCheckBtn').on('click', function() {
 			$('#duplicatePhoneNumberWarn').addClass('d-none');
 			$('#availablePhoneNumber').addClass('d-none');
+			$('#needDuplicateCheck').addClass('d-none');
 			
 			let phoneNumber = $('#phoneNumber').val();
 			if (phoneNumber.length < 1) {
@@ -114,25 +123,22 @@
 					if (data.isDuplicatedPhoneNumber) {
 						$('#availablePhoneNumber').addClass('d-none');
 						$('#duplicatePhoneNumberWarn').removeClass('d-none');
+						$('#needDuplicateCheck').addClass('d-none');
 						return;
 					} else {
 						$('#availablePhoneNumber').removeClass('d-none');
 						$('#duplicatePhoneNumberWarn').addClass('d-none');
+						$('#needDuplicateCheck').addClass('d-none');
 						return;
 					}
 				}
 				, error: function(e) {
-					alert("아이디 중복 조회에 실패했습니다. 관리자에게 문의바랍니다");
+					alert("전화번호 중복 조회에 실패했습니다. 관리자에게 문의바랍니다");
 					return;
 				}
 			}); // ajax 끝
 		}); // 전화 번호 중복 끝
 		
-		// 전화 번호 수정시 멘트 초기화
-		$('#phoneNumber').on('keyup', function() {
-			$('#duplicatePhoneNumberWarn').addClass('d-none');
-			$('#availablePhoneNumber').addClass('d-none');
-		});
 		
 		<%-- 유효성 검사 --%>
 		$('#userUpdateForm').on('submit', function(e) {
@@ -172,8 +178,9 @@
 			
 			// 전화번호 검사
 			let phoneNumber = $('#phoneNumber').val();
-			if(!$('#duplicatePhoneNumberWarn').hasClass('d-none')) {
-				alert("전화번호 중복입니다");
+			// 중복 검사를 진행하지 않았거나 중복이거나
+			if(!($('#duplicatePhoneNumberWarn').hasClass('d-none') && $('#needDuplicateCheck').hasClass('d-none'))) {
+				alert("전화번호 확인 바랍니다");
 				return;
 			}
 			

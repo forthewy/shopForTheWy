@@ -54,7 +54,6 @@ public class UserBO {
 	
 	// 회원정보 수정
 	public int updateUser(int userId, String password, String  name, String address, String phoneNumber) {
-		
 		return userDAO.updateUser(userId, password, name, address, phoneNumber);
 	}
 }

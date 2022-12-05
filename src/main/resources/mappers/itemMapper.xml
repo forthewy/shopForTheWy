@@ -156,7 +156,7 @@
  		FROM
  			`item`
  		WHERE
- 			`name` LIKE CONCAT(#{searchWord},'%');
+ 			`name` LIKE CONCAT('%',#{searchWord},'%');
  	</select>
  	<select id="selectItemCountBySellerId" parameterType="int" resultType="int">
  		SELECT

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +20,8 @@ import com.shoppingmall.basketOrder.bo.BasketOrderBO;
 @RequestMapping("/basket_order")
 @RestController
 public class BasketOrderRestController {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private BasketOrderBO basketOrderBO;
@@ -76,6 +80,7 @@ public class BasketOrderRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "주문 상태 변경에 실패했습니다.");
+			log.error("[주문 상태 변경] 주문상태 변경 실패 basketOrderId:{}, state:{}",basketOrderId, state);
 		}
 		
 		return result;

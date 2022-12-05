@@ -10,7 +10,7 @@
 				</div>
 	 		</c:when>
 	 		<c:otherwise>
-		 		<div class="d-flex">
+		 		<div class="d-flex flex-nowrap">
 			 		<c:forEach items="${bookmarkViewList}" var="bookmarkView">
 			 			<div class="bookmark-box m-3 border d-flex justify-content-center align-items-center">
 			 				<a href="/shop/shop_view/${bookmarkView.sellerUserLoginId}">
