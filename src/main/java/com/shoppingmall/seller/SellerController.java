@@ -39,4 +39,18 @@ public class SellerController {
 		model.addAttribute("viewName", "seller/sellerUpdate");
 		return "template/layout";
 	}
+	
+	@RequestMapping("/create_view")
+	public String sellerCreateView(
+			HttpSession session,
+			Model model) {
+		
+		int userId = (int) session.getAttribute("userId");
+		
+		Seller seller = sellerBO.getSellerByUserId(userId);
+		
+		model.addAttribute("seller", seller);
+		model.addAttribute("viewName", "seller/create");
+		return "template/layout";
+	}
 }

@@ -24,6 +24,16 @@ public class SellerBO {
 	@Autowired
 	private FileManagerService fileManagerService;
 	
+	public int addSeller(int userId, String shopName, String address, String shopPhoneNumber) {
+		return sellerDAO.insertSeller(userId, shopName, address, shopPhoneNumber);
+	}
+	
+	// 미승인 상점 가져오기
+	public List<Seller> getSellerByState(String state) {
+		return sellerDAO.selectSellerByState(state);
+	}
+	
+	
 	// 로그인 아이디로 상점 가져오기
 	public Seller getSellerByUserLoginId(String loginId) {
 		int userId = userBO.getIdByLoginId(loginId);

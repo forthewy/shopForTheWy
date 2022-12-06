@@ -18,6 +18,11 @@
 						<button class="btn btn-info mb-3" onClick="location.href='/basket_order/seller_order_list_view'">상점 주문 내역</button>
 					</div>
 				</c:if>
+				<c:if test="${userType eq 1}">
+					<div>
+						<button class="btn btn-info mb-3" onClick="location.href='/seller/create_view'">상점 신청</button>
+					</div>
+				</c:if>
 			</div>
 		</aside>
 		<section class="order-list-box col-8 pl-5">

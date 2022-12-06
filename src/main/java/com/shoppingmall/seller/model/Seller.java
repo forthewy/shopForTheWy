@@ -12,8 +12,10 @@ public class Seller {
 	private String file;
 	private String bannerImg;
 	private String shopMainImg;
+	private String state;
 	private Date createdAt;
 	private Date updatedAt;
+	
 	public int getId() {
 		return id;
 	}
@@ -61,6 +63,12 @@ public class Seller {
 	}
 	public void setShopMainImg(String shopMainImg) {
 		this.shopMainImg = shopMainImg;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

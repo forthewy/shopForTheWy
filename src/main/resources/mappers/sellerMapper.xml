@@ -2,6 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.shoppingmall.seller.dao.SellerDAO">
+ 	<insert id="insertSeller" parameterType="map">
+ 		INSERT INTO
+ 			`seller`
+ 		(
+ 			`userId`
+			,`shopName`
+			,`address`
+			,`shopPhoneNumber`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{userId}
+			,#{shopName}
+			,#{address}
+			,#{shopPhoneNumber}
+			,NOW()
+			,NOW()
+ 		)
+ 	</insert>
+ 	<select id="selectSellerByState" parameterType="string" resultType="com.shoppingmall.seller.model.Seller">
+ 		SELECT
+ 			`id`
+			,`userId`
+			,`shopName`
+			,`address`
+			,`shopPhoneNumber`
+			,`state`
+			,`file`
+			,`bannerImg`
+			,`shopMainImg`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+ 			`seller`
+ 		WHERE
+ 			`state` = #{state}	
+ 	</select>
  	<select id="selectSellerByUserId" parameterType="Integer" resultType="com.shoppingmall.seller.model.Seller">
  		SELECT
  			`id`

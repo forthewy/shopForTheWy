@@ -10,6 +10,14 @@ import com.shoppingmall.seller.model.Seller;
 @Repository
 public interface SellerDAO {
 
+	public int insertSeller(
+			@Param("userId")int userId,
+			@Param("shopName") String shopName,
+			@Param("address") String address,
+			@Param("shopPhoneNumber") String shopPhoneNumber);
+	
+	public List<Seller> selectSellerByState(String state);
+	
 	public Seller selectSellerByUserId(Integer userId);
 	
 	public int updateSellerByUserId(

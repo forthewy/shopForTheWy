@@ -146,6 +146,9 @@ section {
 	width: 150px;
 	font-size: 32px;
 }
+.admin-box{
+	height: 900px;
+}
 aside > ul > li:hover {
 	background-color: #aeaeae;
 }

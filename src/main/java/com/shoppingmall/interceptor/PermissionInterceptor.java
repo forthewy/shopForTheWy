@@ -36,8 +36,8 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		
-		// seller로 온경우 
-		if (uri.startsWith("/seller")) {
+		// seller로 온경우. 상점 신청 제외. 
+		if (uri.startsWith("/seller") && !uri.startsWith("/seller/create")) {
 			// 비로그인이라면 ==> 로그인 페이지로 redirect
 			if (userType == null) {
 				response.sendRedirect("/user/sign_in_view");

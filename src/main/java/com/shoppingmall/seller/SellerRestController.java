@@ -59,4 +59,30 @@ public class SellerRestController {
 		
 		return result;
 	}
+	
+	
+	@PostMapping("/create")
+	public Map<String, Object> create(
+			@RequestParam(value="shopName") String shopName,
+			@RequestParam(value="address") String address,
+			@RequestParam(value="shopPhoneNumber") String shopPhoneNumber,
+			HttpSession session) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		int userId = (int) session.getAttribute("userId");
+		
+		int row = sellerBO.addSeller(userId, shopName, address, shopPhoneNumber);
+		
+		if (row > 0) {
+			result.put("code", 300);
+			result.put("result", "success");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "상점 신청에 실패했습니다");
+		}
+		
+		return result;
+		
+	}
 }

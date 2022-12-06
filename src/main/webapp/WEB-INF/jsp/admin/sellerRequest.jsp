@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,23 +31,40 @@
 				</li>
 				<li class="nav-item mt-2 pl-3 w-100">
 					<a href="/home/home_view">
-						<h5>상점으로 되돌아가기</h5>
+						<h5>쇼핑몰으로 되돌아가기</h5>
 					</a>
 				</li>
 			</ul>
 		</aside>
-		<section class="col-7 box bg-light">
+		<section class="col-7 admin-box bg-light">
 			<div class="p-4">
 				<h1 class="pb-3">상점 등록 요청</h1>
-				<div class="bg-grey d-flex rounded seller-request-item justify-content-between align-items-center">
-					<h5 class="pl-3">상점명</h5>
-					<div class="pr-3">
-						<button class="btn btn-info mr-3">승인</button>
-						<button class="btn btn-danger">삭제</button>
+				<c:forEach items="${sellerList}" var="seller">
+					<div class="bg-grey d-flex rounded seller-request-item justify-content-between align-items-center">
+						<h5 class="pl-3">${seller.shopName}</h5>
+						<div class="pr-3">
+							<button class="accept-btn btn btn-info mr-3" data-seller-id="${seller.id}">승인</button>
+						</div>
 					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</section>
 	</div>
+	<script>
+		$(document).ready(function() {
+			$('.accept-btn').on('click', function() {
+				let sellerId = $(this).data('seller-id');
+				
+				$.ajax({
+					type: "POST"
+					, data: {"sellerId":sellerId}
+					, url: "/admin/seller/accpet"
+					, success: function(data) {
+						
+					}
+				})
+			})
+		})
+	</script>
 </body>
 </html>
