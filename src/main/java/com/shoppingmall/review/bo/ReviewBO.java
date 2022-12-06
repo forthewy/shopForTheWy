@@ -21,7 +21,7 @@ public class ReviewBO {
 	@Autowired
 	private UserBO userBO;
 	
-	public int addReview(int userId, int itemId, String content, double point) {
+	public int addReview(int userId, int itemId, String content, int point) {
 		return reviewDAO.insertReview(userId, itemId, content, point);
 	}
 	
@@ -68,7 +68,13 @@ public class ReviewBO {
 	}
 	
 	
-	public int updateReview(int userId, int id, String content, double point) {
+	public int updateReview(int userId, int id, String content, int point) {
+		// 리뷰를 가져와서 본인이 작성한 리뷰가 맞는 지 확인
+		Review review = getReviewById(id);
+		if (review.getUserId() != userId) {
+			return 0;
+		}
+		
 		return reviewDAO.updateReview(id, content, point);
 	}
 }

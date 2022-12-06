@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +19,18 @@ import com.shoppingmall.message.bo.MessageBO;
 @RestController
 public class MessageRestController {
 	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private MessageBO messageBO;
 	
+	/**
+	 * 쪽지 보내기
+	 * @param chatroomId
+	 * @param content
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create") 
 	public Map<String, Object> create(
 			@RequestParam("chatroomId") int chatroomId,
@@ -38,6 +49,7 @@ public class MessageRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "문의(쪽지) 보내기에 실패했습니다.");
+			log.error("[메세지 전송] 메세지 전송 실패  userId:{}, chatroomId:{}, content:{}", userId, chatroomId, content);
 		}
 		
 		return result;

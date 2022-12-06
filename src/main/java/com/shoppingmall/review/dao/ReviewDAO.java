@@ -14,7 +14,7 @@ public interface ReviewDAO {
 			@Param("userId") int userId,
 			@Param("itemId") int itemId,
 			@Param("content") String content,
-			@Param("point") double point);
+			@Param("point") int point);
 	
 	public List<Review> selectReviewListByItemId(int itemId);
 	
@@ -25,5 +25,5 @@ public interface ReviewDAO {
 	public int updateReview(
 			@Param("id") int id,
 			@Param("content") String content,
-			@Param("point") double point);
+			@Param("point") int point);
 }

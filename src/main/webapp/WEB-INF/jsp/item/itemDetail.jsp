@@ -40,14 +40,16 @@
 								</div>
 							</div>
 							<div class="d-flex justify-content-end mr-5 mt-3">
-								<button class="btn btn-dark mr-3" onClick="location.href='/message/message_view?sellerId=${itemDetailView.seller.id}'">상점 문의(쪽지)</button>
+								<form action="/message/message_view" >
+									<button class="btn btn-dark mr-3" id="messageViewBtn">상점 문의(쪽지)</button>
+								</form>
 								<button class="btn btn-info mr-3" type="button" id="basketBtn" data-item-id="${itemDetailView.item.id}">장바구니</button>
 								<button class="btn btn-warning" type="button" id="directOrderBtn" data-item-id="${itemDetailView.item.id}">바로 주문하기</button>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="d-flex justify-content-end mr-5">
-								<button class="btn btn-info mr-3" onClick="location.href='/item/item_update_view?id=${itemDetailView.item.id}'"">수정하기</button>
+								<button class="btn btn-info mr-3" onClick="location.href='/item/item_update_view?id=${itemDetailView.item.id}'">수정하기</button>
 								<button class="btn btn-danger" type="button" id="deleteBtn" data-item-id="${itemDetailView.item.id}">삭제하기</button>
 							</div>
 						</c:otherwise>
@@ -96,24 +98,24 @@
 										<h5 id="reviewContent${reviewView.review.id}">${reviewView.review.content}</h5>
 										<div class="d-none bg-light border">
 											<div class="ml-2">
-												<label for="star1">
-									      			<input type="radio" value="1" name="point" id="star1" class="point-star d-none">
+												<label>
+									      			<input type="radio" value="1" name="point" class="point-star d-none">
 										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
 									      		</label>
-									      		<label for="star2">
-									      			<input type="radio" value="2" name="point" id="star2" class="point-star d-none">
+									      		<label>
+									      			<input type="radio" value="2" name="point" class="point-star d-none">
 										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
 									      		</label>
-									      		<label for="star3">
-									      			<input type="radio" value="3" name="point" id="star3" class="point-star d-none">
+									      		<label>
+									      			<input type="radio" value="3" name="point" class="point-star d-none">
 										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
 									      		</label>
-									      		<label for="star4">
-									      			<input type="radio" value="4" name="point" id="star4" class="point-star d-none">
+									      		<label>
+									      			<input type="radio" value="4" name="point" class="point-star d-none">
 										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
 									      		</label>
-									      		<label for="star5">
-									      			<input type="radio" value="5" name="point" id="star5" class="point-star d-none">
+									      		<label>
+									      			<input type="radio" value="5" name="point" class="point-star d-none">
 										      		<img alt="별점" src="/static/img/star_yellow.png" width="20px;" class="star">
 									      		</label>
 											</div>
@@ -230,6 +232,11 @@
 			 })
 		}); // 삭제 끝
 		
+		<%-- 문의 버튼 클릭 --%>
+		$('#messageViewBtn').on('click', function() {
+			
+		})
+		
 		<%-- 장바구니 넣기 --%>
 		$('#basketBtn').on('click', function() {
 			// 로그인 되어있지 않다면 로그인 화면으로 이동
@@ -310,6 +317,7 @@
 			$(this).parent().parent().next().next().find('.update-insert-btn').data('point', $(this).val());
 		});
 		
+		
 		// 리뷰 수정 취소하기
 		$('.update-cancel-btn').on('click', function(e) {
 			e.preventDefault();
@@ -322,6 +330,7 @@
 			let reviewId = $(this).data('review-id');
 			let point = $(this).data('point');
 			let content = $(this).parent().prev().val();
+			console.log(point);
 			
 			$.ajax({
 				type:"PUT"
@@ -339,7 +348,7 @@
 					alert('리뷰 수정에 실패했습니다. 관리자에게 문의주세요');
 					
 				}
-			}); // ajax 끝 */
+			}); // ajax 끝
 		});
 		
 		<%-- 리뷰 삭제 --%>
@@ -360,7 +369,7 @@
 					}
 				}
 				, error:function(e) {
-					alert(e);
+					alert("리뷰 삭제에 실패했습니다. 관리자에게 문의바랍니다");
 				}
 			}); // ajax 끝
 		});

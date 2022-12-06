@@ -17,7 +17,7 @@ public class AdminController {
 	@Autowired
 	private SellerBO sellerBO;
 	
-	@RequestMapping("/admin_view")
+	@RequestMapping("/seller_request_view")
 	public String adminView(Model model) {
 		
 		List<Seller> sellerList = sellerBO.getSellerByState("미승인");

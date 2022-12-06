@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,7 +19,15 @@ public class MessageController {
 	@Autowired
 	private MessageBO messageBO;
 	
-	@RequestMapping("/message_view")
+	/**
+	 * 쪽지 내역 보기
+	 * @param session
+	 * @param sellerId
+	 * @param chatroomId
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/message_view")
 	public String MessageView(
 			HttpSession session,
 			@RequestParam(value="sellerId", required=false) Integer sellerId,

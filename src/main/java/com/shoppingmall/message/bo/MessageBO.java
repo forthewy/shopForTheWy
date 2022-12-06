@@ -11,6 +11,8 @@ import com.shoppingmall.chatroom.model.Chatroom;
 import com.shoppingmall.message.dao.MessageDAO;
 import com.shoppingmall.message.model.Message;
 import com.shoppingmall.message.model.MessageView;
+import com.shoppingmall.seller.bo.SellerBO;
+import com.shoppingmall.seller.model.Seller;
 
 @Service
 public class MessageBO {
@@ -20,6 +22,9 @@ public class MessageBO {
 	
 	@Autowired
 	private ChatroomBO chatroomBO;
+	
+	@Autowired
+	private SellerBO sellerBO;
 	
 	// 쪽지화면 만들기 (문의 리스트에서 들어오면 chatroomId 로, 상품 상세에서 들어오면 sellerId로 들어오게 된다.)
 	public MessageView generateMessageView(int userId, Integer sellerId, Integer chatroomId) {
@@ -35,7 +40,7 @@ public class MessageBO {
 			} else {
 				chatroomId = chatroom.getId();
 			}
-		}
+		}		
 		
 		// 채팅방 아이디 넣기
 		messageView.setChatroomId(chatroomId);
@@ -54,6 +59,12 @@ public class MessageBO {
 	// 쪽지 보내기
 	public int addMessage(int senderUserId,String content, int chatroomId) {
 		Chatroom chatroom = chatroomBO.getChatroomById(chatroomId);
+		// 해당 채팅방에 등록 되지 않은 회원은 보낼수 없도록 한다.
+		Seller seller = sellerBO.getSellerById(chatroom.getSellerId());
+		if (chatroom.getUserId() != senderUserId && seller.getUserId() != senderUserId) {
+			return 0;
+		}
+		
 		
 		if (senderUserId != chatroom.getUserId()) {
 			// 보낸 사람이 상점이라면

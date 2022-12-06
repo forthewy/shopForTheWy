@@ -40,7 +40,7 @@
 			<div class="p-4">
 				<h1 class="pb-3">상점 등록 요청</h1>
 				<c:forEach items="${sellerList}" var="seller">
-					<div class="bg-grey d-flex rounded seller-request-item justify-content-between align-items-center">
+					<div class="bg-grey d-flex rounded seller-request-item justify-content-between align-items-center mb-3">
 						<h5 class="pl-3">${seller.shopName}</h5>
 						<div class="pr-3">
 							<button class="accept-btn btn btn-info mr-3" data-seller-id="${seller.id}">승인</button>

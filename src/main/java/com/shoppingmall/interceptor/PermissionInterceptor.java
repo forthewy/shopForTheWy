@@ -85,6 +85,12 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		
+		// 비로그인 && 리뷰로 온경우 ==> 로그인 페이지로 redirect
+		if (userName == null && uri.startsWith("/review")) {
+			response.sendRedirect("/user/sign_in_view");
+			return false;
+		}
+		
 		
 		return true;
 	}

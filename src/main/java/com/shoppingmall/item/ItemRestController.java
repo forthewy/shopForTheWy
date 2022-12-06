@@ -121,8 +121,7 @@ public class ItemRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "success");
-			log.info("[상품 수정] 상품 정보 수정 성공 name:{}, number:{}, price:{}, content:{}, sort:{}, thumbnailImg:{},"
-					+ "deliveryPrice:{}, itemId:{}", name, number, price, content, sort, thumbnailImg, deliveryPrice, itemId);
+			log.info("[상품 수정] 상품 정보 수정 성공 itemId:{}", itemId);
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상품 수정에 실패했습니다.");
