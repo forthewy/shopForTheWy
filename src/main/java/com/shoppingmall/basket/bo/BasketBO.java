@@ -18,6 +18,8 @@ import com.shoppingmall.basket.model.Basket;
 import com.shoppingmall.basket.model.BasketItemView;
 import com.shoppingmall.item.bo.ItemBO;
 import com.shoppingmall.item.model.Item;
+import com.shoppingmall.seller.bo.SellerBO;
+import com.shoppingmall.seller.model.Seller;
 
 @Service
 public class BasketBO {
@@ -29,6 +31,9 @@ public class BasketBO {
 	
 	@Autowired
 	private ItemBO itemBO;
+	
+	@Autowired
+	private SellerBO sellerBO;
 	
 	// 유저아이디로 장바구니 목록 가져오기
 	public List<Basket> getBasketListByUserId(int userId) {
@@ -55,9 +60,12 @@ public class BasketBO {
 		for (Basket basket: basketList) {
 			BasketItemView basketItemView = new BasketItemView();
 			Item item = itemBO.getItemByItemId(basket.getItemId());
+			basketItemView.setItem(item);
+			
+			Seller seller = sellerBO.getSellerById(item.getSellerId());
+			basketItemView.setSellerShopName(seller.getShopName());
 			
 			basketItemView.setBasket(basket);
-			basketItemView.setItem(item);
 			
 			baskteItemViewList.add(basketItemView);
 		}
@@ -105,6 +113,7 @@ public class BasketBO {
 		} else {
 			// 담은 적있는 상품이라면 갯수만 추가한다.
 			row = updateBasket(userId, itemId, number + basket.getNumber());
+			
 		}
 		
 		return row;
@@ -128,7 +137,14 @@ public class BasketBO {
 	
 	// 장바구니 담은 갯수 수정
 	public int updateBasket(int userId, int itemId, int number) {
-		return basketDAO.updateBasket(userId, itemId, number);
+		int row = basketDAO.updateBasket(userId, itemId, number);
+		
+		if (row > 0) {
+			log.info("[장바구니 수정] 장바구니 수정 성공 userId:{}, itemId:{}, number:{}", userId, itemId, number);
+		} else {
+			log.error("[장바구니 수정] 장바구니 수정 실패 userId:{}, itemId:{}, number:{}", userId, itemId, number);
+		}
+		return row;
 	}
 
 }

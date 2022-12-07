@@ -283,7 +283,7 @@
 				, url:"/direct_basket/create"
 				, success:function(data) {
 					if (data.code == 300) {
-						 location.href = "/order/order_create_view?directBasketId=" + data.directBasketId;
+						location.href = "/order/order_create_view?directBasketId=" + data.directBasketId;
 					 } else {
 						 alert(data.errorMessage);
 					 }

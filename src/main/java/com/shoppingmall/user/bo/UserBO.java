@@ -56,4 +56,8 @@ public class UserBO {
 	public int updateUser(int userId, String password, String  name, String address, String phoneNumber) {
 		return userDAO.updateUser(userId, password, name, address, phoneNumber);
 	}
+
+	public int updateUserTypeByUserId(int userId, int type) {
+		return userDAO.updateUserType(userId, type);
+	}
 }

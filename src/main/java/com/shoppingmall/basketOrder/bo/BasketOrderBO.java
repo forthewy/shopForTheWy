@@ -124,6 +124,10 @@ public class BasketOrderBO {
 				Item item = itemBO.getItemByItemId(basketOrder.getItemId());
 				basketOrderView.setItem(item);
 
+				// 상점명을 가져온다.
+				Seller seller = sellerBO.getSellerById(item.getSellerId());
+				basketOrderView.setSellerShopName(seller.getShopName());
+				
 				// order 정보를 가져온다.
 				Order order = orderBO.getOrderById(basketOrder.getOrderId());
 				basketOrderView.setOrder(order);

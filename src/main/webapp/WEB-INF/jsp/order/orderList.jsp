@@ -63,14 +63,17 @@
 								<div class="col-2 border-right h-100 d-flex align-items-center">
 									<h4>${basketOrderView.item.name}</h4>	
 								</div>
-								<div class="col-2 border-right h-100 d-flex align-items-center">
+								<div class="col-1 border-right h-100 d-flex align-items-center">
 									<h5>${basketOrderView.basketOrder.number}개</h5>	
 								</div>
-								<div class="col-5 border-right h-100 d-flex align-items-center">
+								<div class="col-4 border-right h-100 d-flex align-items-center">
 									<span class="ml-3">${fn:replace(basketOrderView.order.address, '/', ' ')}</span>	
 								</div>
-								<div class="col-2 h-100 d-flex align-items-center">
+								<div class="col-2 h-100 border-right d-flex align-items-center">
 									<h5>${basketOrderView.basketOrder.price}원</h5>	
+								</div>
+								<div class="col-2 h-100 d-flex align-items-center">
+									<h5>${basketOrderView.sellerShopName}</h5>	
 								</div>
 							</div>
 							<button type="button" class="review-btn btn btn-primary" data-toggle="modal" data-target="#reviewModal" data-item-id="${basketOrderView.item.id}">리뷰 남기기</button>
@@ -134,6 +137,8 @@
 			$('#reviewModal').data('item-id', itemId);
 			// 리뷰 쓸때 별점 초기화
 			$('.star').attr('src', "/static/img/star_yellow.png");
+			// 리뷰 쓸때 리뷰 내용 초기화
+			$('#reviewContent').val("");
 		});
 		
 		<%-- 별점 선택 --%>

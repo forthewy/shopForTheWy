@@ -27,7 +27,7 @@
 		<aside class="col-2 p-0 bg-grey">
 			<ul class="nav">
 				<li class="nav-item mt-5 pl-3 w-100">
-					<h5>상점 등록 요청</h5>
+					<a href="/admin/seller_request_view"><h5>상점 등록 요청</h5></a>
 				</li>
 				<li class="nav-item mt-2 pl-3 w-100">
 					<a href="/home/home_view">
@@ -39,12 +39,14 @@
 		<section class="col-7 admin-box bg-light">
 			<div class="p-4">
 				<h1 class="pb-3">상점 등록 요청</h1>
-				<c:forEach items="${sellerList}" var="seller">
+				<c:forEach items="${sellerShopNameAndIdList}" var="sellerShopNameAndId">
 					<div class="bg-grey d-flex rounded seller-request-item justify-content-between align-items-center mb-3">
-						<h5 class="pl-3">${seller.shopName}</h5>
-						<div class="pr-3">
-							<button class="accept-btn btn btn-info mr-3" data-seller-id="${seller.id}">승인</button>
-						</div>
+						<c:forEach items="${sellerShopNameAndId}" var="seller">
+							<h5 class="pl-3">${seller.key}</h5>
+							<div class="pr-3">
+								<button class="accept-btn btn btn-info mr-3" data-seller-id="${seller.value}">승인</button>
+							</div>
+						</c:forEach>
 					</div>
 				</c:forEach>
 			</div>
@@ -55,16 +57,25 @@
 			$('.accept-btn').on('click', function() {
 				let sellerId = $(this).data('seller-id');
 				
-				$.ajax({
+				
+				 $.ajax({
 					type: "POST"
 					, data: {"sellerId":sellerId}
-					, url: "/admin/seller/accpet"
+					, url: "/admin/seller_accept"
 					, success: function(data) {
-						
+						if (data.code == 300) {
+							alert("성공");
+							location.reload();
+						} else {
+							alert("실패");
+						}
 					}
-				})
+					, error:function(e) {
+						alert("상점 승인에 실패했습니다. 관리자에게 문의주세요");
+					}
+				}); // ajax 끝 
 			})
-		})
+		});
 	</script>
 </body>
 </html>

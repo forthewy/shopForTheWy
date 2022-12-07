@@ -30,7 +30,8 @@ public class SellerBO {
 	
 	// 미승인 상점 가져오기
 	public List<Seller> getSellerByState(String state) {
-		return sellerDAO.selectSellerByState(state);
+		List<Seller> sellerList = sellerDAO.selectSellerByState(state);
+		return sellerList;
 	}
 	
 	
@@ -84,5 +85,9 @@ public class SellerBO {
 		
 		return sellerDAO.updateSellerByUserId(userId, shopName, address,
 				shopPhoneNumber, bannerImgPath, shopMainImgPath);
+	}
+
+	public int updateSellerStateBySellerId(int sellerId, String state) {
+		return sellerDAO.updateSellerStateBySellerId(sellerId, state);
 	}
 }

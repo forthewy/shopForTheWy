@@ -43,5 +43,9 @@ public interface UserDAO {
 			@Param("name") String  name,
 			@Param("address") String address,
 			@Param("phoneNumber") String phoneNumber);
+
+	public int updateUserType(
+			@Param("id") int  id,
+			@Param("type") int  type);
 	
 }

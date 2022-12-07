@@ -20,6 +20,13 @@ public class DirectBasketRestController {
 	@Autowired
 	private DirectBasketBO directBasketBO;
 	
+	/**
+	 * 바로 주문
+	 * @param itemId
+	 * @param number
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("itemId") int itemId,

@@ -6,6 +6,8 @@ public class BasketItemView {
 
 	private Item item;
 	
+	private String sellerShopName;
+	
 	private Basket Basket;
 
 	public Item getItem() {
@@ -14,6 +16,14 @@ public class BasketItemView {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+	
+	public String getSellerShopName() {
+		return sellerShopName;
+	}
+
+	public void setSellerShopName(String sellerShopName) {
+		this.sellerShopName = sellerShopName;
 	}
 
 	public Basket getBasket() {

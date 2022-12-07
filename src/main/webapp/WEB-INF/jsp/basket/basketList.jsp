@@ -15,7 +15,7 @@
 				<%-- 바구니에 넣은 갯수 --%>						
 				<c:set value="${basketItem.basket.number}" var="basketNumber"/>
 				<div class="d-flex pl-3">
-					<div class="col-3">
+					<div class="col-2">
 						<c:choose>
 							<c:when test="${empty basketItem.item}">
 								<input type="checkbox" name="check" disabled class="basket-check mr-3" value="${basketItem.basket.id}" data-price="${eachPrice * basketNumber + deliveryPrice}">
@@ -30,9 +30,9 @@
 					</div>
 					<div class="col-8 d-flex">
 						<div class="d-flex align-items-center col-2 border-right">
-							<div>
-								<h3>${basketItem.item.name}</h3>
-							</div>
+							<a href="/item/item_detail_view?itemId=${basketItem.item.id}">
+								<h4>${basketItem.item.name}</h4>
+							</a>
 						</div>
 						<div class="col-3 ml-2">
 							<div class="d-flex align-items-center text-center h-100 border-right">
@@ -45,8 +45,11 @@
 								<h5>배송비 : ${deliveryPrice}</h5>
 							</div>
 						</div>
-						<div class="col-4 d-flex align-items-center">
+						<div class="col-3 d-flex align-items-center border-right">
 							<h5>주문금액 : <span class="price">${eachPrice * basketNumber + deliveryPrice}</span>원</h5>
+						</div>
+						<div class="col-2 d-flex align-items-center basket-shop-name">
+							상점명: ${basketItem.sellerShopName}
 						</div>
 						<div class="d-flex align-items-center col-4">
 							<button class="delete-btn btn btn-danger" type="button" data-basket-id="${basketItem.basket.id}">장바구니에서 삭제</button>

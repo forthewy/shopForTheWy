@@ -31,5 +31,9 @@ public interface SellerDAO {
 	public Seller selectSellerById (int id);
 	
 	public List<Seller> selectSellerListByUserId(List<Integer> idList);
+
+	public int updateSellerStateBySellerId(
+			@Param("id") int id,
+			@Param("state") String state);
 	
 }

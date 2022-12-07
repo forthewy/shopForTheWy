@@ -74,9 +74,18 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		}
 		
 		// 비로그인 && 문의 목록으로 온경우 ==> 로그인 페이지로 redirect
-		if (userName == null && uri.startsWith("/chatroom")) {
-			response.sendRedirect("/user/sign_in_view");
-			return false;
+		if (uri.startsWith("/chatroom")) {
+			if (userName == null) {
+				response.sendRedirect("/user/sign_in_view");
+				return false;
+			// 일반 유저가 상점 문의 목록으로 오는 경우
+			} else if (userType < 2 && uri.startsWith("/chatroom/seller_chatroom_list_view")) {
+				response.setContentType("text/html; charset=UTF-8");
+	            PrintWriter out = response.getWriter();
+	            out.println("<script>alert('상점 승인 후 이용 가능합니다.'); history.go(-1);</script>");
+	            out.flush(); 
+				return false;
+			}
 		}
 		
 		// 비로그인 && 문의로 온경우 ==> 로그인 페이지로 redirect

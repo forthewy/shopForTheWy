@@ -39,7 +39,7 @@
 		FROM
  			`seller`
  		WHERE
- 			`state` = #{state}	
+ 			`state` = #{state}
  	</select>
  	<select id="selectSellerByUserId" parameterType="Integer" resultType="com.shoppingmall.seller.model.Seller">
  		SELECT
@@ -74,6 +74,14 @@
 			,`updatedAt` = NOW()
  		WHERE
  			`userId` = #{userId}
+ 	</update>
+ 	<update id="updateSellerStateBySellerId" parameterType="map">
+ 		UPDATE
+ 			`seller`
+ 		SET
+ 			`state` = #{state}
+ 		WHERE
+ 			`id` = #{id}
  	</update>
  	<select id="selectSellerById" parameterType="int" resultType="com.shoppingmall.seller.model.Seller">
 		SELECT

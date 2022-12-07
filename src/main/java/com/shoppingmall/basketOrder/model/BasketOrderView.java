@@ -6,6 +6,8 @@ import com.shoppingmall.order.model.Order;
 public class BasketOrderView {
 
 	private Item item;
+	 
+	private String sellerShopName;
 	
 	private BasketOrder basketOrder;
 
@@ -17,6 +19,14 @@ public class BasketOrderView {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	public String getSellerShopName() {
+		return sellerShopName;
+	}
+
+	public void setSellerShopName(String sellerShopName) {
+		this.sellerShopName = sellerShopName;
 	}
 
 	public BasketOrder getBasketOrder() {

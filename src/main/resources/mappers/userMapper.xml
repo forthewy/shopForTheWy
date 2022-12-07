@@ -96,4 +96,12 @@
 		WHERE
 			`id` = #{id}
 	</update>
+	<update id="updateUserType" parameterType="map">
+		UPDATE
+			`user`
+		SET
+			`type` = #{type}
+		WHERE
+			`id` = #{id}
+	</update>
 </mapper>
