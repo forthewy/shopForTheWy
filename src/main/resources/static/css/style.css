@@ -70,6 +70,9 @@ section {
 .item-detail-box {
 	min-height: 500px;
 }
+.message-view-btn {
+	margin-top: 5%;
+}
 .review-box {
 	border-radius: 25px;
 }

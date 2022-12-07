@@ -44,7 +44,10 @@
 										</div>
 									</div>
 								</div>
-								<button class="btn btn-info" onClick="location.href='/message/message_view?chatroomId=${chatroomView.chatroom.id}'">문의 보기</button>
+								<form action="/message/message_view" method="post" id="messageViewForm">
+									<input type="text" name="chatroomId" class="d-none" value="${chatroomView.chatroom.id}">
+									<button class="message-view-btn btn btn-info"  type="submit">문의 보기</button>
+								</form>
 							</div>
 						</c:forEach>
 					</c:otherwise>

@@ -40,8 +40,9 @@
 								</div>
 							</div>
 							<div class="d-flex justify-content-end mr-5 mt-3">
-								<form action="/message/message_view" >
-									<button class="btn btn-dark mr-3" id="messageViewBtn">상점 문의(쪽지)</button>
+								<form action="/message/message_view" method="post" id="messageViewForm">
+									<input type="text" name="sellerId" class="d-none" value="${itemDetailView.seller.id}">
+									<button class="btn btn-dark mr-3" type="submit" id="messageViewBtn">상점 문의(쪽지)</button>
 								</form>
 								<button class="btn btn-info mr-3" type="button" id="basketBtn" data-item-id="${itemDetailView.item.id}">장바구니</button>
 								<button class="btn btn-warning" type="button" id="directOrderBtn" data-item-id="${itemDetailView.item.id}">바로 주문하기</button>
@@ -181,6 +182,7 @@
 			 return false;
 		});
 		
+		
 		<%-- 탭 메뉴 클릭시 보여주는 정보 --%>
 		$('.nav-item').on('click', function(e) {
 			e.preventDefault();
@@ -232,10 +234,7 @@
 			 })
 		}); // 삭제 끝
 		
-		<%-- 문의 버튼 클릭 --%>
-		$('#messageViewBtn').on('click', function() {
-			
-		})
+		
 		
 		<%-- 장바구니 넣기 --%>
 		$('#basketBtn').on('click', function() {
