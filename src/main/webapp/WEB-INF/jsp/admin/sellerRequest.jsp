@@ -44,7 +44,7 @@
 						<c:forEach items="${sellerShopNameAndId}" var="seller">
 							<h5 class="pl-3">${seller.key}</h5>
 							<div class="pr-3">
-								<button class="accept-btn btn btn-info mr-3" data-seller-id="${seller.value}">승인</button>
+								<button class="accept-btn btn btn-info mr-3" data-seller-id="${seller.value}" data-seller-shop-name="${seller.key}">승인</button>
 							</div>
 						</c:forEach>
 					</div>
@@ -56,7 +56,13 @@
 		$(document).ready(function() {
 			$('.accept-btn').on('click', function() {
 				let sellerId = $(this).data('seller-id');
+				let sellerShopName = $(this).data('seller-shop-name');
 				
+				let accept = confirm(sellerShopName +'을 승인하시겠습니까?');
+				
+				if (!accept) {
+					return;
+				} 
 				
 				 $.ajax({
 					type: "POST"
@@ -64,10 +70,9 @@
 					, url: "/admin/seller_accept"
 					, success: function(data) {
 						if (data.code == 300) {
-							alert("성공");
 							location.reload();
 						} else {
-							alert("실패");
+							alert(data.errorMessage);
 						}
 					}
 					, error:function(e) {

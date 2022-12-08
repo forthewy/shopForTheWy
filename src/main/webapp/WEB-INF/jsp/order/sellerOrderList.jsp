@@ -17,7 +17,7 @@
 						<button class="btn btn-info mb-3" onClick="location.href='/basket_order/seller_order_list_view'">상점 주문 내역</button>
 					</div>
 					<div>
-						<button class="btn btn-info mb-3" onClick="location.href=''">상점 통계</button>
+						<button class="btn btn-info mb-3" onClick="location.href='/order_log/stats_view''">상점 통계</button>
 					</div>
 				</c:if>
 			</div>

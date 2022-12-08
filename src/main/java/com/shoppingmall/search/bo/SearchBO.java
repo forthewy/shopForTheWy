@@ -21,6 +21,7 @@ public class SearchBO {
 	@Autowired
 	private SellerBO sellerBO;
 	
+	// 검색 화면 만들기
 	public List<SearchView> generateSearchView(String searchword) {
 		List<SearchView> searchViewList = new ArrayList<>();
 		

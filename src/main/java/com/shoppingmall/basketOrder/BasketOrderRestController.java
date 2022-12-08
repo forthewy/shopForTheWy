@@ -66,6 +66,12 @@ public class BasketOrderRestController {
 		return result;
 	}
 	
+	/**
+	 * 주문 상태 변경
+	 * @param basketOrderId
+	 * @param state
+	 * @return
+	 */
 	@PutMapping("/update")
 	public Map<String, Object> update(
 			@RequestParam("basketOrderId") int basketOrderId,
@@ -77,6 +83,7 @@ public class BasketOrderRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "success");
+			log.info("[주문 상태 변경] 주문상태 변경 성공 basketOrderId:{}, state:{}",basketOrderId, state);
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "주문 상태 변경에 실패했습니다.");

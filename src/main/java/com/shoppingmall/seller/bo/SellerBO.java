@@ -24,6 +24,7 @@ public class SellerBO {
 	@Autowired
 	private FileManagerService fileManagerService;
 	
+	// 상점 신청
 	public int addSeller(int userId, String shopName, String address, String shopPhoneNumber) {
 		return sellerDAO.insertSeller(userId, shopName, address, shopPhoneNumber);
 	}
@@ -87,6 +88,7 @@ public class SellerBO {
 				shopPhoneNumber, bannerImgPath, shopMainImgPath);
 	}
 
+	// 상점 승인용
 	public int updateSellerStateBySellerId(int sellerId, String state) {
 		return sellerDAO.updateSellerStateBySellerId(sellerId, state);
 	}

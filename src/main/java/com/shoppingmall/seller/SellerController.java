@@ -40,6 +40,12 @@ public class SellerController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 상점 신청 화면
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/create_view")
 	public String sellerCreateView(
 			HttpSession session,
@@ -47,6 +53,7 @@ public class SellerController {
 		
 		int userId = (int) session.getAttribute("userId");
 		
+		// 중복 신청을 막기 위해 seller DB에 있는 유저인지 확인한다.
 		Seller seller = sellerBO.getSellerByUserId(userId);
 		
 		model.addAttribute("seller", seller);

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +20,13 @@ import com.shoppingmall.seller.bo.SellerBO;
 @RestController
 public class SellerRestController {
 	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private SellerBO sellerBO;
 	
 	/**
-	 * 상점 설정 수정
+	 * 상점 정보 수정
 	 * @param shopName
 	 * @param address
 	 * @param shopPhoneNumber
@@ -52,15 +56,25 @@ public class SellerRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "success");
+			log.info("[상점 수정] 상점 수정 성공 userId:{}, shopName:{}, address:{}, shopPhoneNumber:{}", userId, shopName, address, shopPhoneNumber);
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상점 정보 수정에 실패했습니다");
+			log.error("[상점 수정] 상점 수정 실패 userId:{}, shopName:{}, address:{}, shopPhoneNumber:{}", userId, shopName, address, shopPhoneNumber);
 		}
 		
 		return result;
 	}
 	
 	
+	/**
+	 * 상점 신청
+	 * @param shopName
+	 * @param address
+	 * @param shopPhoneNumber
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam(value="shopName") String shopName,
@@ -77,12 +91,13 @@ public class SellerRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "success");
+			log.info("[상점 신청] 상점 신청 성공 userId:{}, shopName:{}, shopPhoneNumber:{}", userId, shopName, shopPhoneNumber);
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "상점 신청에 실패했습니다");
+			log.error("[상점 신청] 상점 신청 실패 userId:{}, shopName:{}, shopPhoneNumber:{}", userId, shopName, shopPhoneNumber);
 		}
 		
 		return result;
-		
 	}
 }

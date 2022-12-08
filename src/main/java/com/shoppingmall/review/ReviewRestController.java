@@ -50,6 +50,7 @@ public class ReviewRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "리뷰 등록이 완료되었습니다");
+			log.error("[리뷰 등록] 리뷰 등록 성공 itemId:{}, content:{}, point:{}, userId:{}", itemId, content, point, userId); 
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "리뷰 등록에 실패했습니다");
@@ -113,6 +114,7 @@ public class ReviewRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "리뷰 수정을 성공했습니다");
+			log.error("[리뷰 수정] 리뷰 수정 성공 userId:{}, reviewId:{}, content:{}, point:{}",userId, reviewId, content, point); 
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "리뷰 수정에 실패했습니다");

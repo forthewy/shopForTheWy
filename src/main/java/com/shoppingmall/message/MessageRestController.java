@@ -46,6 +46,7 @@ public class MessageRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "success");
+			log.info("[메세지 전송] 메세지 전송 성공  userId:{}, chatroomId:{}, content:{}", userId, chatroomId, content);
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "문의(쪽지) 보내기에 실패했습니다.");

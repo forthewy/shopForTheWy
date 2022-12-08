@@ -105,7 +105,6 @@
 				, contentType: false
 				, success: function(data) {
 					if (data.code == 300) {
-						alert("성공입니다");
 						location.href = "/shop/shop_view/" + sellerLoginId;
 					} else {
 						alert(data.errorMessage);

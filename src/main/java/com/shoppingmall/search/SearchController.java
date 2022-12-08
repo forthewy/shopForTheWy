@@ -19,6 +19,12 @@ public class SearchController {
 	@Autowired
 	private SearchBO searchBO;
 	
+	/**
+	 * 검색 화면
+	 * @param searchword
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/search_view")
 	public String searchView(
 			@RequestParam("searchword") String searchword,

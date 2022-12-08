@@ -47,6 +47,7 @@ public class BasketRestController {
 		if (row > 0) {
 			result.put("code", 300);
 			result.put("result", "success");
+			log.info("[장바구니 넣기] 장바구니 넣기 성공  userId:{},itemId:{}",userId, itemId);
 			if (row > 1) {
 				log.error("[장바구니 넣기] 장바구니 넣기 중복  userId:{},itemId:{}",userId, itemId);
 			}

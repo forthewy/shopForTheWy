@@ -13,6 +13,7 @@
  			`message`
  		WHERE
  			`chatroomId` = #{chatroomId}
+ 		ORDER BY `id`
  	</select>
  	<insert id="insertMessage" parameterType="map">
  		INSERT INTO

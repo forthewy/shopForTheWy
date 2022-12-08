@@ -21,6 +21,7 @@ public class ReviewBO {
 	@Autowired
 	private UserBO userBO;
 	
+	// 리뷰 등록
 	public int addReview(int userId, int itemId, String content, int point) {
 		return reviewDAO.insertReview(userId, itemId, content, point);
 	}

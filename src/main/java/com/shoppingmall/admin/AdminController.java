@@ -17,7 +17,6 @@ public class AdminController {
 	@Autowired
 	private AdminBO adminBO;
 	
-	
 	@RequestMapping("/seller_request_view")
 	public String adminView(Model model) {
 		

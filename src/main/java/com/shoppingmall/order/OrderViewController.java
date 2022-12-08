@@ -1,6 +1,5 @@
 package com.shoppingmall.order;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,8 @@ import com.shoppingmall.order.model.OrderView;
 @RequestMapping("/order")
 @Controller
 public class OrderViewController {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private OrderViewBO orderViewBO;
@@ -53,12 +56,12 @@ public class OrderViewController {
 		if (!ObjectUtils.isEmpty(directBasketId)) {
 			DirectBasket directBasket = directBasketBO.getDirectBasketById(directBasketId);
 			if (directBasket.getUserId() != userId) {
-				log.error("[주문서] 바로 주문 바구니 유저와 세션이 다름. userId", basket.getUserId(), basket.getItemId());
+				log.error("[주문서] 바로 주문 바구니 유저와 세션이 다름. userId", directBasket.getUserId(), directBasket.getItemId());
 				response.setContentType("text/html; charset=UTF-8");
 	            PrintWriter out = response.getWriter();
-	            out.println("<script>alert('장바구니 상품을 불러오지 못했습니다'); history.go(-1);</script>");
+	            out.println("<script>alert('바로 주문 상품을 불러오지 못했습니다'); history.go(-1);</script>");
 	            out.flush(); 
-				break;
+	            return null;
 			}
 		}
 		

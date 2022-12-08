@@ -83,7 +83,10 @@
 					<div class="pl-5">
 						<c:forEach items="${itemDetailView.reviewViewList}" var="reviewView">
 							<div class="review-box border p-3 mb-4">
-								<h2 class="m-0">${reviewView.userLoginId}</h2>
+								<div class="d-flex align-items-end">
+									<h2 class="m-0">${reviewView.userLoginId}</h2>
+									<span class="text-secondary ml-2"><fmt:formatDate value="${reviewView.review.createdAt}" pattern="MM월 dd일"/></span>
+								</div>
 								<c:forEach var="point" begin="1" end="5">
 									<c:choose>
 										<c:when test="${reviewView.review.point >= point}">
@@ -97,6 +100,7 @@
 								<div class="review-box pt-2">
 									<div>
 										<h5 id="reviewContent${reviewView.review.id}">${reviewView.review.content}</h5>
+										<%-- 리뷰 수정용 --%>
 										<div class="d-none bg-light border">
 											<div class="ml-2">
 												<label>

@@ -61,12 +61,13 @@ public class BasketBO {
 			BasketItemView basketItemView = new BasketItemView();
 			Item item = itemBO.getItemByItemId(basket.getItemId());
 			basketItemView.setItem(item);
-			
-			Seller seller = sellerBO.getSellerById(item.getSellerId());
-			basketItemView.setSellerShopName(seller.getShopName());
+
+			if (!ObjectUtils.isEmpty(item)) {
+				Seller seller = sellerBO.getSellerById(item.getSellerId());
+				basketItemView.setSellerShopName(seller.getShopName());
+			}
 			
 			basketItemView.setBasket(basket);
-			
 			baskteItemViewList.add(basketItemView);
 		}
 		return baskteItemViewList;

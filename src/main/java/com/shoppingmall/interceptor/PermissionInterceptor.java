@@ -100,6 +100,21 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		
+		// 관리자 화면에 비로그인 ==> 로그인 페이지로 redirect
+		if (uri.startsWith("/admin")) {
+			if (userType == null) {
+				response.sendRedirect("/user/sign_in_view");
+				return false;
+			// 관리자 회원보다 권한이 적은 회원이 온 경우
+			} else if (userType < 3) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('관리자 회원만 이용 가능합니다.'); history.go(-1);</script>");
+				out.flush(); 
+				return false;
+			}
+		}
+		
 		
 		return true;
 	}

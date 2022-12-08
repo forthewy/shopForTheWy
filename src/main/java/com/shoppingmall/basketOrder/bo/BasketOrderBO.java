@@ -22,6 +22,7 @@ import com.shoppingmall.item.bo.ItemBO;
 import com.shoppingmall.item.model.Item;
 import com.shoppingmall.order.bo.OrderBO;
 import com.shoppingmall.order.model.Order;
+import com.shoppingmall.orderLog.dao.OrderLogDAO;
 import com.shoppingmall.seller.bo.SellerBO;
 import com.shoppingmall.seller.model.Seller;
 
@@ -32,6 +33,9 @@ public class BasketOrderBO {
 
 	@Autowired
 	private BasketOrderDAO basketOrderDAO;
+
+	@Autowired
+	private OrderLogDAO orderLogDAO;
 
 	@Autowired
 	private OrderBO orderBO;
@@ -48,6 +52,7 @@ public class BasketOrderBO {
 	@Autowired
 	private ItemBO itemBO;
 
+	
 	// 주문 하기
 	public int addBasketOrder(int userId, String phoneNumber, String address, String name
 			, Integer directBasketId, Integer directPrice, List<String> basketIdAndEachTotalPriceList) {
@@ -61,13 +66,18 @@ public class BasketOrderBO {
 		if (!ObjectUtils.isEmpty(directBasketId)) {
 			DirectBasket directBasket = directBasketBO.getDirectBasketById(directBasketId);
 
-			directBasketBO.deleteDirectBasketById(directBasket.getId());
-			
 			row = basketOrderDAO.insertDirectBasketOrder(orderId, directBasket.getItemId(), directBasket.getNumber(),
 					directPrice);
+			Item item = itemBO.getItemByItemId(directBasket.getItemId());
+			
+			// 통계용 로그
+			orderLogDAO.insertOrderLog(item.getId(), item.getName(), item.getSellerId(),
+					directBasket.getNumber(), directPrice);
+
 			if (row > 1) {
 				log.error("[바로 주문] 바로 주문시 중복 주문 발생 orderId:{}", orderId);
 			}
+			directBasketBO.deleteDirectBasketById(directBasket.getId());
 
 		} else {
 			// 장바구니 주문시
@@ -79,7 +89,11 @@ public class BasketOrderBO {
 				String[] basketIdAndEachTotalPriceArr = basketIdAndEachTotalPrice.split("/");
 
 				Basket basket = basketBO.getBasketById(Integer.parseInt(basketIdAndEachTotalPriceArr[0]));
-
+				Item item = itemBO.getItemByItemId(basket.getItemId());
+				
+				// 통계용 로그
+				orderLogDAO.insertOrderLog(item.getId(), item.getName(), item.getSellerId(), basket.getNumber(), Integer.parseInt(basketIdAndEachTotalPriceArr[1]));
+				
 				basketMap.put("itemId", basket.getItemId());
 				basketMap.put("number", basket.getNumber());
 				basketMap.put("price", Integer.parseInt(basketIdAndEachTotalPriceArr[1]));
