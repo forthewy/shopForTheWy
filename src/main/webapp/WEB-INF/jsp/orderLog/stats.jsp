@@ -22,7 +22,7 @@
 			</div>
 		</aside>
 		<section class="order-list-box col-8 pl-5 mt-5">
-			<div class="bg-danger">
+			<div class="bg-danger chart-box">
 				<div id="chart_div"></div>
 			</div>
 		</section>
@@ -39,18 +39,21 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
-     // Load the Visualization API and the corechart package.
+     // 차트 시각화 api
      google.charts.load('current', {'packages':['corechart']});
 
-     // Set a callback to run when the Google Visualization API is loaded.
+     // 차트 시각화 api 완료후 차트그리는 함수 콜백
      google.charts.setOnLoadCallback(drawChart);
 
-     // Callback that creates and populates a data table,
-     // instantiates the pie chart, passes in the data and
-     // draws it.
      function drawChart() {
 
+       // 차트 옵션
+       var options = {'title':'판매량 통계',
+                      'width': 600,
+                      'height':500};
+       
        // Create the data table.
+       // google.visualization.arrayToDataTable(arrayList);
        var data = new google.visualization.DataTable();
        data.addColumn('string', 'Topping');
        data.addColumn('number', 'Slices');
@@ -62,12 +65,8 @@
          ['Pepperoni', 2]
        ]);
 
-       // Set chart options
-       var options = {'title':'How Much Pizza I Ate Last Night',
-                      'width':400,
-                      'height':300};
 
-       // Instantiate and draw our chart, passing in some options.
+       // 차트 그릴 영역 지정
        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
        chart.draw(data, options);
      }
