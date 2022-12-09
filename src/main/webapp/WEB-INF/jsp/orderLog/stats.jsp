@@ -21,53 +21,97 @@
 				</c:if>
 			</div>
 		</aside>
-		<section class="order-list-box col-8 pl-5 mt-5">
-			<div class="bg-danger chart-box">
-				<div id="chart_div"></div>
+		<section class="order-list-box col-8 pl-5 mt-5 d-flex">
+			<div class="bg-danger col-5">
+				<div id="chartPie"></div>
+			</div>
+			<div class="bg-warning col-5">
+				<div id="barchart_material" style="height: 500px;"></div>
 			</div>
 		</section>
 	</div>
 </div>
-
-<script>
-	$(document).ready(function() {
-		
-	});
-	
-</script>
  <!--Load the AJAX API-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
+<script>
+	$(document).ready(function() {
+		pieChart();
+		barChart();
+	});
+	
+	<%-- 파이 차트 --%> 
+	function pieChart() {
+		let request = 
+		$.ajax({
+			type : "POST",
+			url : "/stats_chart"
+        });   
+		request.done(function(result) {
+		
+   	  	// 차트 시각화 api
+    	 google.charts.load('current', {'packages':['corechart']});
+	
+	     // 차트 시각화 api 완료후 차트그리는 함수 콜백
+	     google.charts.setOnLoadCallback(drawChart);
 
-     // 차트 시각화 api
-     google.charts.load('current', {'packages':['corechart']});
+    	 function drawChart() {
 
-     // 차트 시각화 api 완료후 차트그리는 함수 콜백
-     google.charts.setOnLoadCallback(drawChart);
-
-     function drawChart() {
-
-       // 차트 옵션
-       var options = {'title':'판매량 통계',
-                      'width': 600,
-                      'height':500};
+	       // 차트 옵션
+	       let options = {'title':'판매량 통계',
+               	      	 'width': 600,
+             	         'height':500,
+             	         'pieHole': 0.4};
        
-       // Create the data table.
-       // google.visualization.arrayToDataTable(arrayList);
-       var data = new google.visualization.DataTable();
-       data.addColumn('string', 'Topping');
-       data.addColumn('number', 'Slices');
-       data.addRows([
-         ['Mushrooms', 3],
-         ['Onions', 1],
-         ['Olives', 1],
-         ['Zucchini', 1],
-         ['Pepperoni', 2]
-       ]);
+	       // Create the data table.
+	       let data = new google.visualization.DataTable();
+       
+	       data.addColumn('string', '상품명');
+	       data.addColumn('number', '수량');
+	
+	       for(let i=0; i < result.length; i++){
+				data.addRow([result[i]["itemName"], parseInt(result[i]["number"])]);
+			} 
+         
+	       // 차트 그릴 영역 지정
+	       var chart = new google.visualization.PieChart(document.getElementById('chartPie'));
+	       chart.draw(data, options);
+    	 }
+		});
+	}
+	<%-- 막대 그래프 --%>
+	function barChart() {
+		let request = 
+		$.ajax({
+			type : "POST",
+			url : "/stats_chart"
+        });
+		request.done(function(result) {
+		
+			google.charts.load('current', {'packages':['bar']});
+			google.charts.setOnLoadCallback(drawChart);
 
+			 function drawChart() {
+			     let resultArr = [];
+			     resultArr.push(['상품명', '판매금액']);
+			     
+			     for(let i=0; i < result.length; i++) {
+			    	 resultArr.push([result[i]["itemName"], parseInt(result[i]["price"])]);
+				} 
+			    	 
+				 var data = google.visualization.arrayToDataTable(resultArr);
+			      
+		        var options = {
+		          chart: {
+		            title: '판매금액 비교',
+		          },
+		          bars: 'vertical',
+		          colors: '#e0440e',
+		        };
 
-       // 차트 그릴 영역 지정
-       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-       chart.draw(data, options);
-     }
+		        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+		        chart.draw(data, google.charts.Bar.convertOptions(options));
+		      }
+		}); 
+	}
 </script>

@@ -23,4 +23,18 @@
 			, NOW()
 			) 	
  	</insert>
+ 	<select id="selectOrderLogList" parameterType="int" resultType="com.shoppingmall.orderLog.model.OrderLog">
+ 		SELECT 
+			SUM(`number`) AS `number`
+            , `itemName`
+            , SUM(`price`) AS `price`
+ 		FROM
+ 			`order_log`
+ 		WHERE
+ 			`sellerId` = #{sellerId}
+		GROUP BY 
+			`itemName`
+		ORDER BY
+			`price` DESC
+ 	</select>
  </mapper>

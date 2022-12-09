@@ -1,7 +1,11 @@
 package com.shoppingmall.orderLog.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import com.shoppingmall.orderLog.model.OrderLog;
 
 @Repository
 public interface OrderLogDAO {
@@ -12,4 +16,6 @@ public interface OrderLogDAO {
 			@Param("sellerId") int sellerId,
 			@Param("number") int number,
 			@Param("price") int price);
+	
+	public List<OrderLog> selectOrderLogList (int sellerId);
 }
