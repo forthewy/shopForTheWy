@@ -67,10 +67,10 @@ public class ItemRestController {
 		
 		if (row > 0) {
 			result.put("code", 300);
-			result.put("result", "success");
+			result.put("result", "상품 등록에 성공했습니다");
 		} else {
 			result.put("code", 500);
-			result.put("result", "상품 등록에 실패했습니다.");
+			result.put("errorMessage", "상품 등록에 실패했습니다.");
 			log.error("[상품 등록] 상품 등록 실패 sellerLoginId:{}", sellerLoginId);
 		}
 		

@@ -46,7 +46,7 @@ public interface ItemDAO {
 	
 	public int selectCountLikesearchWord(String searchWord);
 	
-	public List<Item> selectItemListLikesearchWord(
+	public List<Item> selectItemListLikeSearchWord(
 			@Param("searchWord") String searchWord,
 			@Param("page") int page);
 	

@@ -110,7 +110,9 @@
 
 		        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
 
-		        chart.draw(data, google.charts.Bar.convertOptions(options));
+		        var formatter = new google.visualization.NumberFormat({pattern: '###,###'});
+		        formatter.format(data, 1);
+		        chart.draw(data, options);
 		      }
 		}); 
 	}

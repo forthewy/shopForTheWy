@@ -148,25 +148,21 @@
  		WHERE
  			`name` LIKE CONCAT('%',#{searchWord},'%')
  	</select>
- 	<select id="selectItemListLikesearchWord" parameterType="map" resultType="com.shoppingmall.item.model.Item">
+ 	<select id="selectItemListLikeSearchWord" parameterType="map" resultType="com.shoppingmall.item.model.Item">
  		SELECT
- 			`id` 
+ 			`id`
  			,`sellerId`
 			,`name`
-			,`number`
 			,`price`
-			,`content`
-			,`sort`
 			,`thumbnailImg`
 			,`deliveryPrice`
 			,`createdAt`
 			,`updatedAt`
  		FROM
- 			`item`
- 		WHERE
- 			`name` LIKE CONCAT('%',#{searchWord},'%')
- 		LIMIT
- 			${page * 5}
+			`item`
+		WHERE
+ 			 `name` LIKE CONCAT('%',#{searchWord},'%')
+ 		ORDER BY `id` DESC	
  	</select>
  	<select id="selectItemCountBySellerId" parameterType="int" resultType="int">
  		SELECT

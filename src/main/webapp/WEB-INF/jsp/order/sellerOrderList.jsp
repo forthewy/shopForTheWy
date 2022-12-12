@@ -87,7 +87,7 @@
 							</div>
 							<div class="col-10 pl-5">
 								<c:set var="orderUserNAme" value="${fn:replace(basketOrderView.order.name, searchName, searchNameStyle)}" />
-								<h5>${orderUserNAme}</h5>
+								<h5 class="pt-2">${orderUserNAme}</h5>
 								<h5>${fn:replace(basketOrderView.order.address, '/', ' ')}</h5>
 								<h5 class="text-success">${basketOrderView.item.name}(${basketOrderView.basketOrder.number}개)</h5>
 							</div>

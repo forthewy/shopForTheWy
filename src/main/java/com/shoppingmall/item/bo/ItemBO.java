@@ -1,5 +1,6 @@
 package com.shoppingmall.item.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.shoppingmall.common.FileManagerService;
 import com.shoppingmall.item.dao.ItemDAO;
 import com.shoppingmall.item.model.Item;
+import com.shoppingmall.item.model.ItemSellerShopName;
 import com.shoppingmall.seller.bo.SellerBO;
 import com.shoppingmall.seller.model.Seller;
 import com.shoppingmall.user.bo.UserBO;
@@ -108,7 +110,7 @@ public class ItemBO {
 		return itemDAO.selectItemIdListBySellerId(sellerId);
 	}
 	
-	// 페이지로 상품 일부만 조회
+	// 상점 홈화면에서 페이지로 상품 일부만 조회
 	public List<Item> getItemBySellerIdLimitPage(int sellerId, int page) {
 		int offsetNum = 3 * (page - 1); // 조회시 건너뛰고 조회해야할 행 갯수 0 3 6...
 		return itemDAO.selectItemBySellerIdLimitPage(sellerId, offsetNum);
@@ -119,13 +121,32 @@ public class ItemBO {
 		return itemDAO.selectCountLikesearchWord(searchWord);
 	}
 	
-	
-	public List<Item> getItemListLikesearchWord(String searchWord, Integer page) {
+	// 검색결과용 itemSellerShopName
+	public List<ItemSellerShopName> getItemSellerShopNameListLikeSearchWord(String searchWord, Integer page) {
+		List<ItemSellerShopName> itemSellerShopNameList = new ArrayList<>();
+		
 		if (ObjectUtils.isEmpty(page)) {
 			page = 1;
 		}
-		return itemDAO.selectItemListLikesearchWord(searchWord, page);
+		
+		// 상품리스트를 가져온다.
+		List<Item> itemList = getItemListLikeSearchWord(searchWord, page);
+		for (Item item: itemList) {
+			ItemSellerShopName itemSellerShopName = new ItemSellerShopName();
+			itemSellerShopName.setItem(item);
+
+			Seller seller = sellerBO.getSellerById(item.getSellerId());
+			itemSellerShopName.setSellerShopName(seller.getShopName());
+			itemSellerShopNameList.add(itemSellerShopName);
+		}
+		
+		return itemSellerShopNameList;
 	}
+	
+	public List<Item> getItemListLikeSearchWord(String searchWord, int page) {
+		return itemDAO.selectItemListLikeSearchWord(searchWord, page);
+	}
+	
 	
 	
 	// 상품 아이디로 상품 조회

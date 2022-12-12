@@ -1,23 +1,29 @@
 package com.shoppingmall.search.model;
 
-import com.shoppingmall.item.model.Item;
+import java.util.List;
+
+import com.shoppingmall.item.model.ItemSellerShopName;
 
 public class SearchView {
 
-	private Item item;
-	private String sellerShopName;
+	private List<ItemSellerShopName> itemSellerShopNameList;
+
+	private int searchCount;
 	
-	public Item getItem() {
-		return item;
+	public List<ItemSellerShopName> getItemSellerShopNameList() {
+		return itemSellerShopNameList;
 	}
-	public void setItem(Item item) {
-		this.item = item;
+
+	public void setItemSellerShopNameList(List<ItemSellerShopName> itemSellerShopNameList) {
+		this.itemSellerShopNameList = itemSellerShopNameList;
 	}
-	public String getSellerShopName() {
-		return sellerShopName;
+
+	public int getSearchCount() {
+		return searchCount;
 	}
-	public void setSellerShopName(String sellerShopName) {
-		this.sellerShopName = sellerShopName;
+
+	public void setSearchCount(int searchCount) {
+		this.searchCount = searchCount;
 	}
 	
 }
