@@ -28,11 +28,15 @@ public class SearchController {
 	@GetMapping("/search_view")
 	public String searchView(
 			@RequestParam("searchword") String searchword,
+			@RequestParam(value="page", required=false) Integer page,
 			Model model) {
 		
-		List<SearchView> seachViewList = searchBO.generateSearchView(searchword);
+		List<SearchView> seachViewList = searchBO.generateSearchView(searchword, page);
 		
+		model.addAttribute("searchword" , searchword);
+		model.addAttribute("searchStyle" , "<span style=\"background-color: rgb(255, 255, 0);\">"+ searchword + "</span>");
 		model.addAttribute("seachViewList" ,seachViewList);
+		model.addAttribute("page" ,page);
 		model.addAttribute("viewName", "search/search");
 		
 		return "template/layout";

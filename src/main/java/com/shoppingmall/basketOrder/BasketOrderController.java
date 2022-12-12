@@ -40,6 +40,14 @@ public class BasketOrderController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 상점 주문 조회 목록
+	 * @param session
+	 * @param searchName
+	 * @param searchState
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/seller_order_list_view")
 	public String sellerOrderListView(
 			HttpSession session,
@@ -51,6 +59,8 @@ public class BasketOrderController {
 		
 		List<BasketOrderView> basketOrderViewList =  basketOrderBO.getBasketOrderViewListBySellerUserIdAndSearchName(userId, searchName, searchState);
 		
+		model.addAttribute("searchName", searchName);
+		model.addAttribute("searchNameStyle", "<b style=\"background-color: rgb(255, 255, 0);\">"+ searchName + "</b>");
 		model.addAttribute("basketOrderViewList", basketOrderViewList);
 		model.addAttribute("viewName", "order/sellerOrderList");
 		

@@ -11,12 +11,13 @@
 				<div class="d-flex">
 					<div class="col-2">
 						<a href="/item/item_detail_view?itemId=${searchView.item.id}">
-							<img src="${searchView.item.thumbnailImg}" width="150px" height="150px">
+							<img src="${searchView.item.thumbnailImg}" alt="상품 썸네일이미지" width="150px" height="150px">
 						</a>
 					</div>
 					<div class="col-7 border-right">
 						<a href="/item/item_detail_view?itemId=${searchView.item.id}">
-							<h4>${searchView.item.name}</h4>
+							<c:set var="itemName" value="${fn:replace(searchView.item.name, searchword, searchStyle)}" />
+							<h4>${itemName}</h4>
 						</a>
 						<h4 class="text-success">${searchView.item.price}원</h4>
 					</div>

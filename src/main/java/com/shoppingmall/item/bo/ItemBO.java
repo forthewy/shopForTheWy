@@ -114,8 +114,17 @@ public class ItemBO {
 		return itemDAO.selectItemBySellerIdLimitPage(sellerId, offsetNum);
 	}
 	
-	public List<Item> getItemListLikesearchWord(String searchWord) {
-		return itemDAO.selectItemListLikesearchWord(searchWord);
+	// 검색 결과 갯수
+	public int getCountLikesearchWord(String searchWord) {
+		return itemDAO.selectCountLikesearchWord(searchWord);
+	}
+	
+	
+	public List<Item> getItemListLikesearchWord(String searchWord, Integer page) {
+		if (ObjectUtils.isEmpty(page)) {
+			page = 1;
+		}
+		return itemDAO.selectItemListLikesearchWord(searchWord, page);
 	}
 	
 	

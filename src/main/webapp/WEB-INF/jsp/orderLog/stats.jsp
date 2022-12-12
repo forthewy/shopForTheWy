@@ -22,10 +22,10 @@
 			</div>
 		</aside>
 		<section class="order-list-box col-8 pl-5 mt-5 d-flex">
-			<div class="bg-danger col-5">
+			<div class="col-5">
 				<div id="chartPie"></div>
 			</div>
-			<div class="bg-warning col-5">
+			<div class="col-5">
 				<div id="barchart_material" style="height: 500px;"></div>
 			</div>
 		</section>
@@ -58,7 +58,6 @@
 
 	       // 차트 옵션
 	       let options = {'title':'판매량 통계',
-               	      	 'width': 600,
              	         'height':500,
              	         'pieHole': 0.4};
        
@@ -106,6 +105,7 @@
 		          },
 		          bars: 'vertical',
 		          colors: '#e0440e',
+		          bar: {groupWidth: "40%"}
 		        };
 
 		        var chart = new google.charts.Bar(document.getElementById('barchart_material'));

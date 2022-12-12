@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,8 @@ import com.shoppingmall.user.model.User;
 @RequestMapping("/user")
 @RestController
 public class UserRestController {
+	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private UserBO userBO;
@@ -92,7 +96,7 @@ public class UserRestController {
 		
 		if (row > 0) {
 			result.put("code", 300);
-			result.put("result", "success");
+			result.put("result", "회원 가입 성공");
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "회원 가입에 실패했습니다");
@@ -180,6 +184,7 @@ public class UserRestController {
 		} else {
 			result.put("code", 500);
 			result.put("errorMessage", "회원정보 수정에 실패했습니다.");
+			log.error("[회원정보 수정] 회원정보 수정 실패 userId:{}", userId);
 		}
 		
 		return result;

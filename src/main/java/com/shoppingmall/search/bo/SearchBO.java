@@ -22,10 +22,10 @@ public class SearchBO {
 	private SellerBO sellerBO;
 	
 	// 검색 화면 만들기
-	public List<SearchView> generateSearchView(String searchword) {
+	public List<SearchView> generateSearchView(String searchword, Integer page) {
 		List<SearchView> searchViewList = new ArrayList<>();
 		
-		List<Item> itemList = itemBO.getItemListLikesearchWord(searchword);
+		List<Item> itemList = itemBO.getItemListLikesearchWord(searchword, page);
 		
 		for (Item item : itemList) {
 			SearchView searchView = new SearchView();

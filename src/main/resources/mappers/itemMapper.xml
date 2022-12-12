@@ -140,7 +140,15 @@
  		LIMIT 3
  		OFFSET #{offsetNum}
  	</select>
- 	<select id="selectItemListLikesearchWord" parameterType="string" resultType="com.shoppingmall.item.model.Item">
+ 	<select id="selectCountLikesearchWord" parameterType="string" resultType="int">
+ 		SELECT
+ 			COUNT(*)
+ 		FROM
+ 			`item`
+ 		WHERE
+ 			`name` LIKE CONCAT('%',#{searchWord},'%')
+ 	</select>
+ 	<select id="selectItemListLikesearchWord" parameterType="map" resultType="com.shoppingmall.item.model.Item">
  		SELECT
  			`id` 
  			,`sellerId`
@@ -156,7 +164,9 @@
  		FROM
  			`item`
  		WHERE
- 			`name` LIKE CONCAT('%',#{searchWord},'%');
+ 			`name` LIKE CONCAT('%',#{searchWord},'%')
+ 		LIMIT
+ 			${page * 5}
  	</select>
  	<select id="selectItemCountBySellerId" parameterType="int" resultType="int">
  		SELECT

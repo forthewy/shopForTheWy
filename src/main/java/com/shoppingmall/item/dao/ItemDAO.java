@@ -44,7 +44,11 @@ public interface ItemDAO {
 			@Param("sellerId") int sellerId,
 			@Param("offsetNum") int offsetNum);
 	
-	public List<Item> selectItemListLikesearchWord(String searchWord);
+	public int selectCountLikesearchWord(String searchWord);
+	
+	public List<Item> selectItemListLikesearchWord(
+			@Param("searchWord") String searchWord,
+			@Param("page") int page);
 	
 	public Item selectItemByItemId(int itemId);
 	
