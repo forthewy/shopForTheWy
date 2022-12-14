@@ -162,7 +162,9 @@
 			`item`
 		WHERE
  			 `name` LIKE CONCAT('%',#{searchWord},'%')
- 		ORDER BY `id` DESC	
+ 		ORDER BY `id` DESC
+ 		LIMIT 5
+ 		OFFSET #{offsetNum}
  	</select>
  	<select id="selectItemCountBySellerId" parameterType="int" resultType="int">
  		SELECT

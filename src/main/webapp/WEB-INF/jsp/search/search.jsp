@@ -27,6 +27,26 @@
 				</div>
 				<hr>
 			</c:forEach>
+			<div class="d-flex justify-content-center pb-3">
+				<c:choose>
+					<c:when test="${seachView.searchCount % 5 eq 0}">
+						<c:set value="${(seachView.searchCount / 5)}" var="endPage"/>
+					</c:when>
+					<c:otherwise>
+						<c:set value="${(seachView.searchCount / 5) + 1}" var="endPage"/>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach begin="1" end="${endPage}" var="page">
+					<c:choose>
+						<c:when test="${page eq currentPage}">
+							<button class="page-btn btn btn-secondary mr-2" onClick="location.href='/search/search_view?searchword=${searchword}&page=${page}'">${page}</button>
+						</c:when>
+						<c:otherwise>
+							<button class="page-btn btn btn-outline-secondary mr-2" onClick="location.href='/search/search_view?searchword=${searchword}&page=${page}'">${page}</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 </div>

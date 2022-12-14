@@ -128,9 +128,10 @@ public class ItemBO {
 		if (ObjectUtils.isEmpty(page)) {
 			page = 1;
 		}
+		int offsetNum = (page - 1) * 5;
 		
 		// 상품리스트를 가져온다.
-		List<Item> itemList = getItemListLikeSearchWord(searchWord, page);
+		List<Item> itemList = getItemListLikeSearchWord(searchWord, offsetNum);
 		for (Item item: itemList) {
 			ItemSellerShopName itemSellerShopName = new ItemSellerShopName();
 			itemSellerShopName.setItem(item);
