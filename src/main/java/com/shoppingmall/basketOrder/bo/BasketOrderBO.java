@@ -162,6 +162,10 @@ public class BasketOrderBO {
 		  // 상품아이디 목록 가져오기 
 		  List<Integer> itemList = itemBO.getItemIdListBySellerId(seller.getId());
 		  
+		  if (ObjectUtils.isEmpty(itemList)) {
+			  return null;
+		  }
+		  
 		  // 주문 목록 가져오기 
 		  List<BasketOrder> basketOrderList = new ArrayList<>();
 		  if (ObjectUtils.isEmpty(searchState)) {
@@ -170,11 +174,11 @@ public class BasketOrderBO {
 		  } else {
 			  // 2) 상태 검색이 선택되었을때			  
 			  basketOrderList	 = getBasketOrderByItemIdListAndState(itemList, searchState);
-			  if (ObjectUtils.isEmpty(basketOrderList)) {
-				  return null;
-			  }
 		  }
 		  
+		  if (ObjectUtils.isEmpty(basketOrderList)) {
+			  return null;
+		  }
 		  
 		  for (BasketOrder basketOrder : basketOrderList) {
 			  BasketOrderView basketOrderView = new BasketOrderView();

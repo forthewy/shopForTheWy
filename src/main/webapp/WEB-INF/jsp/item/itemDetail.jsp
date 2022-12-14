@@ -23,20 +23,27 @@
 				</div>
 				<hr>
 				<div class="d-flex justify-content-end mr-5">
-					<h2>배송비 <fmt:formatNumber value="${itemDetailView.item.deliveryPrice}" type="number"/> 원</h2>
+					<fmt:formatNumber value="${itemDetailView.item.deliveryPrice}" type="number" var="deliveryPrice"/>
+					<h2>배송비 ${deliveryPrice}원</h2>
 				</div>
 				<hr>
 				<div>
 					<c:choose>
 						<%-- 상품을 올린 상점과 유저 일치 여부에 따라 보이는 버튼 --%>
 						<c:when test="${!itemDetailView.isUserSeller}">
-							<div class="d-flex justify-content-end input-group mr-5">
-								<div class="input-group-prepend">
-									<button class="count-btn btn btn-secondary" id="minusBtn"><b>-</b></button>
+							<div class="d-flex justify-content-end">
+								<div class="d-flex justify-content-end input-group col-6">
+									<div class="input-group-prepend">
+										<button class="count-btn btn btn-secondary" id="minusBtn"><b>-</b></button>
+									</div>
+									<input type="text" id="buyCount" value="1" class="form-control col-2 text-center">
+									<div class="input-group-append">
+										<button class="count-btn mr-3 btn btn-secondary" id="plusBtn"><b>+</b></button>
+									</div>
 								</div>
-								<input type="text" id="buyCount" value="1" class="form-control col-1 text-center">
-								<div class="input-group-append">
-									<button class="count-btn mr-5 btn btn-secondary" id="plusBtn"><b>+</b></button>
+								<div class="col-4 d-flex align-items-end text-success">
+									<input type="text" class="d-none" id="itemTotalPrice" data-item-price="${price}" data-item-delivery-price="${deliveryPrice}">
+									<h5><b>총 상품 금액 <span id="itemTotalSpan">${price + deliveryPrice}</span></b></h5>
 								</div>
 							</div>
 							<div class="d-flex justify-content-end mr-5 mt-3">
@@ -175,17 +182,56 @@
 		<%-- (-) 버튼 클릭시 클릭시 --%>
 		$('#minusBtn').on('click', function() {
 			let buyCount = parseInt($('#buyCount').val()) - 1;
-			 $('#buyCount').val(buyCount);
+			if (buyCount <= 0) {
+				alert("1보다 작은 수량은 주문할 수 없습니다");
+				$('#buyCount').val(1);
+				return false;
+			}
+			$('#buyCount').val(buyCount);
+			// 총금액에 갯수 넣어주고 함수 실행
+			$('#itemTotalPrice').data('buy-count', buyCount);
+			$('#itemTotalPrice').change();
 			 return false;
 		});
 		
 		<%-- (+) 버튼 클릭시 클릭시 --%>
 		$('#plusBtn').on('click', function() {
 			let buyCount = parseInt($('#buyCount').val()) + 1;
-			 $('#buyCount').val(buyCount);
-			 return false;
+			if (buyCount <= 0) {
+				alert("1보다 작은 수량은 주문할 수 없습니다");
+				$('#buyCount').val(1);
+				return false;
+			}
+			$('#buyCount').val(buyCount);
+			// 총금액에 갯수 넣어주고 함수 실행
+			$('#itemTotalPrice').data('buy-count', buyCount);
+			$('#itemTotalPrice').change();
+			return false;
 		});
 		
+		$('#itemTotalPrice').on('change', function() {
+			let itemPrice = $(this).data('item-price');
+			let buyCount = $(this).data('buy-count');
+			let itemDeliveryPrice = $(this).data('item-delivery-price');
+			
+			$('#itemTotalPrice').val(itemPrice * buyCount + itemDeliveryPrice);
+			$('#itemTotalSpan').text($('#itemTotalPrice').val());
+		});
+		
+		<%-- 수량이 직접 입력될때 --%>
+		$('#buyCount').on('keyup', function() {
+			let buyCount = $('#buyCount').val();
+			
+			if (buyCount <= 0) {
+				alert("1보다 작은 수량은 주문할 수 없습니다");
+				$('#buyCount').val(1);
+				$('#itemTotalPrice').data('buy-count', 1);
+				$('#itemTotalPrice').change();
+				return false;
+			}
+			$('#itemTotalPrice').data('buy-count', buyCount);
+			$('#itemTotalPrice').change();
+		});
 		
 		<%-- 탭 메뉴 클릭시 보여주는 정보 --%>
 		$('.nav-item').on('click', function(e) {
@@ -252,6 +298,11 @@
 			let itemId = $(this).data('item-id');
 			let number = $('#buyCount').val();
 			
+			if (number <= 0) {
+				alert('최소 1개 이상 장바구니에 넣을 수 있습니다.');
+				return;
+			}
+			
 			$.ajax({
 				 type:"POST"
 				 , data:{"itemId":itemId, "number":number}
@@ -281,6 +332,11 @@
 			// 바로 주문 장바구니에 넣고, 주문서 화면으로 이동
 			let itemId = $(this).data('item-id');
 			let number = $('#buyCount').val();
+			
+			if (number <= 0) {
+				alert('최소 1개 이상 주문 가능합니다.');
+				return;
+			}
 			
 			$.ajax({
 			 	data:{"itemId":itemId, "number":number}

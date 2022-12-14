@@ -34,26 +34,26 @@
 				<form method="post" id="userUpdateForm" action="/user/update">
 					<%-- 아이디 --%>
 					<div class="d-flex align-items-center mb-3 mt-3 pl-5">
-						<label class="pr-4 mr-2">아이디</label>
+						<label class="col-2">아이디</label>
 						<input type="text" class="ml-4 form-control col-3" name="loginId" value="${userLoginId}" disabled>
 					</div>
 					<%-- 비밀번호 --%>
 					<div class="d-flex align-items-center mb-3 pl-5">
-						<label for="password" class="pr-4 mr-2">비밀번호</label>
+						<label for="password" class="col-2">비밀번호</label>
 						<input type="password" class="ml-4 form-control col-4" id="password">
 					</div>
 					<div class="d-flex align-items-center mb-3 pl-5">
-						<label for="loginId" class="pr-1">비밀번호 확인</label>
-						<input type="password" class="ml-3 form-control col-4" id="passwordConfirm">
+						<label for="loginId" class="col-2">비밀번호 확인</label>
+						<input type="password" class="ml-4 form-control col-4" id="passwordConfirm">
 					</div>
 					<%-- 이름 --%>
 					<div class="d-flex align-items-center mb-3 pl-5">
-						<label for="name" class="pr-5">이름</label>
+						<label for="name" class="col-2">이름</label>
 						<input type="text" class="ml-4 form-control col-4" id="name" name="name" value="${userName}" placeholder="${userName}">
 					</div>
 					<%-- 주소 --%>
 					<div class="d-flex align-items-center mb-3 pl-5">
-						<label class="pr-5">주소</label>
+						<label class="col-2">주소</label>
 						<c:set value="${fn:split(userAddress, '/')}" var="addressArr"/>
 						<div class="address-box">
 							<input type="text" class="address ml-4 mb-1 form-control col-5" id="postcode" placeholder="${addressArr[0]}"  value="${addressArr[0]}">
@@ -62,18 +62,18 @@
 						</div>
 					</div>
 					<%-- 전화번호 --%>
-					<div class="d-flex align-items-center mb-3 pl-5">
-						<label for="phoneNumber">전화 번호</label>
+					<div class="d-flex align-items-center mb-1 pl-5">
+						<label for="phoneNumber" class="col-2">전화 번호</label>
 						<input type="text" class="ml-4 form-control col-5 mr-4" id="phoneNumber" name="phoneNumber" value="${userPhoneNumber}" placeholder="${userPhoneNumber}">
 						<button id="phoneNumCheckBtn" type="button" class="btn btn-info">중복 체크</button>
 					</div>
 					<%-- 전화번호 중복 체크 결과 --%>
-					<div class="pl-5">
-						<div class="text-danger d-none" id="duplicatePhoneNumberWarn">전화번호가 중복됩니다.</div>
-						<div class="text-primary d-none" id="availablePhoneNumber">사용가능한 전화번호 입니다</div>
-						<div class="text-danger d-none" id="needDuplicateCheck">전화번호 중복 검사가 필요합니다</div>
-					</div>
-					<div class="d-flex justify-content-center">
+					<span class="phone-number-duplicate-result">
+						<span class="text-danger d-none" id="duplicatePhoneNumberWarn">전화번호가 중복됩니다.</span>
+						<span class="text-primary d-none" id="availablePhoneNumber">사용가능한 전화번호 입니다</span>
+						<span class="text-danger d-none" id="needDuplicateCheck">전화번호 중복 검사가 필요합니다</span>
+					</span>
+					<div class="d-flex justify-content-center pt-3">
 						<button type="submit" class="btn btn-dark" id="userUpdateBtn">회원정보 수정</button>
 					</div>
 				</form>

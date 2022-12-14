@@ -96,11 +96,11 @@
 			<hr>
 			<h2 class="ml-5 pb-3">주문자 정보</h2>
 			<div class="d-flex align-items-center mb-3 pl-5">
-				<label for="name" class="pr-5">이름</label>
+				<label for="name" class="col-2">이름</label>
 				<input type="text" class="ml-4 form-control col-4" name="name" id="name"  value="${userName}">
 			</div>
 			<div class="d-flex align-items-center mb-3 pl-5">
-				<label class="pr-5">주소</label>
+				<label class="col-2">주소</label>
 				<div class="address-box">
 				<c:set value="${fn:split(userAddress, '/')}" var="addressArr"/>
 					<input type="text" class="address ml-4 mb-1 form-control col-5" id="postcode" placeholder="${addressArr[0]}"  value="${addressArr[0]}">
@@ -109,8 +109,8 @@
 				</div>
 			</div>
 			<div class="d-flex align-items-center mb-3 pl-5">
-				<label for="phoneNumber">전화번호</label>
-				<input type="text" class="ml-5 form-control col-5" id="phoneNumber" name="phoneNumber" value="${userPhoneNumber}">
+				<label for="phoneNumber" class="col-2">전화번호</label>
+				<input type="text" class="ml-4 form-control col-5" id="phoneNumber" name="phoneNumber" value="${userPhoneNumber}">
 			</div>
 			<%-- 주문 버튼 --%>
 			<div class="d-flex justify-content-center">

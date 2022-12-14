@@ -6,43 +6,43 @@
 		<form method="post" id="signUpForm" action="/user/sign_up">
 			<%-- 아이디 --%>
 			<div class="d-flex align-items-center mb-3 mt-3 pl-5">
-				<label for="loginId" class="mr-5">아이디</label>
+				<label for="loginId" class="col-2">아이디</label>
 				<input type="text" class="ml-4 form-control col-3" id="loginId" name="loginId">
-			</div>
-			<%-- 아이디 글자 갯수, 중복 체크 결과 --%>
-			<div class="pl-5">
-				<div class="text-danger d-none" id="idLengthWarn">아이디는 4글자 이상 입력하셔야합니다</div>
-				<div class="text-danger d-none" id="duplicateWarn">중복된 아이디입니다</div>
-				<div class="text-success d-none" id="availableId">사용가능한 아이디입니다</div>
+				<%-- 아이디 글자 갯수, 중복 체크 결과 --%>
+				<div class="pl-3">
+					<span class="text-danger d-none" id="idLengthWarn">아이디는 4글자 이상 입력하셔야합니다</span>
+					<span class="text-danger d-none" id="duplicateWarn">중복된 아이디입니다</span>
+					<span class="text-success d-none" id="availableId">사용가능한 아이디입니다</span>
+				</div>
 			</div>
 			<div class="d-flex align-items-center mb-3 pl-5">
-				<label for="password" class="pr-4 mr-2">비밀번호</label>
+				<label for="password" class="col-2">비밀번호</label>
 				<input type="password" class="ml-4 form-control col-4" id="password" name="password">
 			</div>
 			<div class="d-flex align-items-center mb-3 pl-5">
-				<label for="loginId" class="pr-1">비밀번호 확인</label>
-				<input type="password" class="ml-3 form-control col-4" id="passwordConfirm">
+				<label for="loginId" class="col-2">비밀번호 확인</label>
+				<input type="password" class="ml-4 form-control col-4" id="passwordConfirm">
 			</div>
 			<div class="d-flex align-items-center mb-3 pl-5">
-				<label for="name" class="pr-5">이름</label>
+				<label for="name" class="col-2">이름</label>
 				<input type="text" class="ml-4 form-control col-4" id="name" name="name">
 			</div>
 			<%-- 주소 --%>
 			<div class="d-flex align-items-center mb-3 pl-5">
-				<label class="pr-5">주소</label>
+				<label class="col-2">주소</label>
 				<div class="address-box">
 					<input type="text" class="address ml-4 mb-1 form-control col-5" id="postcode" placeholder="우편번호">
 					<input type="text" class="address ml-4 mb-1 form-control col-8" id="roadAddress" placeholder="도로명 주소">
 					<input type="text" class="ml-4 form-control col-10" id="extraAddress" placeholder="상세 주소">
 				</div>
 			</div>
-			<div class="d-flex align-items-center mb-3 pl-5">
-				<label for="phoneNumber">전화 번호</label>
+			<div class="d-flex align-items-center mb-1 pl-5">
+				<label for="phoneNumber" class="col-2">전화 번호</label>
 				<input type="text" class="ml-4 form-control col-5 mr-4" id="phoneNumber" name="phoneNumber">
 				<button id="phoneNumCheckBtn" type="button" class="btn btn-info">중복 체크</button>
 			</div>
 			<%-- 핸드폰 번호 중복 체크 결과 --%>
-			<div class="pl-5">
+			<div class="phone-number-duplicate-result">
 				<div class="text-danger d-none" id="duplicatePhoneNumberWarn">이미 가입된 회원 입니다</div>
 				<div class="text-primary d-none" id="availablePhoneNumber">가입되지 않은 회원입니다. 회원 가입을 진행해주세요</div>
 			</div>
