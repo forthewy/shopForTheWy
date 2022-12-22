@@ -23,6 +23,9 @@ https://youtu.be/aOVlZJo1xhk (2배속으로 보시는 걸 추천합니다)
 ![shoppingmall](https://user-images.githubusercontent.com/111281659/209073153-7ad18236-e7d0-440c-b2e5-bb94a73afb39.png)
 https://dbdiagram.io/d/637c376dc9abfc6111744e34  
 
+-  채팅방(쪽지) DB는 이전 SNS와는 다르게 상점 대 유저이고 상대편 유저도 상점이 될수 있다는 걸 고려해 테이블을 sellerId 와 userId 로 구성했다.
+
+
 ### BO 설계
 ![20221222](https://user-images.githubusercontent.com/111281659/209073840-33d974ec-4c7c-4130-8ebf-e6adae6823c5.png)
 
