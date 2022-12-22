@@ -15,6 +15,8 @@
 
 ----
 ## 사이트 정보
+시연 영상
+https://youtu.be/aOVlZJo1xhk (2배속으로 보시는 걸 추천합니다)
 
 ### DB 설계
 
@@ -24,3 +26,99 @@ https://dbdiagram.io/d/637c376dc9abfc6111744e34
 ### BO 설계
 ![20221222](https://user-images.githubusercontent.com/111281659/209073840-33d974ec-4c7c-4130-8ebf-e6adae6823c5.png)
 
+### 기능명세
+* 회원가입/로그인 - 카카오API
+* 상점 홈화면 - 즐겨찾기, 상점 수정, 상품 등록(섬머노트API)
+* 상품 상세화면 - 장바구니, 리뷰, 문의, 바로주문하기
+
+* 장바구니 - 장바구니 삭제, 장바구니 주문
+``` JAVA
+public List<BasketItemView> generateBasketItemViewListByBasketIdList(List<Integer> basketIdList
+			, HttpServletResponse response) throws IOException {
+		List<BasketItemView> baskteItemViewList = new ArrayList<>();
+		
+		// 선택한 장바구니 목록을 가져온다.
+		List<Basket> basketList = getBasketListByBasketIdList(basketIdList);
+		
+		for (Basket basket: basketList) {
+			BasketItemView basketItemView = new BasketItemView();
+			Item item = itemBO.getItemByItemId(basket.getItemId());
+			// 상품 불러오기 실패시 주문 불가.
+			if (ObjectUtils.isEmpty(item)) {
+				log.error("[장바구니 주문] 장바구니 주문시 상품 불러오지 못함 userId:{},itemId:{}", basket.getUserId(), basket.getItemId());
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('장바구니 상품을 불러오지 못했습니다'); history.go(-1);</script>");
+				out.flush(); 
+				break;
+			}
+			basketItemView.setBasket(basket);
+			basketItemView.setItem(item);
+			
+			baskteItemViewList.add(basketItemView);
+		}
+		return baskteItemViewList;
+	}
+```
+* 주문조회 / 통계 - 주문상태 변경, 통계 차트(구글API)
+``` JAVA
+public List<Map<String, Object>> statsChart(HttpSession session) {
+		
+		List<Map<String, Object>> statsMapList = new ArrayList<>();
+		
+		int userId = (int) session.getAttribute("userId");
+		
+		List<OrderLog> orderLogList = orderLogBO.getOrderLogList(userId);
+		
+		for (OrderLog orderLog : orderLogList) {
+			Map<String, Object> statsMap = new HashMap<>();
+			statsMap.put("itemName",orderLog.getItemName());
+			statsMap.put("number", orderLog.getNumber());
+			statsMap.put("price", orderLog.getPrice());
+			statsMapList.add(statsMap);
+		}
+		
+		return statsMapList;
+	}
+```
+``` JAVASCRIPT
+<%-- 파이 차트 --%> 
+	function pieChart() {
+		let request = 
+		$.ajax({
+			type : "POST",
+			url : "/stats_chart"
+        });   
+		request.done(function(result) {
+		
+   	  	// 차트 시각화 api
+    	 google.charts.load('current', {'packages':['corechart']});
+	
+	     // 차트 시각화 api 완료후 차트그리는 함수 콜백
+	     google.charts.setOnLoadCallback(drawChart);
+
+    	 function drawChart() {
+
+	       // 차트 옵션
+	       let options = {'title':'판매량 통계',
+             	         'height':500,
+             	         'pieHole': 0.4};
+       
+	       // Create the data table.
+	       let data = new google.visualization.DataTable();
+       
+	       data.addColumn('string', '상품명');
+	       data.addColumn('number', '수량');
+	
+	       for(let i=0; i < result.length; i++){
+				data.addRow([result[i]["itemName"], parseInt(result[i]["number"])]);
+			} 
+         
+	       // 차트 그릴 영역 지정
+	       var chart = new google.visualization.PieChart(document.getElementById('chartPie'));
+	       chart.draw(data, options);
+    	 }
+		});
+	}
+```
+* 상점 신청/ 승인 
